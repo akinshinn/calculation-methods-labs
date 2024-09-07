@@ -1,2 +1,10 @@
-﻿  lab1.cpp
+﻿  Header.cpp
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(5,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(18,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(49,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(88,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(95,9): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(118,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(135,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Header.cpp(151,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   lab1.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab1\x64\Debug\lab1.exe
