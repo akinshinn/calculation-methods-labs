@@ -8,6 +8,6 @@ int main()
 	for (int i = 0; i < x.size(); ++i) cout << x[i] << " ";
 	cout << endl;
 	vector<double> diff = check_ans(a, x);
-	//for (int i = 0; i < diff.size(); ++i) cout << diff[i] << " ";
+	for (int i = 0; i < diff.size(); ++i) cout << diff[i] << " ";
 	//write_file(a, "data\\out.txt");
 }

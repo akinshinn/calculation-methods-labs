@@ -6,8 +6,9 @@ void triangularize(vector<vector<double>>& matrix) {
 
 	for (int i = 1; i < n; ++i) {
 		for (int j = 0; j < i; ++j) {
+			double temp = matrix[i][j];
 			for (int k = 0; k < n+1; ++k) {
-				matrix[i][k] = matrix[i][k] - matrix[j][k] * matrix[i][j] / matrix[j][j];
+				matrix[i][k] -=  matrix[j][k] * temp / matrix[j][j];
 			}
 		}
 	}
@@ -153,7 +154,6 @@ vector<double> check_ans(const vector<vector<double>>& matrix, const vector<doub
 
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
-			cout << diff[i];
 			diff[i] += matrix[i][j] * x[j];
 		}
 		diff[i] -= matrix[i][n];
