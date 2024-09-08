@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Downloads\Telegram Desktop\QR (3).cpp" />
     <ClCompile Include="lab1.cpp" />
     <ClCompile Include="Header.cpp" />
   </ItemGroup>

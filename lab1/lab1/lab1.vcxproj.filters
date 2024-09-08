@@ -21,6 +21,9 @@
     <ClCompile Include="Header.cpp">
       <Filter>Файлы заголовков</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Downloads\Telegram Desktop\QR (3).cpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">

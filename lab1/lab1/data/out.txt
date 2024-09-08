@@ -1,5 +1,14 @@
 4
 10 6 2 0 25 
+5 1 -2 4 14 
+3 5 1 -1 10 
 0 6 -2 2 8 
-0 0 1 -1 10 
-0 0 0 4 14 
+
+solution
+2 1 -0.499999 0.500001 
+discrepancy
+29.4024
+conditionality for norm one
+96.5454
+conditionality for norm inf
+27.8182
