@@ -1,0 +1,2 @@
+Example1
+ NormOne: 240.545, NormInfty: 269.182
