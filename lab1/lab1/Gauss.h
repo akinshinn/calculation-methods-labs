@@ -12,40 +12,17 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
+const float fsqrt = 0.5;
+const float fsquare = 2;
+const double dsqrt = 0.5;
+const double dsquare = 2;
+const float outrageFloat = 0.1;
+const double outrageDouble = 0.1;
+const double flagOfNoSolution = -10;
 
 using namespace std;
 vector<float> readf_vector_float(string file);
 
-
-
-
-vector<vector<double>> readf_matrix_double(string file_matrix);
-
-vector<vector<float>> readf_matrix_float(string file_matrix);
-
-template <typename T>
-bool check_matrix(const vector<vector<T>>& triang_matrix) {
-    T num = 1;
-    for (int i = 0; i < triang_matrix.size(); ++i) {
-        num *= triang_matrix[i][i];
-    }
-    return (abs(num) > 1e-15);
-}
-
-template <typename T>
-void triangularize(vector<vector<T>>& matrix) {
-    int n = matrix.size();
-
-    for (int i = 1; i < n; ++i) {
-        for (int j = 0; j < i; ++j) {
-            T temp = matrix[i][j];
-            for (int k = 0; k < n + 1; ++k) {
-                matrix[i][k] -= matrix[j][k] * temp / matrix[j][j];
-            }
-        }
-    }
-
-}
 
 template <typename T>
 void print_matrix(const vector<vector<T>>& matrix) {
@@ -71,12 +48,58 @@ void print_matrix(const vector<vector<T>>& matrix) {
     cout << endl;
 }
 
+vector<vector<double>> readf_matrix_double(string file_matrix);
+
+vector<vector<float>> readf_matrix_float(string file_matrix);
+
+template <typename T>
+bool check_matrix(const vector<vector<T>>& triang_matrix) {
+    T num = 1;
+    for (int i = 0; i < triang_matrix.size(); ++i) {
+        num *= triang_matrix[i][i];
+    }
+    return (abs(num) > 1e-15);
+}
+
+template <typename T>
+void triangularize(vector<vector<T>>& matrix) {
+    int n = matrix.size();
+
+    for (int i = 1; i < n; ++i) {
+        for (int j = 0; j < i; ++j) {
+            T temp = matrix[i][j];
+            for (int k = 0; k < n + 1; ++k) {
+                matrix[i][k] -= matrix[j][k] * temp / matrix[j][j];
+            }
+        }
+        print_matrix(matrix);
+    }
+
+}
+
 
 
 vector<vector<double>> read_matrix();
 
 
-
+template<typename T>
+vector<vector<T>> matrix_prod(const vector<vector<T>>& a, const vector<vector<T>>& b) {
+    vector<vector<T>> res;
+    for (int i = 0; i < a.size(); i++) {
+        res.emplace_back(vector<T>(a.size()));
+    }
+    T temp = 0;
+    for (int i = 0; i < a.size(); i++) {
+        for (int j = 0; j < a.size(); j++) {
+            temp = 0;
+            for (int k = 0; k < a.size(); k++) {
+                temp += a[i][k] * b[k][j];
+            }
+            res[i][j] = temp;
+        }
+    }
+    return res;
+}
 
 
 template <typename T>
@@ -110,7 +133,7 @@ void permutate_rows(vector<vector<T>>& matrix) {
 template <typename T>
 vector<T> Gauss_method(vector<vector<T>>& matrix) {
     //permutate_rows(matrix);
-    print_matrix(matrix);
+    //print_matrix(matrix);
     triangularize(matrix);
     print_matrix(matrix);
     int n = matrix.size();
@@ -127,10 +150,51 @@ vector<T> Gauss_method(vector<vector<T>>& matrix) {
             sum += matrix[i][j] * x[j];
         }
         x[i] = (matrix[i][n] - sum) / matrix[i][i];
-        cout << x[i] << endl;
     }
     return x;
 }
+
+
+template <typename T> 
+vector<T> reverse_move_u(const vector<vector<T>>& TriangleMatrix, const vector<T>& b) {
+    int n = TriangleMatrix.size();
+    vector<T> res(n);
+   
+    T sum;
+    for (int i = n - 1; i > -1; --i) {
+        sum = 0;
+        for (int j = i+1; j < n; ++j) {
+            sum += TriangleMatrix[i][j] * res[j];
+        }
+        res[i] = (b[i] - sum) / TriangleMatrix[i][i];
+    }
+    return res;
+}
+
+
+template <typename T>
+vector<T> reverse_move_l(const vector<vector<T>>& TriangleMatrix, const vector<T>& b) {
+    int n = TriangleMatrix.size();
+    vector<T> res(n);
+
+    T sum;
+    for (int i = 0; i < n; ++i) {
+        sum = 0;
+        for (int j = 0; j < i; ++j) {
+            sum += TriangleMatrix[i][j] * res[j];
+        }
+        res[i] = (b[i] - sum) / TriangleMatrix[i][i];
+    }
+    return res;
+}
+
+
+
+
+
+
+
+
 
 
 template <typename T>
@@ -182,21 +246,6 @@ void write_file(string file,const vector<T>& x){
 }
 
 
-const float fsqrt = 0.5;
-const float fsquare = 2;
-const double dsqrt = 0.5;
-const double dsquare = 2;
-const float outrageFloat = 0.1;
-const double outrageDouble = 0.1;
-const double flagOfNoSolution = -10;
-
-pair<vector<float>, int> QRFloat(int size, vector<vector<float>>& Matrix);
-pair<vector<float>, int> QRFloatDecomposition(int size, vector<vector<float>>& Matrix, vector<vector<float>>& TMatrix);
-pair<vector<double>, int> QRDouble(int size, vector<vector<double>>& Matrix);
-pair<vector<double>, int> QRDoubleDecomposition(int size, vector<vector<double>>& Matrix, vector<vector<double>>& TMatrix);
-vector<vector<float>> InverseFloat(vector<vector<float>> Matrix);
-void FloatTest(string filename);
-void DoubleTest(string filename);
 template<typename T>
 T NormOneMatrix(vector<vector<T>>& mas) {
     T suma = 0;
@@ -346,7 +395,11 @@ void DataRead(int& SystemNumber, vector<int>& size, vector<vector<vector<T>>>& M
         getline(file, line);
         stringstream str(line);
         str >> intSize;
-        mas.resize(intSize, vector<T>(intSize + 1));
+        mas.resize(intSize, vector<T>(intSize + 1, 0));
+        for (auto& row : mas) {
+            row.resize(intSize + 1, 0);
+        }
+
         for (int Curstr = 0; Curstr < intSize; Curstr++) {
             getline(file, line);
             stringstream str(line);
@@ -360,6 +413,22 @@ void DataRead(int& SystemNumber, vector<int>& size, vector<vector<vector<T>>>& M
 
     file.close();
 }
+
+
+
+pair<vector<float>, int> QRFloat(int size, vector<vector<float>>& Matrix);
+
+
+pair<vector<float>, int> QRFloatDecomposition(int size, vector<vector<float>>& Matrix, vector<vector<float>>& TMatrix);
+
+pair<vector<double>, int> QRDouble(int size, vector<vector<double>>& Matrix);
+
+pair<vector<double>, int> QRDoubleDecomposition(int size, vector<vector<double>>& Matrix, vector<vector<double>>& TMatrix);
+
+vector<vector<float>> InverseFloat(vector<vector<float>> Matrix);
+
+
+vector<vector<double>> InverseDouble(vector<vector<double>> Matrix);
 
 template<typename T>
 T Discrepancy(vector<T>& vec1, vector<T>& vec2) {
@@ -503,6 +572,8 @@ void WriteQRMatrix(vector<vector<vector<T>>>& mas1, vector<vector<vector<T>>>& m
     out.close();
 }
 
+void WriteAssessmentConditionalityIndex(vector<int>& vecOne, vector<int>vecInfty, string filename);
+
 
 template<typename T>
 T AssessmentConditionality(vector<T>& trueSol, vector<T>& OutragedSol, vector<T>& trueRigthPart, vector<T>& OutragedRigthPart, T(&norm)(vector<T>&)) {
@@ -533,9 +604,206 @@ T SearchConditionality(vector<vector<T>> mas1, vector<vector<T>> mas2, T(&norm)(
 }
 
 
-//void main2()
-//{
-//    setlocale(LC_ALL, "Russian");
-//    DoubleTest("LinearSystem.txt");
+//void FloatTest(string filename) {
+//    int SystemNumber = 0;
+//    vector<int>  size{};
+//    vector<vector<vector<float>>> Matrix{}, InverseMatrix{}, CopyMatrix{}, CheckMatrix{}, RMatrix{}, TMatrix{};
+//    DataRead(SystemNumber, size, Matrix, filename);
+//    CopyMatrix = Matrix;
 //
+//
+//    vector<pair<vector<float>, int>> OutPutData = {};
+//    vector<vector<float>> TIdentityMatrix{};
+//    pair<vector<float>, int> vec;
+//    vector<float> CalculatedRightParts{}, RealRightParts{}, TrueRightParts{}, OutragedRigthPart{}, OutragedSol{}, vecDiscrepancy{}, ConditionalityOne{}, ConditionalityInfty{}, vecAssessmentConditionalityOne{}, vecAssessmentConditionalityInfty{};
+//    for (int k = 0; k < SystemNumber; k++) {
+//        TIdentityMatrix.resize(size[k], vector<float>(size[k], 0));
+//        for (auto& row : TIdentityMatrix) {
+//            row.resize(size[k], 0);
+//        }
+//        for (int us = 0; us < size[k]; us++) {
+//            for (int u = 0; u < size[k]; u++) {
+//                if (us == u) {
+//                    TIdentityMatrix[us][u] = 1;
+//                }
+//                else {
+//                    TIdentityMatrix[us][u] = 0;
+//                }
+//            }
+//        }
+//        
+//
+//        vec = QRFloatDecomposition(size[k], Matrix[k], TIdentityMatrix);
+//
+//        OutPutData.push_back(vec);
+//
+//
+//        RealRightParts = {};
+//        if (vec.second == 1) {
+//            RMatrix.push_back(Matrix[k]);
+//            
+//            TMatrix.push_back(TIdentityMatrix);
+//
+//            InverseMatrix.push_back(InverseFloat(CopyMatrix[k]));
+//            CheckMatrix.push_back(MultiplyMatrix(InverseMatrix[k], CopyMatrix[k]));
+//
+//            //невязка
+//            CalculatedRightParts = SearchRightParts(vec.first, CopyMatrix[k]);
+//            for (int ind = 0; ind < Matrix[k].size(); ind++) {
+//                RealRightParts.push_back(CopyMatrix[k][ind][size[k]]);
+//            }
+//            vecDiscrepancy.push_back(Discrepancy(RealRightParts, CalculatedRightParts));
+//
+//            //Обусловленность Можно выбрать одну из норм NormOne или NormIfty
+//            ConditionalityOne.push_back(SearchConditionality(CopyMatrix[k], InverseMatrix[k], NormOneMatrix));
+//            ConditionalityInfty.push_back(SearchConditionality(CopyMatrix[k], InverseMatrix[k], NormInfMatrix));
+//
+//            //Возмущаем систему
+//            TrueRightParts = {};
+//            OutragedRigthPart = {};
+//            OutragedSol = {};
+//            for (int i = 0; i < size[k]; i++) {
+//                TrueRightParts.push_back(CopyMatrix[k][i][size[k]]);
+//
+//                if (i % 2 == 0) {
+//                    CopyMatrix[k][i][size[k]] += outrageFloat;
+//                }
+//
+//                OutragedRigthPart.push_back(CopyMatrix[k][i][size[k]]);
+//            }
+//
+//            OutragedSol = QRFloat(size[k], CopyMatrix[k]).first;
+//
+//            vecAssessmentConditionalityOne.push_back(AssessmentConditionality(vec.first, OutragedSol, TrueRightParts, OutragedRigthPart, NormOneVec));
+//            vecAssessmentConditionalityInfty.push_back(AssessmentConditionality(vec.first, OutragedSol, TrueRightParts, OutragedRigthPart, NormInfVec));
+//        }
+//        else {
+//            InverseMatrix.push_back({});
+//            vecDiscrepancy.push_back(flagOfNoSolution);
+//            ConditionalityOne.push_back(flagOfNoSolution);
+//            ConditionalityInfty.push_back(flagOfNoSolution);
+//            vecAssessmentConditionalityOne.push_back(flagOfNoSolution);
+//            vecAssessmentConditionalityInfty.push_back(flagOfNoSolution);
+//            RMatrix.push_back({});
+//            TMatrix.push_back({});
+//        }
+//
+//
+//
+//    }
+//
+//    WriteAnswer(OutPutData, "Answer.txt");
+//
+//    WriteDiscrepancy(vecDiscrepancy, "Discrepancy.txt");
+//
+//    WriteConditionality(ConditionalityOne, ConditionalityInfty, "Conditionality.txt");
+//
+//    WriteCheckPoint(CheckMatrix, "CheckPoint.txt");
+//
+//    WriteAssessmentConditionality(vecAssessmentConditionalityOne, vecAssessmentConditionalityInfty, "AssessmentConditionality.txt");
+//    
+//    WriteQRMatrix(RMatrix, TMatrix, "QRDecomposition.txt");
 //}
+
+
+void FloatTest(string filename);
+
+
+//void DoubleTest(string filename) {
+//    int SystemNumber = 0;
+//    vector<int>  size{};
+//    vector<vector<vector<double>>> Matrix{}, InverseMatrix{}, CopyMatrix{}, CheckMatrix{}, RMatrix{}, TMatrix{};
+//    DataRead(SystemNumber, size, Matrix, filename);
+//
+//    CopyMatrix = Matrix;
+//
+//    vector<pair<vector<double>, int>> OutPutData = {};
+//    vector<vector<double>> TIdentityMatrix{};
+//    pair<vector<double>, int> vec;
+//    vector<double>  CalculatedRightParts{}, RealRightParts{}, TrueRightParts{}, OutragedRigthPart{}, OutragedSol{}, vecDiscrepancy{}, ConditionalityOne{}, ConditionalityInfty{}, vecAssessmentConditionalityOne{}, vecAssessmentConditionalityInfty{};
+//
+//    for (int k = 0; k < SystemNumber; k++) {
+//        TIdentityMatrix.resize(size[k], vector<double>(size[k], 0));
+//        for (auto& row : TIdentityMatrix) {
+//            row.resize(size[k], 0);
+//        }
+//        for (int us = 0; us < size[k]; us++) {
+//            for (int u = 0; u < size[k]; u++) {
+//                if (us == u) {
+//                    TIdentityMatrix[us][u] = 1;
+//                }
+//                else {
+//                    TIdentityMatrix[us][u] = 0;
+//                }
+//            }
+//        }
+//        vec = QRDoubleDecomposition(size[k], Matrix[k], TIdentityMatrix);
+//
+//        OutPutData.push_back(vec);
+//
+//        RealRightParts = {};
+//        if (vec.second == 1) {
+//            RMatrix.push_back(Matrix[k]);
+//            TMatrix.push_back(TIdentityMatrix);
+//
+//
+//            InverseMatrix.push_back(InverseDouble(CopyMatrix[k]));
+//            CheckMatrix.push_back(MultiplyMatrix(InverseMatrix[k], CopyMatrix[k]));
+//
+//            //невязка
+//            CalculatedRightParts = SearchRightParts(vec.first, CopyMatrix[k]);
+//            for (int ind = 0; ind < Matrix[k].size(); ind++) {
+//                RealRightParts.push_back(CopyMatrix[k][ind][size[k]]);
+//            }
+//            vecDiscrepancy.push_back(Discrepancy(RealRightParts, CalculatedRightParts));
+//
+//            //Обусловленность Можно выбрать одну из норм NormOne или NormIfty
+//            ConditionalityOne.push_back(SearchConditionality(CopyMatrix[k], InverseMatrix[k], NormOneMatrix));
+//            ConditionalityInfty.push_back(SearchConditionality(CopyMatrix[k], InverseMatrix[k], NormInfMatrix));
+//
+//            //Возмущаем систему
+//            TrueRightParts = {};
+//            OutragedRigthPart = {};
+//            OutragedSol = {};
+//            for (int i = 0; i < size[k]; i++) {
+//                TrueRightParts.push_back(CopyMatrix[k][i][size[k]]);
+//
+//                if (i % 2 == 0) {
+//                    CopyMatrix[k][i][size[k]] += outrageFloat;
+//                }
+//
+//                OutragedRigthPart.push_back(CopyMatrix[k][i][size[k]]);
+//            }
+//
+//            OutragedSol = QRDouble(size[k], CopyMatrix[k]).first;
+//
+//            vecAssessmentConditionalityOne.push_back(AssessmentConditionality(vec.first, OutragedSol, TrueRightParts, OutragedRigthPart, NormOneVec));
+//            vecAssessmentConditionalityInfty.push_back(AssessmentConditionality(vec.first, OutragedSol, TrueRightParts, OutragedRigthPart, NormInfVec));
+//        }
+//        else {
+//            InverseMatrix.push_back({});
+//            vecDiscrepancy.push_back(flagOfNoSolution);
+//            ConditionalityOne.push_back(flagOfNoSolution);
+//            ConditionalityInfty.push_back(flagOfNoSolution);
+//            vecAssessmentConditionalityOne.push_back(flagOfNoSolution);
+//            vecAssessmentConditionalityInfty.push_back(flagOfNoSolution);
+//            RMatrix.push_back({});
+//            TMatrix.push_back({});
+//        }
+//    }   
+//    WriteAnswer(OutPutData, "Answer.txt");
+//
+//    WriteDiscrepancy(vecDiscrepancy, "Discrepancy.txt");
+//
+//    WriteConditionality(ConditionalityOne, ConditionalityInfty, "Conditionality.txt");
+//
+//    WriteCheckPoint(CheckMatrix, "CheckPoint.txt");
+//
+//    WriteAssessmentConditionality(vecAssessmentConditionalityOne, vecAssessmentConditionalityInfty, "AssessmentConditionality.txt");
+//
+//    WriteQRMatrix(RMatrix, TMatrix, "QRDecomposition.txt");
+//}
+
+
+void DoubleTest(string filename);
+
