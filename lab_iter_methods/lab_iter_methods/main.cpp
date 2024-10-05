@@ -55,7 +55,7 @@ double EuclideNorm(vector<double>& vec1, vector<double>& vec2) {
     for (int i = 0; i < vec1.size(); i++) {
         suma += (vec1[i] - vec2[i]) * (vec1[i] - vec2[i]);
     }
-    return suma;
+    return sqrt(suma);
 }
 
 bool StopCriteriaOne(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol) {
@@ -229,7 +229,7 @@ void WriteRelaxationAnswer(int SystemNumber, vector<int>& size, vector<vector<ve
 }
 
 
-void main()
+int main()
 {
     int SystemNumber;
     vector<int> size{};
