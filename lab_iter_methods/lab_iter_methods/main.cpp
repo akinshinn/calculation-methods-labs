@@ -229,7 +229,7 @@ void WriteRelaxationAnswer(int SystemNumber, vector<int>& size, vector<vector<ve
 }
 
 
-int main()
+void main()
 {
     int SystemNumber;
     vector<int> size{};
