@@ -1,0 +1,26 @@
+Seidel Method
+epsilon = 0.0001
+
+StopCriteria ||x^(k+1)-x^k|| < epsilon
+Example 1
+count of iteration = 11
+x1=4.99997 x2=-6.99999 x3=12 x4=4.00001 
+Example 2
+count of iteration = 5
+x1=10 x2=-10 x3=12 x4=4 
+
+StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
+Example 1
+count of iteration = 8
+x1=4.99937 x2=-6.99989 x3=11.9996 x4=4.00025 
+Example 2
+count of iteration = 5
+x1=10 x2=-10 x3=12 x4=4 
+
+StopCriteria ||Ax^k-f|| < epsilon
+Example 1
+count of iteration = 14
+x1=5 x2=-7 x3=12 x4=4 
+Example 2
+count of iteration = 7
+x1=10 x2=-10 x3=12 x4=4 

@@ -1,0 +1,8 @@
+Simple Iteration Method
+tau = 0.01
+epsilon = 0.0001
+
+StopCriteria ||x^(k+1)-x^k|| < epsilon
+Example 1
+count of iteration = 116
+x1=4.99983 x2=-6.99997 x3=11.999 x4=3.9997 

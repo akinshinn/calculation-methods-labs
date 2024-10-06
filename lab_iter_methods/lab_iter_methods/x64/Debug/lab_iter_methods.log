@@ -1,2 +1,5 @@
 ﻿  main.cpp
-  lab_iter_methods.vcxproj -> D:\VisualStdudio\calculatem\calculation-methods-labs\lab_iter_methods\x64\Debug\lab_iter_methods.exe
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(35,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(58,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(637,9): warning C4101: SizeTriangleMatrix: неиспользованная локальная переменная
+  lab_iter_methods.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\x64\Debug\lab_iter_methods.exe

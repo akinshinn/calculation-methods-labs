@@ -10,6 +10,63 @@ using namespace std;
 const double epsilon = 1e-4;
 const double epsilonzero = 1e-4;
 const double omega = 0.5;
+const double tau = 1e-5;
+
+template<typename T>
+T NormOneMatrix(vector<vector<T>>& mas) {
+    T suma = 0;
+    T MaxSuma = -numeric_limits<T>::max();
+    for (int j = 0; j < mas[0].size(); j++) {
+        suma = 0;
+        for (int i = 0; i < mas.size(); i++) {
+            suma += abs(mas[i][j]);
+        }
+        MaxSuma = max(MaxSuma, suma);
+
+    }
+    return MaxSuma;
+}
+
+
+double tau_estimate(const vector<vector<double>>& matrix) {
+    double maxx = -1;
+    bool flag = 1;
+    double sum;
+    int n = matrix.size();
+    for (int i = 0; i < n; ++i) {
+        sum = 0;
+        for (int j = 0; i < i; ++j) {
+            sum += abs(matrix[i][j]);
+        }
+        for (int j = i + 1; j < n; ++j) {
+            sum += abs(matrix[i][j]);
+        }
+        maxx = max(sum + abs(matrix[i][i]), maxx);
+        if (sum > abs(matrix[i][i])) {
+            flag = 0;
+            break;
+        }
+    }
+    if (flag) {
+        return maxx;
+    }
+    return -1;
+}
+
+
+vector<double> matrix_prod_vec(const vector<vector<double>>& A, const vector<double> b) {
+    int n = A.size();
+    vector<double> res(n);
+    for (int i = 0; i < n; ++i) {
+        double sum = 0;
+        for (int k = 0; k < n; ++k) {
+            sum += A[i][k] * b[k];
+        }
+        res[i] = sum;
+    }
+    return res;
+}
+
 void DataRead(int& SystemNumber, vector<int>& size, vector<vector<vector<double>>>& Matrix, string filename) {
     ifstream file(filename);
     string line;
@@ -41,6 +98,15 @@ void DataRead(int& SystemNumber, vector<int>& size, vector<vector<vector<double>
     file.close();
 }
 
+
+void DisplayVector(const vector<double> x) {
+    cout << "Size: " << x.size() << endl;
+    for (int i = 0; i < x.size(); ++i) {
+        cout << x[i] << " ";
+    }
+    cout << endl;
+}
+
 void Display2DMatrix(vector<vector<double>>& Matrix) {
     for (auto& row : Matrix) {
         for (auto& el : row) {
@@ -59,13 +125,14 @@ double EuclideNorm(vector<double>& vec1, vector<double>& vec2) {
 }
 
 bool StopCriteriaOne(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol) {
-
+    cout << EuclideNorm(CurIterSol, NextIterSol) << endl;
     return EuclideNorm(CurIterSol, NextIterSol) < epsilon;
 }
 
 bool StopCriteriaSecond(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol) {
     vector<double> nul{};
     nul.resize(size, 0);
+    cout << EuclideNorm(CurIterSol, NextIterSol) / (EuclideNorm(CurIterSol, nul) + epsilonzero) << endl;    
     return EuclideNorm(CurIterSol, NextIterSol) / (EuclideNorm(CurIterSol, nul) + epsilonzero) < epsilon;
 }
 
@@ -84,6 +151,7 @@ bool StopCriteriaThird(int size, vector<vector<double>>& matrix, vector<double>&
         }
         eval[i] = el;
     }
+    cout << EuclideNorm(f, eval) << endl;
     return EuclideNorm(f, eval) < epsilon;
 }
 
@@ -104,7 +172,23 @@ bool StopCriteriaThirdTriangle(int size, vector<vector<double>>& matrix, vector<
         el = a * CurIterSol[max(i - 1,0)] + b * CurIterSol[i] + c * CurIterSol[min(i + 1, size-1)];
         eval[i] = el;
     }
+    cout << EuclideNorm(f, eval) << endl;
     return EuclideNorm(f, eval) < epsilon;
+}
+
+
+bool StopCriteriaFour(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol)
+{
+    vector<double> x0(size);
+    vector<double> b(size);
+    for (int i = 0; i < size; ++i) {
+        b[i] = matrix[i][size];
+    }
+    vector<double> temp = matrix_prod_vec(matrix, x0);
+    double r0 = EuclideNorm(b, temp);
+    vector<double> temp2 = matrix_prod_vec(matrix, NextIterSol);
+    double rk = EuclideNorm(b, temp2);
+    return (rk / r0) < epsilon;
 }
 
 pair<vector<double>, int> JacobyMethod(int size, vector<vector<double>>& matrix, bool(&StopCriteria)(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol)) {
@@ -388,6 +472,165 @@ void OmegaVsIteration(int& SystemNumber, vector<int>& size, vector<vector<vector
 }
 
 
+pair<vector<double>, int> SimpleIterationMethod(int size, vector<vector<double>>& matrix, bool(&StopCriteria)(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol)) {
+    //vector<double> nextSol(size), curSol(size);
+
+    vector<double> temp, nextSol= { 9, -11, 11, 4};
+    vector<double> curSol;
+    int iteration = 0;
+    Display2DMatrix(matrix);
+    cout << 2/tau_estimate(matrix);
+    double tau_cur = 1 / (tau_estimate(matrix));
+    if (tau_cur < 0) tau_cur = tau;
+    //vector<vector<double>> C=matrix;
+    //for (int i = 0; i < size; ++i) {
+    //    for (int j = 0; j < size; ++j) {
+    //        if (i == j) {
+    //            C[i][i] = 1 - tau * matrix[i][i];
+    //        }
+    //        else {
+    //            C[i][j] = -tau * matrix[i][j];
+    //        }
+    //    }
+    //}
+    //cout << NormOneMatrix(C) << endl;
+    do {
+        iteration++;
+        curSol = nextSol;
+        temp = matrix_prod_vec(matrix, curSol);
+        for (int i = 0; i < size; ++i) {
+            nextSol[i] = curSol[i] - tau * temp[i] + tau * matrix[i][size];
+        }
+        DisplayVector(nextSol);
+
+        
+    } while (!StopCriteria(size, matrix, curSol, nextSol));
+    return { nextSol, iteration };
+  }
+
+
+pair<vector<double>, int> SeidelMethod(int size, vector<vector<double>>& matrix, bool(&StopCriteria)(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol)) {
+    //vector<double> nextSol(size), curSol(size);
+
+    vector<double> temp, nextSol = {0,0,0,0};
+    vector<double> curSol;
+    int iteration = 0;
+    Display2DMatrix(matrix);
+    do {
+        iteration++;
+        curSol = nextSol;
+
+        for (int j = 0; j < size; ++j) {
+            double s1 = 0, s2 = 0;
+
+            for (int i = 0; i < j; ++i) {
+                s1 += matrix[j][i] * nextSol[i];
+            }
+            for (int i = j+1; i < size; ++i) {
+                s2 += matrix[j][i] * curSol[i];
+            }
+
+            nextSol[j] = (matrix[j][size] - s1 - s2) / matrix[j][j];
+        }
+        DisplayVector(nextSol);
+
+    } while (!StopCriteria(size, matrix, curSol, nextSol));
+    return { nextSol, iteration };
+}
+
+
+void WriteSimpleIterationAnswer(int SystemNumber, vector<int>& size, vector<vector<vector<double>>>& Matrix, string filename) {
+    ofstream out;
+    pair<vector<double>, int> res;
+    out.open(filename);
+    out << "Simple Iteration Method" << endl;
+    out << "tau = " << tau << endl;
+    out << "epsilon = " << epsilon << endl;
+    out << endl;
+
+    out << "StopCriteria ||x^(k+1)-x^k|| < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        res = SimpleIterationMethod(size[i], Matrix[i], StopCriteriaOne);
+        out << "Example " << i + 1 << endl;
+        out << "count of iteration = " << res.second << endl;
+        for (int j = 0; j < size[i]; j++) {
+            out << "x" << j + 1 << "=" << res.first[j] << " ";
+        }
+        out << endl;
+    }
+    out << endl;
+    out << "StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        res = SimpleIterationMethod(size[i], Matrix[i], StopCriteriaSecond);
+        out << "Example " << i + 1 << endl;
+        out << "count of iteration = " << res.second << endl;
+        for (int j = 0; j < size[i]; j++) {
+            out << "x" << j + 1 << "=" << res.first[j] << " ";
+        }
+        out << endl;
+    }
+
+    out << endl;
+    out << "StopCriteria ||Ax^k-f|| < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        res = SimpleIterationMethod(size[i], Matrix[i], StopCriteriaThird);
+        out << "Example " << i + 1 << endl;
+        out << "count of iteration = " << res.second << endl;
+        for (int j = 0; j < size[i]; j++) {
+            out << "x" << j + 1 << "=" << res.first[j] << " ";
+        }
+        out << endl;
+    }
+
+    out.close();
+}
+
+
+void WriteSeidelAnswer(int SystemNumber, vector<int>& size, vector<vector<vector<double>>>& Matrix, string filename) {
+    ofstream out;
+    pair<vector<double>, int> res;
+    out.open(filename);
+    out << "Seidel Method" << endl;
+    out << "epsilon = " << epsilon << endl;
+    out << endl;
+
+    out << "StopCriteria ||x^(k+1)-x^k|| < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        res = SeidelMethod(size[i], Matrix[i], StopCriteriaOne);
+        out << "Example " << i + 1 << endl;
+        out << "count of iteration = " << res.second << endl;
+        for (int j = 0; j < size[i]; j++) {
+            out << "x" << j + 1 << "=" << res.first[j] << " ";
+        }
+        out << endl;
+    }
+    out << endl;
+    out << "StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        res = SeidelMethod(size[i], Matrix[i], StopCriteriaSecond);
+        out << "Example " << i + 1 << endl;
+        out << "count of iteration = " << res.second << endl;
+        for (int j = 0; j < size[i]; j++) {
+            out << "x" << j + 1 << "=" << res.first[j] << " ";
+        }
+        out << endl;
+    }
+
+    out << endl;
+    out << "StopCriteria ||Ax^k-f|| < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        res = SeidelMethod(size[i], Matrix[i], StopCriteriaThird);
+        out << "Example " << i + 1 << endl;
+        out << "count of iteration = " << res.second << endl;
+        for (int j = 0; j < size[i]; j++) {
+            out << "x" << j + 1 << "=" << res.first[j] << " ";
+        }
+        out << endl;
+    }
+
+    out.close();
+}
+
 int main()
 {
     int SystemNumber;
@@ -398,13 +641,17 @@ int main()
 
     DataRead(SystemNumber, size, Matrix, "System.txt");
 
-    WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
+    //WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
+    //SimpleIterationMethod(size[1], Matrix[1], StopCriteriaOne);
+    //SeidelMethod(size[1], Matrix[1], StopCriteriaThird);
+    WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
+    //WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
 
-    WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
+    //WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
 
 
-    GenerateThreeDiagonal(201, "triangleMatrix.txt");
-    DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
-    WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
-    OmegaVsIteration(SystemNumber, size, Matrix, "OmegaVsIteration.txt", "WoframOmegaVsIteration.txt");
+    //GenerateThreeDiagonal(201, "triangleMatrix.txt");
+    //DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
+    //WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
+    //OmegaVsIteration(SystemNumber, size, Matrix, "OmegaVsIteration.txt", "WoframOmegaVsIteration.txt");
 }
