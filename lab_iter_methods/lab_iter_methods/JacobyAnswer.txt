@@ -1,7 +1,15 @@
 JacobyMethod
-epsilon = 0.0001
+epsilon = 1e-05
 
 StopCriteria ||x^(k+1)-x^k|| < epsilon
+Example 1
+count of iteration = 21
+x1=5 x2=-7 x3=12 x4=4 
+Example 2
+count of iteration = 7
+x1=10 x2=-10 x3=12 x4=4 
+
+StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
 Example 1
 count of iteration = 18
 x1=4.99998 x2=-6.99998 x3=12 x4=3.99998 
@@ -9,17 +17,9 @@ Example 2
 count of iteration = 6
 x1=10 x2=-10 x3=12 x4=4 
 
-StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
-Example 1
-count of iteration = 15
-x1=4.99984 x2=-6.99983 x3=11.9999 x4=3.99982 
-Example 2
-count of iteration = 5
-x1=10 x2=-9.99999 x3=12 x4=3.99999 
-
 StopCriteria ||Ax^k-f|| < epsilon
 Example 1
-count of iteration = 21
+count of iteration = 24
 x1=5 x2=-7 x3=12 x4=4 
 Example 2
 count of iteration = 8

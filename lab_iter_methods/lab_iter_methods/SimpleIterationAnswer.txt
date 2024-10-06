@@ -1,8 +1,32 @@
 Simple Iteration Method
-tau = 0.01
-epsilon = 0.0001
+epsilon = 1e-05
 
 StopCriteria ||x^(k+1)-x^k|| < epsilon
 Example 1
-count of iteration = 116
-x1=4.99983 x2=-6.99997 x3=11.999 x4=3.9997 
+count of iteration = 37
+tau = 0.037037
+x1=5 x2=-7 x3=12 x4=3.99999 
+Example 2
+count of iteration = 1000
+tau = 0.00503525
+x1=-1.62986e+300 x2=-7.89592e+300 x3=-2.92165e+300 x4=-9.36202e+301 
+
+StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
+Example 1
+count of iteration = 30
+tau = 0.037037
+x1=5 x2=-6.99997 x3=11.9998 x4=3.99988 
+Example 2
+count of iteration = 1000
+tau = 0.00503525
+x1=-1.62986e+300 x2=-7.89592e+300 x3=-2.92165e+300 x4=-9.36202e+301 
+
+StopCriteria ||Ax^k-f|| < epsilon
+Example 1
+count of iteration = 44
+tau = 0.037037
+x1=5 x2=-7 x3=12 x4=4 
+Example 2
+count of iteration = 1000
+tau = 0.00503525
+x1=-1.62986e+300 x2=-7.89592e+300 x3=-2.92165e+300 x4=-9.36202e+301 
