@@ -196,6 +196,7 @@ pair<vector<double>, int> RelaxationMethod(int size, double w, vector<vector<dou
             }
             NextIterSol[i] = (1 - w) * CurIterSol[i] + w * (matrix[i][size] - suma) / matrix[i][i];
         }
+        if (iteration > 200) break;
     } while (!StopCriteria(size, matrix, CurIterSol, NextIterSol));
     // StopCriteria - true если надо остановиться
     return { NextIterSol , iteration };
@@ -340,6 +341,53 @@ void WriteRelaxationTriangleAnswer(int size, vector<vector<double>>& Matrix, str
 }
 
 
+void OmegaVsIteration(int& SystemNumber, vector<int>& size, vector<vector<vector<double>>>& matrix, string filename, string Wolfram) {
+    ofstream out, wolf;
+    out.open(filename);
+    wolf.open(Wolfram);
+    pair<vector<double>, int> res;
+    for (double w = 0.1; w < 2; w += 0.1) {
+        wolf << w << " ";
+    }
+    out << "StopCriteria ||x^(k+1)-x^k|| < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        out << "System :" << i + 1 << endl;
+        wolf << endl;
+        for (double w = 0.1; w < 2; w += 0.1) {
+            res = RelaxationMethod(size[i], w, matrix[i], StopCriteriaOne);
+            out << "w = " << w << ", iteration = " << res.second << endl;
+            wolf << res.second << " ";
+        }
+    }
+    out << endl;
+    out << "StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        out << "System :" << i + 1 << endl;
+        wolf << endl;
+        for (double w = 0.1; w < 2; w += 0.1) {
+            res = RelaxationMethod(size[i], w, matrix[i], StopCriteriaSecond);
+            out << "w = " << w << ", iteration = " << res.second << endl;
+            wolf << res.second << " ";
+        }
+    }
+    out << endl;
+    out << "StopCriteria ||Ax^k-f|| < epsilon" << endl;
+    for (int i = 0; i < SystemNumber; i++) {
+        out << "System :" << i + 1 << endl;
+        
+        wolf << endl;
+        for (double w = 0.1; w < 2; w += 0.1) {
+            res = RelaxationMethod(size[i], w, matrix[i], StopCriteriaThird);
+            out << "w = " << w << ", iteration = " << res.second << endl;
+            wolf << res.second << " ";
+        }
+    }
+    out << endl;
+    out.close();
+    wolf.close();
+}
+
+
 int main()
 {
     int SystemNumber;
@@ -358,4 +406,5 @@ int main()
     GenerateThreeDiagonal(201, "triangleMatrix.txt");
     DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
     WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
+    OmegaVsIteration(SystemNumber, size, Matrix, "OmegaVsIteration.txt", "WoframOmegaVsIteration.txt");
 }
