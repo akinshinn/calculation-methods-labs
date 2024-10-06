@@ -87,6 +87,25 @@ bool StopCriteriaThird(int size, vector<vector<double>>& matrix, vector<double>&
     return EuclideNorm(f, eval) < epsilon;
 }
 
+bool StopCriteriaThirdTriangle(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol) {
+    vector<double> f{}, eval{};
+    f.resize(size, 0);
+    eval.resize(size, 0);
+    for (int i = 0; i < size; i++) {
+        f[i] = matrix[i][3];
+    }
+    double el = 0;
+    double a, b, c;
+    for (int i = 0; i < size; i++) {
+        a = matrix[i][0];
+        b = matrix[i][1];
+        c = matrix[i][2];
+
+        el = a * CurIterSol[max(i - 1,0)] + b * CurIterSol[i] + c * CurIterSol[min(i + 1, size-1)];
+        eval[i] = el;
+    }
+    return EuclideNorm(f, eval) < epsilon;
+}
 
 pair<vector<double>, int> JacobyMethod(int size, vector<vector<double>>& matrix, bool(&StopCriteria)(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol)) {
     vector<double> CurIterSol{}, NextIterSol{};
@@ -228,10 +247,104 @@ void WriteRelaxationAnswer(int SystemNumber, vector<int>& size, vector<vector<ve
     out.close();
 }
 
+void GenerateThreeDiagonal(int n, string filename) {
+    ofstream out;
+    pair<vector<double>, int> res;
+    out.open(filename);
+    out << n << endl;
+    out << "0 4 1 6" << endl;
+    for (int i = 2; i < n; i++) {
+        out << "1 4 1 " << 10 - 2 * (i % 2) << endl;
+    }
+    out << "1 4 0 " << 9 - 3 * (n % 2) << endl;
+    out.close();
+}
+
+void DataReadTriangleMatrix(int& SizeTriangleMatrix, vector<vector<double>>& TriangleMatrix, string filename) {
+    ifstream file(filename);
+    string line;
+    getline(file, line);
+    stringstream str(line);
+    vector<double> mas{};
+    mas.resize(4, 0);
+    str >> SizeTriangleMatrix;
+    for (int k = 0; k < SizeTriangleMatrix; k++) {
+        getline(file, line);
+        stringstream str(line);
+        for (int j = 0; j < 4; j++) {
+            str >> mas[j];
+        }
+        TriangleMatrix.push_back(mas);
+    }
+
+    file.close();
+}
+
+
+pair<vector<double>, int> RelaxationMethodTriangle(int size, double w, vector<vector<double>>& matrix, bool(&StopCriteria)(int size, vector<vector<double>>& matrix, vector<double>& CurIterSol, vector<double>& NextIterSol)) {
+    vector<double> CurIterSol{}, NextIterSol{};
+    double suma = 0, a, b, c, d;
+    int iteration = 0;
+    CurIterSol.resize(size, 0);
+    NextIterSol.resize(size, 0);
+    do {
+        iteration++;
+        CurIterSol = NextIterSol;
+        for (int i = 0; i < size; i++) {
+            a = matrix[i][0];
+            b = matrix[i][1];
+            c = matrix[i][2];
+            d = matrix[i][3];
+            NextIterSol[i] = (1 - w) * CurIterSol[i] + w * (d - a*NextIterSol[max(i-1,0)] - c * CurIterSol[min(i+1, size-1)]) / b;
+        }
+    } while (!StopCriteria(size, matrix, CurIterSol, NextIterSol));
+    // StopCriteria - true если надо остановиться
+    return { NextIterSol , iteration };
+}
+
+
+void WriteRelaxationTriangleAnswer(int size, vector<vector<double>>& Matrix, string filename) {
+    ofstream out;
+    pair<vector<double>, int> res;
+    out.open(filename);
+    out << "RelaxationMethod" << endl;
+    out << "epsilon = " << epsilon << endl;
+    out << endl;
+
+    out << "StopCriteria ||x^(k+1)-x^k|| < epsilon" << endl;
+    res = RelaxationMethodTriangle(size, omega, Matrix, StopCriteriaOne);
+    out << "count of iteration = " << res.second << endl;
+    for (int j = 0; j < size; j++) {
+        out << "x" << j + 1 << "=" << res.first[j] << " ";
+    }
+    out << endl;
+
+    out << "StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon" << endl;
+    res = RelaxationMethodTriangle(size, omega, Matrix, StopCriteriaSecond);
+    out << "count of iteration = " << res.second << endl;
+    for (int j = 0; j < size; j++) {
+        out << "x" << j + 1 << "=" << res.first[j] << " ";
+    }
+    out << endl;
+
+
+    out << "StopCriteria ||Ax^k-f|| < epsilon" << endl;
+    res = RelaxationMethodTriangle(size, omega, Matrix, StopCriteriaThirdTriangle);
+    out << "count of iteration = " << res.second << endl;
+    for (int j = 0; j < size; j++) {
+        out << "x" << j + 1 << "=" << res.first[j] << " ";
+    }
+    out << endl;
+
+    out.close();
+}
+
 
 int main()
 {
     int SystemNumber;
+    int SizeTriangleMatrix;
+    vector<vector<double>> TriangleMatrix{};
     vector<int> size{};
     vector<vector<vector<double>>> Matrix{};
 
@@ -240,4 +353,9 @@ int main()
     WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
 
     WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
+
+
+    GenerateThreeDiagonal(201, "triangleMatrix.txt");
+    DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
+    WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
 }

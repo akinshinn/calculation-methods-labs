@@ -3,24 +3,24 @@ epsilon = 0.0001
 
 StopCriteria ||x^(k+1)-x^k|| < epsilon
 Example 1
-count of iteration = 12
-x1=4.99863 x2=-6.99841 x3=11.9987 x4=3.99856 
+count of iteration = 18
+x1=4.99998 x2=-6.99998 x3=12 x4=3.99998 
 Example 2
-count of iteration = 4
-x1=9.99981 x2=-9.99975 x3=11.9999 x4=3.99989 
+count of iteration = 6
+x1=10 x2=-10 x3=12 x4=4 
 
 StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
-Example 1
-count of iteration = 8
-x1=5.01329 x2=-7.0107 x3=11.9887 x4=4.02183 
-Example 2
-count of iteration = 3
-x1=10.0049 x2=-10.0008 x3=11.9987 x4=4.00084 
-
-StopCriteria ||Ax^k-f|| < epsilon
 Example 1
 count of iteration = 15
 x1=4.99984 x2=-6.99983 x3=11.9999 x4=3.99982 
 Example 2
-count of iteration = 6
+count of iteration = 5
+x1=10 x2=-9.99999 x3=12 x4=3.99999 
+
+StopCriteria ||Ax^k-f|| < epsilon
+Example 1
+count of iteration = 21
+x1=5 x2=-7 x3=12 x4=4 
+Example 2
+count of iteration = 8
 x1=10 x2=-10 x3=12 x4=4 
