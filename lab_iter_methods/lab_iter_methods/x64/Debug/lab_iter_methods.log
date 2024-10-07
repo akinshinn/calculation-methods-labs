@@ -1,4 +1,7 @@
 ﻿  main.cpp
 C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(53,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(76,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(670,98): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(671,104): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(672,103): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
   lab_iter_methods.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\x64\Debug\lab_iter_methods.exe

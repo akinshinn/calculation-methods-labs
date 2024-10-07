@@ -7,9 +7,9 @@ count of iteration = 37
 tau = 0.037037
 x1=5 x2=-7 x3=12 x4=3.99999 
 Example 2
-count of iteration = 1000
+count of iteration = 300
 tau = 0.00503525
-x1=-1.62986e+300 x2=-7.89592e+300 x3=-2.92165e+300 x4=-9.36202e+301 
+x1=-1.41403e+89 x2=-6.85032e+89 x3=-2.53476e+89 x4=-8.12228e+90 
 
 StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
 Example 1
@@ -17,9 +17,9 @@ count of iteration = 30
 tau = 0.037037
 x1=5 x2=-6.99997 x3=11.9998 x4=3.99988 
 Example 2
-count of iteration = 1000
+count of iteration = 300
 tau = 0.00503525
-x1=-1.62986e+300 x2=-7.89592e+300 x3=-2.92165e+300 x4=-9.36202e+301 
+x1=-1.41403e+89 x2=-6.85032e+89 x3=-2.53476e+89 x4=-8.12228e+90 
 
 StopCriteria ||Ax^k-f|| < epsilon
 Example 1
@@ -27,6 +27,6 @@ count of iteration = 44
 tau = 0.037037
 x1=5 x2=-7 x3=12 x4=4 
 Example 2
-count of iteration = 1000
+count of iteration = 300
 tau = 0.00503525
-x1=-1.62986e+300 x2=-7.89592e+300 x3=-2.92165e+300 x4=-9.36202e+301 
+x1=-1.41403e+89 x2=-6.85032e+89 x3=-2.53476e+89 x4=-8.12228e+90 
