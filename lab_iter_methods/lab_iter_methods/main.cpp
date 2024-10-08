@@ -13,6 +13,8 @@ const double omega = 0.5;
 const double tau = 1e-2;
 const int maxIterations = 300;
 
+void Display2DMatrix(vector<vector<double>>& Matrix);
+
 double NormSquareVec(const vector<double>& vec) {
     double suma = 0;
     for (int i = 0; i < vec.size(); i++) {
@@ -37,6 +39,55 @@ double NormInfVec(const vector<double>& vec) {
     }
     return Maxel;
 }
+
+
+double NormInfMatrix(vector<vector<double>>& mas) {
+    double suma = 0;
+    double MaxSuma = -numeric_limits<double>::max();
+    for (int i = 0; i < mas.size(); i++) {
+        suma = 0;
+        for (int j = 0; j < mas[0].size(); j++) {
+            suma += abs(mas[i][j]);
+        }
+        MaxSuma = max(MaxSuma, suma);
+    }
+    return MaxSuma;
+}
+
+
+double NormOneMatrix(vector<vector<double>>& mas) {
+    double suma = 0;
+    double MaxSuma = -numeric_limits<double>::max();
+    for (int j = 0; j < mas[0].size(); j++) {
+        suma = 0;
+        for (int i = 0; i < mas.size(); i++) {
+            suma += abs(mas[i][j]);
+        }
+        MaxSuma = max(MaxSuma, suma);
+
+    }
+    return MaxSuma;
+}
+
+
+double getNormC_SIM(const vector<vector<double>>& A, double tau,double(&norm)(vector<vector<double>>& matrix) = NormOneMatrix) {
+    vector<vector<double>> C = A;
+    int n = A.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (i != j) {
+                C[i][j] = -tau * A[i][j];
+
+            }
+            else {
+                C[i][i] = -tau * A[i][i] + 1;
+            }
+        }
+    }
+    //Display2DMatrix(C);
+    return norm(C);
+}
+
 
 vector<double> vec_diff(const vector<double>& v1, const vector<double>& v2) {
     vector<double> res(v1.size());
@@ -517,7 +568,8 @@ pair<vector<double>, int> SimpleIterationMethod(int size, vector<vector<double>>
             nextSol[i] = curSol[i] - tau_cur * temp[i] + tau_cur * matrix[i][size];
         }
         if (iteration >= maxIterations) break;
-        //DisplayVector(nextSol);
+        cout << tau_cur;
+        DisplayVector(nextSol);
         
     } while (!StopCriteria(size, matrix, curSol, nextSol));
     return { nextSol, iteration };
@@ -730,7 +782,7 @@ int main()
 
     DataRead(SystemNumber, size, Matrix, "System.txt");
 
-    //SimpleIterationMethod(size[0], Matrix[0], StopCriteriaOne);
+    SimpleIterationMethod(size[0], Matrix[0], StopCriteriaOne, {1,0.01});
     WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
     WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
     WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
