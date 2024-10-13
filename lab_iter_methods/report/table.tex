@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage{epigraph}
+\usepackage[english, russian]{babel} 
+\usepackage{amsmath,amsfonts,amssymb} 
+\usepackage{mathtools}
+\usepackage{pdflscape}
+\usepackage{graphicx} 
+
+\begin{document}
+
+\begin{landscape} 
+    \begin{table}[h!]
+        \centering
+        \caption{Результаты исследования итерационных методов при {$\varepsilon = 10^{-4}$}}
+        \resizebox{\textwidth}{!}{ 
+        \begin{tabular}{|c|c|p{2cm}|p{2cm}|p{2cm}|c|c|c|c|c|c|}
+        \hline
+        \textbf{Метод} & $\|C\|$ & \textbf{Оценка для числа итераций $k_\text{est}$} & \textbf{Норма ошибки после $k_\text{est}$ операций} & \textbf{Число итераций, необходимых для решения с точностью $\varepsilon$} & \multicolumn{2}{c|}{\textbf{Критерий 1}} & \multicolumn{2}{c|}{\textbf{Критерий 2}} & \multicolumn{2}{c|}{\textbf{Критерий 3}} \\
+        \cline{6-11}
+         & & & & & \textbf{Итерации} & \textbf{Ошибка} & \textbf{Итерации} & \textbf{Ошибка} & \textbf{Итерации} & \textbf{Ошибка} \\
+        \hline
+        Простые итерации ($\tau = ...$) & & & & & & & & & & \\
+        \hline
+        Якоби & & & & & & & & & & \\
+        \hline
+        Зейделя & & & & & & & & & & \\
+        \hline
+        Релаксации ($\omega = ...$) & & & & & & & & & & \\
+        \hline
+        Релаксации ($\omega = ...$) & & & & & & & & & & \\
+        \hline
+        \end{tabular}
+        } 
+    \end{table}
+\end{landscape}
+
+\end{document}
