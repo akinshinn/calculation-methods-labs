@@ -11,7 +11,7 @@ const double epsilon = 1e-5;
 const double epsilonzero = 1e-4;
 const double omega = 0.5;
 const double tau = 1e-2;
-const int maxIterations = 300;
+const int maxIterations = 1000;
 
 void Display2DMatrix(vector<vector<double>>& Matrix);
 
@@ -70,7 +70,7 @@ double NormOneMatrix(vector<vector<double>>& mas) {
 }
 
 
-double getNormC_SIM(const vector<vector<double>>& A, double tau,double(&norm)(vector<vector<double>>& matrix) = NormOneMatrix) {
+double getNormC_SIM(const vector<vector<double>>& A, double tau, double(&norm)(vector<vector<double>>& matrix) = NormOneMatrix) {
     vector<vector<double>> C = A;
     int n = A.size();
     for (int i = 0; i < n; ++i) {
@@ -84,9 +84,16 @@ double getNormC_SIM(const vector<vector<double>>& A, double tau,double(&norm)(ve
             }
         }
     }
-    Display2DMatrix(C);
+    //Display2DMatrix(C);
     return norm(C);
 }
+
+
+//double getNormC_Seidel(const vector<vector<double>>& A, double(&norm)(vector<vector<double>>& matrix) = NormOneMatrix){
+//    vector<vector<double>> C = A;
+//    vector<vector<double>> LD;
+//    vector<vector<double>> LD_reverse;
+//}
 
 
 vector<double> vec_diff(const vector<double>& v1, const vector<double>& v2) {
@@ -782,9 +789,12 @@ int main()
 
     DataRead(SystemNumber, size, Matrix, "System.txt");
 
-    cout << getNormC_SIM(Matrix[0], 0.05, NormOneMatrix);
+    cout << getNormC_SIM(Matrix[1], 0.994965, NormOneMatrix) << endl;
+    cout << getNormC_SIM(Matrix[1], 0.994965, NormInfMatrix) << endl;
 
-    //SimpleIterationMethod(size[0], Matrix[0], StopCriteriaOne, {1,0.01});
+
+    //DisplayVector(JacobyMethod(size[2], Matrix[2], StopCriteriaThird).first);
+    //cout << getNormC_SIM(Matrix[2], 0.000000001);
     //WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
     //WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
     //WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
