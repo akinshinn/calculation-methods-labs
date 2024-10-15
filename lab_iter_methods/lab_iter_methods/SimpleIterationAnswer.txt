@@ -1,15 +1,24 @@
 Simple Iteration Method
 epsilon = 1e-05
 
+
+Matrix 1
+Norm C = 0.962963
+Norm C_L = 0.666667
+Norm C_U = 0.444444
+Matrix 2
+Norm C = 2.08802
+Norm C_L = 0.0880161
+Norm C_U = 0.112941
 StopCriteria ||x^(k+1)-x^k|| < epsilon
 Example 1
 count of iteration = 37
 tau = 0.037037
 x1=5 x2=-7 x3=12 x4=3.99999 
 Example 2
-count of iteration = 300
+count of iteration = 100
 tau = 0.00503525
-x1=-1.41403e+89 x2=-6.85032e+89 x3=-2.53476e+89 x4=-8.12228e+90 
+x1=-7.03264e+28 x2=-3.40699e+29 x3=-1.26065e+29 x4=-4.03959e+30 
 
 StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
 Example 1
@@ -17,9 +26,9 @@ count of iteration = 30
 tau = 0.037037
 x1=5 x2=-6.99997 x3=11.9998 x4=3.99988 
 Example 2
-count of iteration = 300
+count of iteration = 100
 tau = 0.00503525
-x1=-1.41403e+89 x2=-6.85032e+89 x3=-2.53476e+89 x4=-8.12228e+90 
+x1=-7.03264e+28 x2=-3.40699e+29 x3=-1.26065e+29 x4=-4.03959e+30 
 
 StopCriteria ||Ax^k-f|| < epsilon
 Example 1
@@ -27,6 +36,6 @@ count of iteration = 44
 tau = 0.037037
 x1=5 x2=-7 x3=12 x4=4 
 Example 2
-count of iteration = 300
+count of iteration = 100
 tau = 0.00503525
-x1=-1.41403e+89 x2=-6.85032e+89 x3=-2.53476e+89 x4=-8.12228e+90 
+x1=-7.03264e+28 x2=-3.40699e+29 x3=-1.26065e+29 x4=-4.03959e+30 
