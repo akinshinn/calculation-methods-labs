@@ -11,9 +11,12 @@ const double epsilon = 1e-5;
 const double epsilonzero = 1e-4;
 const double omega = 0.5;
 const double tau = 1e-2;
-const int maxIterations = 1000;
+const int maxIterations = 100;
 
 void Display2DMatrix(vector<vector<double>>& Matrix);
+void DisplayVector(const vector<double> x);
+vector<vector<double>> matrix_prod(const vector<vector<double>>& A, const vector<vector<double>>& B);
+
 
 double NormSquareVec(const vector<double>& vec) {
     double suma = 0;
@@ -70,9 +73,46 @@ double NormOneMatrix(vector<vector<double>>& mas) {
 }
 
 
-double getNormC_SIM(const vector<vector<double>>& A, double tau, double(&norm)(vector<vector<double>>& matrix) = NormOneMatrix) {
-    vector<vector<double>> C = A;
+vector<vector<double>> get_reverse_LD_matrix( vector<vector<double>> A) {
+    vector<vector<double>> LD_rev,inverse;
+    int size = A.size();
+    vector<double> x(size);
+
+    for (int i = 0; i < size; i++) {
+        A[i][size] = 0;
+    }
+    for (int i = 0; i < size; i++) {
+        A[i][size] = 1;
+        if (i != 0) A[i - 1][size] = 0;
+        
+
+        for (int j = 0; j < size; ++j) {
+            double sum = 0;
+            for (int k = 0; k < j; ++k) {
+                sum += A[j][k] * x[k];
+            }
+            x[j] = (A[j][size] - sum) / A[j][j];
+        }
+        
+        inverse.push_back(x);
+
+    }
+    LD_rev.resize(size, vector<double>(size));
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            LD_rev[i][j] = inverse[j][i];
+        }
+    }
+    return LD_rev;
+}
+
+
+// ѕервое значение - норма C, второе - норма C_L, третье - норма C_U
+vector<double> getNormC_SIM(const vector<vector<double>>& A, double tau, double(&norm)(vector<vector<double>>& matrix) = NormInfMatrix) {
     int n = A.size();
+    vector<vector<double>> C;
+    C.resize(n, vector<double>(n));
+
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             if (i != j) {
@@ -84,16 +124,60 @@ double getNormC_SIM(const vector<vector<double>>& A, double tau, double(&norm)(v
             }
         }
     }
-    //Display2DMatrix(C);
-    return norm(C);
+
+    vector<vector<double>> C_L = C, C_U = C;
+    for (int i = 0; i < n; ++i) {
+        C_L[i][i] = 0;
+        C_U[i][i] = 0;
+        for (int j = 0; j < n; ++j) {
+            if (j < i) {
+                C_U[i][j] = 0;
+            }
+            else if (j > i) {
+                C_L[i][j] = 0;
+            }
+
+        }
+    }
+    vector<double> res= {norm(C), norm(C_L), norm(C_U)};
+    return res;
 }
 
+ //ѕервое значение - норма C, второе - норма C_L, третье - норма C_U
+vector<double> getNormC_Seidel(const vector<vector<double>>& A, double(&norm)(vector<vector<double>>& matrix) = NormOneMatrix){
+    vector<vector<double>> C;
+    int size = A.size();
+    vector<vector<double>> LD_reverse = get_reverse_LD_matrix(A);
+    C.resize(size, vector<double>(size));
+    vector<vector<double>> prod = matrix_prod(LD_reverse, A);
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            if (i != j) {
+                C[i][j] = -prod[i][j];
+            }
+            else {
+                C[i][i] = 1 - prod[i][i];
+            }
+        }
+    }
 
-//double getNormC_Seidel(const vector<vector<double>>& A, double(&norm)(vector<vector<double>>& matrix) = NormOneMatrix){
-//    vector<vector<double>> C = A;
-//    vector<vector<double>> LD;
-//    vector<vector<double>> LD_reverse;
-//}
+    vector<vector<double>> C_L = C, C_U = C;
+    for (int i = 0; i < size; ++i) {
+        C_L[i][i] = 0;
+        C_U[i][i] = 0;
+        for (int j = 0; j < size; ++j) {
+            if (j < i) {
+                C_U[i][j] = 0;
+            }
+            else if (j > i) {
+                C_L[i][j] = 0;
+            }
+
+        }
+    }
+    vector<double> res = { norm(C), norm(C_L), norm(C_U) };
+    return res;
+}
 
 
 vector<double> vec_diff(const vector<double>& v1, const vector<double>& v2) {
@@ -142,6 +226,27 @@ vector<double> matrix_prod_vec(const vector<vector<double>>& A, const vector<dou
     }
     return res;
 }
+
+vector<vector<double>> matrix_prod(const vector<vector<double>>& A, const vector<vector<double>>& B) {
+    int n = A.size();
+    vector<vector<double>> res;
+    res.resize(n, vector<double>(n));
+
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            double sum = 0;
+            for (int k = 0; k < n; ++k) {
+                sum += A[i][k] * B[k][j];
+            }
+            res[i][j] = sum;
+
+        }
+
+    }
+    return res;
+}
+
 
 void DataRead(int& SystemNumber, vector<int>& size, vector<vector<vector<double>>>& Matrix, string filename) {
     ifstream file(filename);
@@ -576,7 +681,7 @@ pair<vector<double>, int> SimpleIterationMethod(int size, vector<vector<double>>
         }
         if (iteration >= maxIterations) break;
         cout << tau_cur;
-        DisplayVector(nextSol);
+        //DisplayVector(nextSol);
         
     } while (!StopCriteria(size, matrix, curSol, nextSol));
     return { nextSol, iteration };
@@ -589,7 +694,6 @@ pair<vector<double>, int> SeidelMethod(int size, vector<vector<double>>& matrix,
     vector<double> temp, nextSol = {0,0,0,0};
     vector<double> curSol;
     int iteration = 0;
-    Display2DMatrix(matrix);
     do {
         iteration++;
         curSol = nextSol;
@@ -605,7 +709,6 @@ pair<vector<double>, int> SeidelMethod(int size, vector<vector<double>>& matrix,
 
             nextSol[j] = (matrix[j][size] - s1 - s2) / matrix[j][j];
         }
-        DisplayVector(nextSol);
 
     } while (!StopCriteria(size, matrix, curSol, nextSol));
     return { nextSol, iteration };
@@ -616,10 +719,20 @@ void WriteSimpleIterationAnswer(int SystemNumber, vector<int>& size, vector<vect
     ofstream out;
     pair<vector<double>, int> res;
     out.open(filename);
+
     out << "Simple Iteration Method" << endl;
     out << "epsilon = " << epsilon << endl;
     out << endl;
-
+    out << endl;
+    for (int i = 0; i < SystemNumber; ++i) {
+        out << "Matrix " << i + 1 << endl;
+        double tau_cur = 1 / (tau_estimate(Matrix[i]));
+        if (tau_cur < 0) tau_cur = tau;
+        vector<double> norms = getNormC_SIM(Matrix[i], tau_cur);
+        out << "Norm C = " << norms[0] << endl;
+        out << "Norm C_L = " << norms[1] << endl;
+        out << "Norm C_U = " << norms[2] << endl;
+    }
     out << "StopCriteria ||x^(k+1)-x^k|| < epsilon" << endl;
     for (int i = 0; i < SystemNumber; i++) {
         res = SimpleIterationMethod(size[i], Matrix[i], StopCriteriaOne);
@@ -635,6 +748,7 @@ void WriteSimpleIterationAnswer(int SystemNumber, vector<int>& size, vector<vect
             out << "x" << j + 1 << "=" << res.first[j] << " ";
         }
         out << endl;
+        
     }
     out << endl;
     out << "StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon" << endl;
@@ -681,6 +795,13 @@ void WriteSeidelAnswer(int SystemNumber, vector<int>& size, vector<vector<vector
     out << "Seidel Method" << endl;
     out << "epsilon = " << epsilon << endl;
     out << endl;
+    for (int i = 0; i < SystemNumber; ++i) {
+        out << "Matrix " << i + 1 << endl;
+        vector<double> norms = getNormC_Seidel(Matrix[i]);
+        out << "Norm C = " << norms[0] << endl;
+        out << "Norm C_L = " << norms[1] << endl;
+        out << "Norm C_U = " << norms[2] << endl;
+    }
 
     out << "StopCriteria ||x^(k+1)-x^k|| < epsilon" << endl;
     for (int i = 0; i < SystemNumber; i++) {
@@ -789,14 +910,9 @@ int main()
 
     DataRead(SystemNumber, size, Matrix, "System.txt");
 
-    cout << getNormC_SIM(Matrix[1], 0.994965, NormOneMatrix) << endl;
-    cout << getNormC_SIM(Matrix[1], 0.994965, NormInfMatrix) << endl;
 
-
-    //DisplayVector(JacobyMethod(size[2], Matrix[2], StopCriteriaThird).first);
-    //cout << getNormC_SIM(Matrix[2], 0.000000001);
-    //WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
-    //WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
+    WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
+    WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
     //WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
 
     //WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
