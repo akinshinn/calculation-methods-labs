@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.10)  13 OCT 2024 21:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.10)  16 OCT 2024 15:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -448,58 +448,103 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 15.
  (c:/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
+Overfull \hbox (4.19464pt too wide) in paragraph at lines 39--39
 []\T2A/cmr/bx/n/10 Оценка
  []
 
 
-Underfull \hbox (badness 1178) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 для чис-ла
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 для
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 ите-ра-ций
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 чис-ла
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ите-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ра-ций
+ []
+
+
+Overfull \hbox (3.10312pt too wide) in paragraph at lines 39--39
 []\T2A/cmr/bx/n/10 Норма
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 ошиб-ки
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ошиб-
  []
 
 
-Underfull \hbox (badness 5288) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 по-сле $\OML/cmm/m/it/10 k[]$
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ки
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 по-сле
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 опе-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
 []\T2A/cmr/bx/n/10 Число
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 ите-ра-ций,
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ите-ра-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 необ-хо-ди-
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ций,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 мых для
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 необ-хо-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
-\T2A/cmr/bx/n/10 точ-но-стью
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ди-мых
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 ше-ния
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 с точ-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 но-стью
+ []
+
+
+Overfull \hbox (88.26865pt too wide) in paragraph at lines 16--40
+ [][] 
  []
 
 [1
@@ -514,16 +559,16 @@ L3 programming layer <2024-02-20>
 Here is how much of TeX's memory you used:
  5381 strings out of 475436
  85004 string characters out of 5782550
- 1939190 words of memory out of 5000000
+ 1944190 words of memory out of 5000000
  27451 multiletter control sequences out of 15000+600000
  563028 words of font info for 48 fonts, out of 8000000 for 9000
  497 hyphenation exceptions out of 8191
- 89i,15n,95p,533b,385s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on table.pdf (1 page, 92991 bytes).
+ 89i,15n,95p,588b,385s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on table.pdf (1 page, 103210 bytes).
 PDF statistics:
- 49 PDF objects out of 1000 (max. 8388607)
- 29 compressed objects within 1 object stream
+ 54 PDF objects out of 1000 (max. 8388607)
+ 32 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

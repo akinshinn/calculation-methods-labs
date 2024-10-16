@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1728898387.82932 "c:/Users/mouze/Desktop/CM_labs/lab_iter_methods/report/report.tex" "report.pdf" "report" 1728898389.6651 0
+["pdflatex"] 1729022519.16491 "c:/Users/mouze/Desktop/CM_labs/lab_iter_methods/report/report.tex" "report.pdf" "report" 1729022521.4472 0
   "../../style/emblema.pdf" 1712489940 162609 aca2df2f19617fe6608533a9bb134e2f ""
   "../../style/fn2kursstyle.sty" 1726591680 34688 12d35b2cb66bf5e017559ff73e042bba ""
   "c:/Users/mouze/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/labi1728.tfm" 1712491814 3596 8bea47f4ff80cbc1972c4da822de18f7 ""
@@ -14,7 +14,7 @@
   "c:/Users/mouze/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/larm1440.tfm" 1710084142 3256 3daaa33cf35cf3f354983aa3214ecd7f ""
   "c:/Users/mouze/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/larm1728.tfm" 1710082057 3252 3140686608bdcae603a09a7973fb9e55 ""
   "c:/Users/mouze/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/lati1728.tfm" 1712491813 3528 49a0aea1b116783145543cc0938cd014 ""
-  "c:/Users/mouze/Desktop/CM_labs/lab_iter_methods/report/report.tex" 1728898386 20208 88a59ee229f590ccdcf44affb201f8d4 ""
+  "c:/Users/mouze/Desktop/CM_labs/lab_iter_methods/report/report.tex" 1729022518 31400 c03377a2b8a36e206309554bd2b3761f ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc" 1710066344 3141 82d5616418ed8d5de703b3951bedecb4 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1710069302 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm" 1710068025 1536 06717a2b50de47d4087ac0e6cd759455 ""
@@ -47,6 +47,7 @@
   "c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1710064349 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1710064349 32716 08e384dc442464e7285e891af9f45947 ""
   "c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1710064349 31764 459c573c03a4949a528c2cc7f557e217 ""
+  "c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1710064349 34694 870c211f62cb72718a00e353f14f254d ""
   "c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbi1728.pfb" 1710066344 192025 064ec2107827b174f1161f39ca5d503a ""
   "c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb" 1710066344 143961 fe73b0de40bc9eebafe5b31a39c455e0 ""
   "c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb" 1710066344 145408 bcd327f112f643a875638eafb48d1d8b ""
@@ -345,11 +346,12 @@
   "c:/texlive/2023/texmf.cnf" 1710080539 713 e69b156964470283e0530f5060668171 ""
   "jacoby_graph.png" 1728313441 41548 798fa07468fb0b3c52d21900bc3e857e ""
   "lower_relaxation.png" 1728317601 61882 14c218b91d5d3c26116472cd876502e4 ""
-  "report.aux" 1728898389 3132 d6a8177a6f46ed09a74c594d08b19c38 "pdflatex"
-  "report.tex" 1728898386 20208 88a59ee229f590ccdcf44affb201f8d4 ""
-  "report.toc" 1728898389 356 d20889773f78086295171d8b9156055e "pdflatex"
+  "report.aux" 1729022521 3415 5222d5d40047c8cf7e706112bf4c6b7d "pdflatex"
+  "report.tex" 1729022518 31400 c03377a2b8a36e206309554bd2b3761f ""
+  "report.toc" 1729022521 356 2e2850396fcbd1ffd97d9aa1cc212ed6 "pdflatex"
   "seidel_graph.png" 1728314169 37542 31da7530683b5245661df2391bbe789c ""
   "upper_relaxation.png" 1728317628 63147 72296957d56da95bd433a0a25a49a75d ""
+  "vopros2.jpg" 1729021608 13264 6ad3e0652fe08eff02ce40734ee14cf3 ""
   (generated)
   "report.aux"
   "report.log"
