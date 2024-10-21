@@ -9,7 +9,7 @@
 using namespace std;
 const double epsilon = 1e-4;
 const double epsilonzero = 1e-4;
-const double omega = 1.025;
+const double omega = 1.1;
 const double tau = 1e-2;
 const int maxIterations = 100;
 
@@ -404,31 +404,8 @@ pair<vector<double>, int> JacobyMethod(int size, vector<vector<double>>& matrix,
     int iteration = 0;
     CurIterSol.resize(size, 0);
     NextIterSol.resize(size, 0);
-    //do {
-    //    iteration++;
-    //    CurIterSol = NextIterSol;
-    //    for (int i = 0; i < size; i++) {
-    //        suma = 0;
-    //        for (int j = 0; j < i; j++) {
-    //            suma += matrix[i][j] * CurIterSol[j];
-    //        }
-    //        for (int j = i + 1; j < size; j++) {
-    //            suma += matrix[i][j] * CurIterSol[j];
-    //        }
-    //        NextIterSol[i] = (matrix[i][size] - suma) / matrix[i][i];
-    //    }
-    //} while (!StopCriteria(size, matrix, CurIterSol, NextIterSol, NormOneVec));
-
-
-
-
-    setprecision(3000000);
-
-    vector<double> x_true = { 5, -7, 12, 4 };
-    vector<double> delta(4);
-    int iter = 0;
-
-    for (int k = 0; k < 40; ++k) {
+    do {
+        iteration++;
         CurIterSol = NextIterSol;
         for (int i = 0; i < size; i++) {
             suma = 0;
@@ -440,11 +417,33 @@ pair<vector<double>, int> JacobyMethod(int size, vector<vector<double>>& matrix,
             }
             NextIterSol[i] = (matrix[i][size] - suma) / matrix[i][i];
         }
-    }
-    DisplayVector(NextIterSol);
-    for (int j = 0; j < 4; ++j) {
-        delta[j] = NextIterSol[j] - x_true[j];
-    }
+    } while (!StopCriteria(size, matrix, CurIterSol, NextIterSol, NormOneVec));
+
+
+
+
+
+    //vector<double> x_true = { 5, -7, 12, 4 };
+    //vector<double> delta(4);
+    //int iter = 0;
+
+    //for (int k = 0; k < 40; ++k) {
+    //    CurIterSol = NextIterSol;
+    //    for (int i = 0; i < size; i++) {
+    //        suma = 0;
+    //        for (int j = 0; j < i; j++) {
+    //            suma += matrix[i][j] * CurIterSol[j];
+    //        }
+    //        for (int j = i + 1; j < size; j++) {
+    //            suma += matrix[i][j] * CurIterSol[j];
+    //        }
+    //        NextIterSol[i] = (matrix[i][size] - suma) / matrix[i][i];
+    //    }
+    //}
+    //DisplayVector(NextIterSol);
+    //for (int j = 0; j < 4; ++j) {
+    //    delta[j] = NextIterSol[j] - x_true[j];
+    //}
 
 
 
@@ -467,7 +466,7 @@ pair<vector<double>, int> JacobyMethod(int size, vector<vector<double>>& matrix,
     //    
     //} while (NormInfVec(delta) > epsilon);
 
-    cout << "jacoby = " << NormInfVec(delta) << endl;
+    //cout << "jacoby = " << NormInfVec(delta) << endl;
 
     return { NextIterSol , iteration };
 }
@@ -583,14 +582,45 @@ pair<vector<double>, int> RelaxationMethod(int size, double w, vector<vector<dou
         }
         if (iteration > 200) break;
     } while (!StopCriteria(size, matrix, CurIterSol, NextIterSol, NormOneVec));
-    vector<double> x_true = { 5, -7, 12, 4 };
-    vector<double> delta(4);
+    //vector<double> x_true = { 5, -7, 12, 4 };
+    //vector<double> delta(4);
 
-    for (int j = 0; j < 4; ++j) {
-        delta[j] = NextIterSol[j] - x_true[j];
-    }
-    cout << NormInfVec(delta) << endl;
-    cout << iteration << endl;
+    //do {
+    //    iteration++;
+    //    CurIterSol = NextIterSol;
+    //    for (int i = 0; i < size; i++) {
+    //        suma = 0;
+    //        for (int j = 0; j < i; j++) {
+    //            suma += matrix[i][j] * NextIterSol[j];
+    //        }
+    //        for (int j = i + 1; j < size; j++) {
+    //            suma += matrix[i][j] * CurIterSol[j];
+    //        }
+    //        NextIterSol[i] = (1 - w) * CurIterSol[i] + w * (matrix[i][size] - suma) / matrix[i][i];
+    //    }
+    //    for (int j = 0; j < 4; ++j) {
+    //        delta[j] = NextIterSol[j] - x_true[j];
+    //    }
+    //    if (iteration > 200) break;
+    //} while (NormInfVec(delta)>epsilon);
+    ////for (int cur_iter = 0; cur_iter < 466; cur_iter++) {
+    ////    CurIterSol = NextIterSol;
+    ////    for (int i = 0; i < size; i++) {
+    ////        suma = 0;
+    ////        for (int j = 0; j < i; j++) {
+    ////            suma += matrix[i][j] * NextIterSol[j];
+    ////        }
+    ////        for (int j = i + 1; j < size; j++) {
+    ////            suma += matrix[i][j] * CurIterSol[j];
+    ////        }
+    ////        NextIterSol[i] = (1 - w) * CurIterSol[i] + w * (matrix[i][size] - suma) / matrix[i][i];
+    ////    }
+    ////}
+
+
+
+    //cout << NormInfVec(delta) << endl;
+    //cout << iteration << endl;
     // StopCriteria - true если надо остановиться
     return { NextIterSol , iteration };
 }
@@ -626,7 +656,6 @@ void WriteRelaxationAnswer(int SystemNumber, vector<int>& size, vector<vector<ve
                 copyA[index1][index2] *= omega;
             }
         }
-        
 
         vector<vector<double>> LD_reverse = get_reverse_LD_matrix(copyA);
         vector<vector<double>> C{};
@@ -635,18 +664,20 @@ void WriteRelaxationAnswer(int SystemNumber, vector<int>& size, vector<vector<ve
         for (int index = 0; index < size[i]; index++) {
             C[index].resize(size[i], 0);
         }
-
+        //Display2DMatrix(C);
         vector<vector<double>> prod = matrix_prod(LD_reverse, Matrix[i]);
         for (int index1 = 0; index1 < size[i]; index1++) {
             for (int index2 = 0; index2 < size[i]; index2++) {
                 prod[index1][index2] *= omega;
             }
         }
+        Display2DMatrix(prod);
+
 
         for (int j = 0; j < size[i]; ++j) {
             for (int k = 0; k < size[i]; ++k) {
                 if (j != k) {
-                    C[j][k] = -prod[i][j];
+                    C[j][k] = -prod[j][k];
                 }
                 else {
                     C[j][k] = 1 - prod[j][j];
@@ -654,9 +685,13 @@ void WriteRelaxationAnswer(int SystemNumber, vector<int>& size, vector<vector<ve
             }
         }
 
+        cout << "C matrix for " << i << " system" << endl;
+        cout << "omega = " << omega << endl;
+        Display2DMatrix(C);
+        cout << "Norm = " << NormInfMatrix(C) << endl;
         res = RelaxationMethod(size[i], omega, Matrix[i], StopCriteriaSecond);
         out << "Example " << i + 1 << endl;
-        out << NormInfMatrix(C) << endl;
+        out << NormOneMatrix(C) << endl;
         out << "count of iteration = " << res.second << endl;
         for (int j = 0; j < size[i]; j++) {
             out << "x" << j + 1 << "=" << res.first[j] << " ";
@@ -752,7 +787,6 @@ pair<vector<double>, int> SeidelMethodTriangle(int size, vector<vector<double>>&
             NextIterSol[i] = (d - a * NextIterSol[max(i - 1, 0)] - c * CurIterSol[min(i + 1, size - 1)]) / b;
         }
     } while (!StopCriteria(size, matrix, CurIterSol, NextIterSol, NormInfVec));
-    // StopCriteria - true если надо остановиться
     return { NextIterSol , iteration };
 }
 
@@ -883,9 +917,9 @@ pair<vector<double>, int> SimpleIterationMethod(int size, vector<vector<double>>
     //}
 
 
-    vector<double> x_true = { 5, -7, 12, 4 };
-    vector<double> delta(4);
-    int iter = 0;
+    //vector<double> x_true = { 5, -7, 12, 4 };
+    //vector<double> delta(4);
+    //int iter = 0;
 
     //do {
     //    iter++;
@@ -900,8 +934,8 @@ pair<vector<double>, int> SimpleIterationMethod(int size, vector<vector<double>>
     //    
     //} while (NormInfVec(delta) > epsilon);
 
-    cout << iter << endl;
-    DisplayVector(nextSol);
+    //cout << iter << endl;
+    //DisplayVector(nextSol);
 
     return { nextSol, iteration };
   }
@@ -1204,6 +1238,95 @@ void TauVsIteration(vector<vector<double>>& matrix, string filename, string Wolf
     out.close();
 }
 
+// Для нормы inf
+void print_graph_norm_err_vs_iter_jacoby(vector<vector<double>>& matrix, int max_iter,string file) {
+    vector<int> iteration(max_iter); 
+    vector<double> norm_err_i(max_iter);
+    vector<double> norm_err_o(max_iter);
+    vector<double> x_true = { 5, -7, 12, 4 };
+    vector<double> delta(4);
+    vector<double> CurIterSol(4), NextIterSol(4);
+    double suma = 0;
+    int size = matrix.size();
+    for (int k = 0; k < max_iter; ++k) {
+        CurIterSol = NextIterSol;
+        for (int i = 0; i < size; i++) {
+            suma = 0;
+            for (int j = 0; j < i; j++) {
+                suma += matrix[i][j] * CurIterSol[j];
+            }
+            for (int j = i + 1; j < size; j++) {
+                suma += matrix[i][j] * CurIterSol[j];
+            }
+            NextIterSol[i] = (matrix[i][size] - suma) / matrix[i][i];
+        }
+
+        for (int j = 0; j < size; ++j) {
+            delta[j] = NextIterSol[j] - x_true[j];
+        }
+        iteration[k] = k + 1;
+        norm_err_i[k] = NormInfVec(delta);
+        norm_err_o[k] = NormOneVec(delta);
+    }
+
+    ofstream out;
+    out.open(file);
+    if (out.is_open()) {
+        out << max_iter << endl;
+        for (int k = 0; k < max_iter; ++k) {
+            out << iteration[k] << " " << norm_err_i[k] << endl;
+        }
+        for (int k = 0; k < max_iter; ++k) {
+            out << iteration[k] << " " << norm_err_o[k] << endl;
+        }
+    }
+    out.close();
+}
+
+void print_graph_norm_err_vs_iter_relaxation(vector<vector<double>>& matrix, int max_iter,double w, string file) {
+    vector<int> iteration(max_iter);
+    vector<double> norm_err_i(max_iter);
+    vector<double> norm_err_o(max_iter);
+    vector<double> x_true = { 5, -7, 12, 4 };
+    vector<double> delta(4);
+    vector<double> CurIterSol(4), NextIterSol(4);
+    double suma = 0;
+    int size = matrix.size();
+    for (int k = 0; k < max_iter; ++k) {
+        CurIterSol = NextIterSol;
+        for (int i = 0; i < size; i++) {
+            suma = 0;
+            for (int j = 0; j < i; j++) {
+                suma += matrix[i][j] * NextIterSol[j];
+            }
+            for (int j = i + 1; j < size; j++) {
+                suma += matrix[i][j] * CurIterSol[j];
+            }
+            NextIterSol[i] = (1 - w) * CurIterSol[i] + w * (matrix[i][size] - suma) / matrix[i][i];
+        }
+
+        for (int j = 0; j < size; ++j) {
+            delta[j] = NextIterSol[j] - x_true[j];
+        }
+        iteration[k] = k + 1;
+        norm_err_i[k] = NormInfVec(delta);
+        norm_err_o[k] = NormOneVec(delta);
+    }
+
+    ofstream out;
+    out.open(file);
+    if (out.is_open()) {
+        out << max_iter << endl;
+        for (int k = 0; k < max_iter; ++k) {
+            out << iteration[k] << " " << norm_err_i[k] << endl;
+        }
+        for (int k = 0; k < max_iter; ++k) {
+            out << iteration[k] << " " << norm_err_o[k] << endl;
+        }
+    }
+    out.close();
+}
+
 
 int main()
 {
@@ -1215,25 +1338,18 @@ int main()
 
     DataRead(SystemNumber, size, Matrix, "System.txt");
 
-
-    //RelaxationMethod(4, 1.1,Matrix[0],StopCriteriaThird);
-    //JacobyMethod(4, Matrix[0], StopCriteriaOne);
-    //cout << getNormC_SIM(Matrix[0], 0.01)[0] << endl;
-    //SimpleIterationMethod(4, Matrix[0], StopCriteriaOne, { 1,0.01 });
-    //DisplayVector(SimpleIterationMethod(size[0], Matrix[0], StopCriteriaOne, { 1,0.05 }).first);
-    //WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
-    //cout << getNormC_Seidel(Matrix[0], NormInfMatrix)[0];
-    //DisplayVector(SeidelMethod(size[0], Matrix[0], StopCriteriaOne).first);
-    //WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
-    //WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
-    JacobyMethod(4, Matrix[0], StopCriteriaOne);
-    //WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
+    //print_graph_norm_err_vs_iter_jacoby(Matrix[0], 60, "jacoby_err_vs_iter.txt");
+    //print_graph_norm_err_vs_iter_relaxation(Matrix[0],60, 0.5, "relax_err_vs_iter.txt");
+    WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
+    WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
+    WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
+    WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
 
 
-    //GenerateThreeDiagonal(201, "triangleMatrix.txt");
-    //DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
-    //WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
-    //OmegaVsIteration(SystemNumber, size, Matrix, "OmegaVsIteration.txt", "WoframOmegaVsIteration.txt");
-    //TauVsIteration(Matrix[0], "tau_vs_iter.txt", "wolfram_tau_vs_iter.txt", 500);
+    GenerateThreeDiagonal(201, "triangleMatrix.txt");
+    DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
+    WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
+    OmegaVsIteration(SystemNumber, size, Matrix, "OmegaVsIteration.txt", "WoframOmegaVsIteration.txt");
+    TauVsIteration(Matrix[0], "tau_vs_iter.txt", "wolfram_tau_vs_iter.txt", 500);
 
 }

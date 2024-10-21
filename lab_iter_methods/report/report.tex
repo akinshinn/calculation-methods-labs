@@ -27,6 +27,7 @@
 \usepackage{pdflscape}
 \usepackage{array} 
 \graphicspath{{../../style/}}
+
   
 
 
@@ -392,6 +393,45 @@
         {\bfseries Теорема. } Любое сжимающее отображение $g: X \rightarrow X$ в полном 
         метрическом пространстве $(X, \rho)$ имеет, и притом только одну неподвижную точку, то есть 
         $\exists!\, x\in X: g(x) = x$ 
+        {\bfseries Доказательство.} Выберем произвольную точку $x_0 \in X$. Рассмотрим последовательность
+        $\{x_n\}_{n=1}^\infty$:
+        \begin{align*}
+            x_1 &= g(x_0), & x_2 &= (x_1), & \ldots& & x_n &= g(x_{n-1}), & \ldots &
+        \end{align*}
+        Докажем, что $\{x_n\}_{n=1}^\infty$ фундаментальна в $X$:
+        
+        Выберем любые $n \in \mathbb{N} $ и $m > n$, тогда по определению сжимающего отображения: 
+        \begin{gather*}
+            \rho(x_n, x_m) = \rho(g(x_{n-1}), g(x_{m-1})) \leqslant \\
+            \leqslant \alpha \rho(x_{n-1}, x_{m-1}) = \rho(g(x_{n-2}), g(x_{m-2})) \leqslant \\
+            \leqslant \alpha^2 \rho(x_{n-2}, x_{m-2}) \leqslant \ldots \leqslant \alpha^n \rho(x_0, x_{m-n})\leqslant \\
+            \leqslant \alpha^n (\rho(x_0, x_1), + \rho(x_1, x_2) + \ldots + \rho(x_{m-n-1},x_{m-n})) \leqslant \\
+            \leqslant \alpha^n \rho(x_0, x_1) (1 + \alpha + \ldots + \alpha^{m-n-1}) < \frac{\alpha^n}{1-\alpha} \rho(x_0, x_1),
+        \end{gather*}
+        где $\alpha \in (0,\, 1)$. 
+
+        Поскольку $\lim\limits_{n \to \infty} \alpha^n = 0$, то для любого числа 
+        $\varepsilon > 0$ найдется такое натуральное число $N$, что для всяких 
+        $n > N$ и $m >n$ верно
+        \begin{equation*}
+            \rho(x_n, x_m) < \frac{\alpha^n}{1-\alpha} \rho(x_0, x_1) < \varepsilon
+        \end{equation*}
+        Тогда, исходя из данного неравенства, $\{x_n\}_{n=1}^\infty$ является фундаменальной.
+        В силу полноты $(X, \rho)$, то существует предел $x\in X$
+        последовательности $\{x_n\}_{n=1}^\infty$
+        Докажем, что это неподвижная точка, т.е. $g(x) = x$. 
+        \begin{gather*}
+            0 \leqslant \rho(x, g(x)) \leqslant \rho(x, x_n) + \rho(x_n, g(x)) = \\ 
+            = \rho(x, x_n) + \rho(g(x_{n-1}), g(x)) \leqslant \rho(x, x_n) + \alpha \rho(x_{n-1}, x) \to 0 \text{ при } {n\to \infty}
+        \end{gather*}
+        Следовательно, $\rho(x, g(x)) = 0$, и $g(x) = x$.
+
+        Докажем, что такая точка единственна. Пусть существует еще одна неподвижная точка 
+        $y \in X, y \neq x$ и $g(y) = y$. Тогда справедливо
+        \begin{equation*}
+            \rho(x,y) = \rho(g(x), g(y)) \leqslant \alpha \rho(x,y) < \rho(x,y),
+        \end{equation*}
+        чего не может быть, следовательн $x = y$. {\bfseries Доказано.}
         \item Чему равно значение параметра $\tau$, при котором норма матрицы $C$ минимальна?
         
         {\bfseries Ответ. }
@@ -473,5 +513,62 @@
         её использование эффективнее.
     \end{enumerate}
 
-    
+    \section{Дополнительные вопросы 2}
+    \begin{enumerate}
+        \item Доказать теорему о сжимающем отображении.
+        \newline
+        {\bfseries Ответ.} Смотреть п.1 в предыдущем разделе.
+        \item Как связана скорость сходимости метода простой итерации с числом обусловленности 
+        матрицы $A$, если она симметричная.
+        \newline
+        {\bfseries Ответ.}
+        Рассмотри общий вид метода просто итерации
+	
+        \[
+        \frac{x^{k+1}-x^k}{\tau} + Ax^k = f
+        \]
+        Либо, если через погрешность $\frac{z^{k+1}-z^k}{\tau} + Az^k = 0$. Выразим $z^k$
+        \[
+        z^{k+1} = (E-\tau A)z^k
+        \]
+        Отсюда можно получить оценку $||z^{k+1}|| \le \min \limits_{\tau} ||(E-\tau A)|| \cdot ||z^k||$. Как было показано выше $\min \limits_{\tau} ||E-\tau A|| = \frac{1-\xi}{1+\xi}, \, \xi = \frac{\lambda_{min}}{\lambda_{mas}}$. Тогда получим следующее $||z^{k+1}|| \le \frac{1-\xi}{1+\xi} ||z^k||$. Зацикливая, данное неравенство получим
+        \[
+        ||z^k|| \le \left(\frac{1-\xi}{1+\xi}\right)^k \cdot ||z^0||
+        \]
+        Рассмотрим евклидову норму вектора и подчиненную ей спектральную норму матрицы. Поскольку матрица A симметричная она имеет полный набор собственных вещественных значений. В этом случае $cond(A)=||A|| \cdot ||A^{-1}||= \sqrt[]{\frac{\lambda_{max}(A)}{\lambda_{min}(A)}}$. Отсюда $\xi=(1/cond(A))^2$. Функция $\frac{1-\xi}{1+\xi}$ является убывающей, поэтому чем больше $\xi$ или чем меньше$condA$ тем меньше $\frac{1-\xi}{1+\xi}$, а значит и метод сойдется за меньшее количество итераций. И наоборот чем меньше $\xi$ или чем больше $condA$ тем больше $\frac{1-\xi}{1+\xi}$, а значит и метод сойдется за большее количество итераций.
+
+        \item Построить графики норм ошибки от итерации.
+        \newline
+        {\bfseries Ответ.}
+        В качестве методов были выбраны метод Якоби и релаксации. Норма ошибки 
+        вычислялась для матрицы 
+        \begin{equation*}
+            A = 
+            \begin{pmatrix}
+                15 & 2& -3& 7 \\ 
+                -5 & 11 & 2 & -3  \\ 
+                0 & -1 & 7 & 4  \\ 
+                12 & 0 & -6 & 20 \\
+            \end{pmatrix};
+        \end{equation*}
+        И вектора правой части
+        \begin{equation*}
+            b = (53, -90, 107, 68)^T
+        \end{equation*}
+        
+        Получились следующие графики (см. рис.~\ref{jacoby_err_vs_iter}-\ref{relax_err_vs_iter})
+
+        \begin{figure}[H]
+            \includegraphics[width=\textwidth]{../lab_iter_methods/graph1_err_vs_iter_jacoby.png}
+            \caption{График зависимости нормы ошибкаи от итерации в методе Якоби}
+            \label{jacoby_err_vs_iter}
+        \end{figure}
+
+        \begin{figure}[H]
+            \includegraphics[width=\textwidth]{../lab_iter_methods/graph1_err_vs_iter_relax.png}
+            \caption{График зависимости нормы ошибкаи от итерации в методе релаксации}
+            \label{relax_err_vs_iter}
+        \end{figure}
+
+        \end{enumerate}    
 \end{document}

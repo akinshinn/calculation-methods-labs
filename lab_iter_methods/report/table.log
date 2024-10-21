@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.10)  16 OCT 2024 15:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.10)  21 OCT 2024 14:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -448,7 +448,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 15.
  (c:/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (4.19464pt too wide) in paragraph at lines 39--39
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
 []\T2A/cmr/bx/n/10 Оценка
  []
 
@@ -464,42 +464,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--39
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\T2A/cmr/bx/n/10 ите-
+\T2A/cmr/bx/n/10 ите-ра-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\T2A/cmr/bx/n/10 ра-ций
- []
-
-
-Overfull \hbox (3.10312pt too wide) in paragraph at lines 39--39
 []\T2A/cmr/bx/n/10 Норма
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\T2A/cmr/bx/n/10 ошиб-
+\T2A/cmr/bx/n/10 ошиб-ки
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\T2A/cmr/bx/n/10 ки
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\T2A/cmr/bx/n/10 по-сле
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\OML/cmm/m/it/10 k[]$
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--39
-\T2A/cmr/bx/n/10 опе-
+Underfull \hbox (badness 5288) in paragraph at lines 39--39
+\T2A/cmr/bx/n/10 по-сле $\OML/cmm/m/it/10 k[]$
  []
 
 
@@ -543,7 +523,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--39
  []
 
 
-Overfull \hbox (88.26865pt too wide) in paragraph at lines 16--40
+Overfull \hbox (88.26146pt too wide) in paragraph at lines 16--40
  [][] 
  []
 
@@ -565,7 +545,7 @@ Here is how much of TeX's memory you used:
  497 hyphenation exceptions out of 8191
  89i,15n,95p,588b,385s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on table.pdf (1 page, 103210 bytes).
+Output written on table.pdf (1 page, 103247 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  32 compressed objects within 1 object stream

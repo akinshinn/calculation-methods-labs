@@ -12,36 +12,36 @@ Norm C_L = 0.0880161
 Norm C_U = 0.112941
 StopCriteria ||x^(k+1)-x^k|| < epsilon
 Example 1
-count of iteration = 0
-Norm of delta = 1.50478e-06
+count of iteration = 100
+Norm of delta = 0.00294167
 tau = 0.037037
-x1=5 x2=-7 x3=12 x4=4 
+x1=4.99955 x2=-6.99985 x3=11.9971 x4=3.99902 
 Example 2
-count of iteration = 0
-Norm of delta = 1.50478e-06
+count of iteration = 100
+Norm of delta = 0.00294167
 tau = 0.00503525
-x1=-2.12876e+84 x2=-1.03129e+85 x3=-3.81597e+84 x4=-1.22277e+86 
+x1=-1.85848e+46 x2=-9.00349e+46 x3=-3.33147e+46 x4=-1.06752e+48 
 
 StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
 Example 1
-count of iteration = 0
-Norm of delta = 1.50478e-06
+count of iteration = 83
+Norm of delta = 0.0127468
 tau = 0.037037
-x1=5 x2=-7 x3=12 x4=4 
+x1=4.99745 x2=-6.9995 x3=11.9873 x4=3.99643 
 Example 2
-count of iteration = 0
-Norm of delta = 1.50478e-06
+count of iteration = 100
+Norm of delta = 0.0127468
 tau = 0.00503525
-x1=-2.12876e+84 x2=-1.03129e+85 x3=-3.81597e+84 x4=-1.22277e+86 
+x1=-1.85848e+46 x2=-9.00349e+46 x3=-3.33147e+46 x4=-1.06752e+48 
 
 StopCriteria ||Ax^k-f|| < epsilon
 Example 1
-count of iteration = 0
-Norm of delta = 1.50478e-06
+count of iteration = 100
+Norm of delta = 0.00294167
 tau = 0.037037
-x1=5 x2=-7 x3=12 x4=4 
+x1=4.99955 x2=-6.99985 x3=11.9971 x4=3.99902 
 Example 2
-count of iteration = 0
-Norm of delta = 1.50478e-06
+count of iteration = 100
+Norm of delta = 0.00294167
 tau = 0.00503525
-x1=-2.12876e+84 x2=-1.03129e+85 x3=-3.81597e+84 x4=-1.22277e+86 
+x1=-1.85848e+46 x2=-9.00349e+46 x3=-3.33147e+46 x4=-1.06752e+48 
