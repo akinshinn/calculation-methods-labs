@@ -1,3 +1,4 @@
 \babel@toc {russian}{}\relax 
 \contentsline {section}{\numberline {\hbox to 0pt{\hss }{{\textbf {1.\ }}}}{{\textbf {\ignorespaces {Контрольные вопросы}}}}}{3}{section*.1}%
-\contentsline {section}{\numberline {\hbox to 0pt{\hss }{{\textbf {2.\ }}}}{{\textbf {\ignorespaces {Дополнительные вопросы}}}}}{7}{section*.6}%
+\contentsline {section}{\numberline {\hbox to 0pt{\hss }{{\textbf {2.\ }}}}{{\textbf {\ignorespaces {Дополнительные вопросы}}}}}{9}{section*.6}%
+\contentsline {section}{\numberline {\hbox to 0pt{\hss }{{\textbf {3.\ }}}}{{\textbf {\ignorespaces {Дополнительные вопросы 2}}}}}{12}{section*.8}%

@@ -1,12 +1,13 @@
 ﻿  main.cpp
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(78,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(112,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(149,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(195,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(218,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(231,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(850,98): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(851,104): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(852,103): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(906,9): warning C4101: SizeTriangleMatrix: неиспользованная локальная переменная
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(77,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(111,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(148,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(194,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(217,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(230,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(1189,98): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(1190,104): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(1191,103): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(1250,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\lab_iter_methods\main.cpp(1294,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   lab_iter_methods.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab_iter_methods\x64\Debug\lab_iter_methods.exe

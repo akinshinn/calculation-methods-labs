@@ -1,26 +1,28 @@
 RelaxationMethod
-epsilon = 1e-05
+epsilon = 0.0001
 
 StopCriteria ||x^(k+1)-x^k|| < epsilon
 Example 1
-count of iteration = 35
-x1=4.99999 x2=-7 x3=12 x4=4.00001 
+count of iteration = 14
+x1=5 x2=-7 x3=12 x4=4 
 Example 2
-count of iteration = 22
-x1=10 x2=-9.99999 x3=12 x4=4 
+count of iteration = 9
+x1=10 x2=-10 x3=12 x4=4 
 
 StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
 Example 1
-count of iteration = 27
-x1=4.99979 x2=-7.00001 x3=11.9998 x4=4.00012 
+1.21205
+count of iteration = 11
+x1=5.00002 x2=-6.99992 x3=12.0002 x4=4.00006 
 Example 2
-count of iteration = 18
-x1=10 x2=-9.9999 x3=12 x4=3.99996 
+0.324987
+count of iteration = 7
+x1=9.99994 x2=-9.99998 x3=12 x4=4 
 
 StopCriteria ||Ax^k-f|| < epsilon
 Example 1
-count of iteration = 45
+count of iteration = 16
 x1=5 x2=-7 x3=12 x4=4 
 Example 2
-count of iteration = 31
+count of iteration = 11
 x1=10 x2=-10 x3=12 x4=4 
