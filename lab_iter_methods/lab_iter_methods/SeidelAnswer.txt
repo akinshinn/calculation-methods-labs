@@ -1,0 +1,40 @@
+Seidel Method
+epsilon = 0.0001
+
+Matrix 1
+Norm C = 1.20121
+Norm C_L = 0.123896
+Norm C_U = 1.09004
+Matrix 2
+Norm C = 0.202543
+Norm C_L = 0.00282078
+Norm C_U = 0.197995
+StopCriteria ||x^(k+1)-x^k|| < epsilon
+Example 1
+count of iteration = 11
+Norm of delta = 2.58062e-05
+x1=4.99997 x2=-6.99999 x3=12 x4=4.00001 
+Example 2
+count of iteration = 5
+Norm of delta = 2.58062e-05
+x1=10 x2=-10 x3=12 x4=4 
+
+StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
+Example 1
+count of iteration = 8
+Norm of delta = 0.000625561
+x1=4.99937 x2=-6.99989 x3=11.9996 x4=4.00025 
+Example 2
+count of iteration = 5
+Norm of delta = 0.000625561
+x1=10 x2=-10 x3=12 x4=4 
+
+StopCriteria ||Ax^k-f|| < epsilon
+Example 1
+count of iteration = 13
+Norm of delta = 3.08791e-06
+x1=5 x2=-7 x3=12 x4=4 
+Example 2
+count of iteration = 7
+Norm of delta = 3.08791e-06
+x1=10 x2=-10 x3=12 x4=4 

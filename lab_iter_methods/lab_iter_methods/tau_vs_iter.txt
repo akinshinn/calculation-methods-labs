@@ -1,0 +1,3005 @@
+StopCriteria ||x^(k+1)-x^k|| < epsilon
+count of iteration = 0, tau = 0.01
+
+count of iteration = 94, tau = 0.012
+
+count of iteration = 82, tau = 0.014
+
+count of iteration = 72, tau = 0.016
+
+count of iteration = 64, tau = 0.018
+
+count of iteration = 58, tau = 0.02
+
+count of iteration = 53, tau = 0.022
+
+count of iteration = 48, tau = 0.024
+
+count of iteration = 45, tau = 0.026
+
+count of iteration = 41, tau = 0.028
+
+count of iteration = 39, tau = 0.03
+
+count of iteration = 36, tau = 0.032
+
+count of iteration = 34, tau = 0.034
+
+count of iteration = 32, tau = 0.036
+
+count of iteration = 30, tau = 0.038
+
+count of iteration = 28, tau = 0.04
+
+count of iteration = 27, tau = 0.042
+
+count of iteration = 26, tau = 0.044
+
+count of iteration = 24, tau = 0.046
+
+count of iteration = 23, tau = 0.048
+
+count of iteration = 22, tau = 0.05
+
+count of iteration = 21, tau = 0.052
+
+count of iteration = 20, tau = 0.054
+
+count of iteration = 19, tau = 0.056
+
+count of iteration = 18, tau = 0.058
+
+count of iteration = 18, tau = 0.06
+
+count of iteration = 19, tau = 0.062
+
+count of iteration = 22, tau = 0.064
+
+count of iteration = 26, tau = 0.066
+
+count of iteration = 31, tau = 0.068
+
+count of iteration = 38, tau = 0.07
+
+count of iteration = 50, tau = 0.072
+
+count of iteration = 69, tau = 0.074
+
+count of iteration = 100, tau = 0.076
+
+count of iteration = 100, tau = 0.078
+
+count of iteration = 100, tau = 0.08
+
+count of iteration = 100, tau = 0.082
+
+count of iteration = 100, tau = 0.084
+
+count of iteration = 100, tau = 0.086
+
+count of iteration = 100, tau = 0.088
+
+count of iteration = 100, tau = 0.09
+
+count of iteration = 100, tau = 0.092
+
+count of iteration = 100, tau = 0.094
+
+count of iteration = 100, tau = 0.096
+
+count of iteration = 100, tau = 0.098
+
+count of iteration = 100, tau = 0.1
+
+count of iteration = 100, tau = 0.102
+
+count of iteration = 100, tau = 0.104
+
+count of iteration = 100, tau = 0.106
+
+count of iteration = 100, tau = 0.108
+
+count of iteration = 100, tau = 0.11
+
+count of iteration = 100, tau = 0.112
+
+count of iteration = 100, tau = 0.114
+
+count of iteration = 100, tau = 0.116
+
+count of iteration = 100, tau = 0.118
+
+count of iteration = 100, tau = 0.12
+
+count of iteration = 100, tau = 0.122
+
+count of iteration = 100, tau = 0.124
+
+count of iteration = 100, tau = 0.126
+
+count of iteration = 100, tau = 0.128
+
+count of iteration = 100, tau = 0.13
+
+count of iteration = 100, tau = 0.132
+
+count of iteration = 100, tau = 0.134
+
+count of iteration = 100, tau = 0.136
+
+count of iteration = 100, tau = 0.138
+
+count of iteration = 100, tau = 0.14
+
+count of iteration = 100, tau = 0.142
+
+count of iteration = 100, tau = 0.144
+
+count of iteration = 100, tau = 0.146
+
+count of iteration = 100, tau = 0.148
+
+count of iteration = 100, tau = 0.15
+
+count of iteration = 100, tau = 0.152
+
+count of iteration = 100, tau = 0.154
+
+count of iteration = 100, tau = 0.156
+
+count of iteration = 100, tau = 0.158
+
+count of iteration = 100, tau = 0.16
+
+count of iteration = 100, tau = 0.162
+
+count of iteration = 100, tau = 0.164
+
+count of iteration = 100, tau = 0.166
+
+count of iteration = 100, tau = 0.168
+
+count of iteration = 100, tau = 0.17
+
+count of iteration = 100, tau = 0.172
+
+count of iteration = 100, tau = 0.174
+
+count of iteration = 100, tau = 0.176
+
+count of iteration = 100, tau = 0.178
+
+count of iteration = 100, tau = 0.18
+
+count of iteration = 100, tau = 0.182
+
+count of iteration = 100, tau = 0.184
+
+count of iteration = 100, tau = 0.186
+
+count of iteration = 100, tau = 0.188
+
+count of iteration = 100, tau = 0.19
+
+count of iteration = 100, tau = 0.192
+
+count of iteration = 100, tau = 0.194
+
+count of iteration = 100, tau = 0.196
+
+count of iteration = 100, tau = 0.198
+
+count of iteration = 100, tau = 0.2
+
+count of iteration = 100, tau = 0.202
+
+count of iteration = 100, tau = 0.204
+
+count of iteration = 100, tau = 0.206
+
+count of iteration = 100, tau = 0.208
+
+count of iteration = 100, tau = 0.21
+
+count of iteration = 100, tau = 0.212
+
+count of iteration = 100, tau = 0.214
+
+count of iteration = 100, tau = 0.216
+
+count of iteration = 100, tau = 0.218
+
+count of iteration = 100, tau = 0.22
+
+count of iteration = 100, tau = 0.222
+
+count of iteration = 100, tau = 0.224
+
+count of iteration = 100, tau = 0.226
+
+count of iteration = 100, tau = 0.228
+
+count of iteration = 100, tau = 0.23
+
+count of iteration = 100, tau = 0.232
+
+count of iteration = 100, tau = 0.234
+
+count of iteration = 100, tau = 0.236
+
+count of iteration = 100, tau = 0.238
+
+count of iteration = 100, tau = 0.24
+
+count of iteration = 100, tau = 0.242
+
+count of iteration = 100, tau = 0.244
+
+count of iteration = 100, tau = 0.246
+
+count of iteration = 100, tau = 0.248
+
+count of iteration = 100, tau = 0.25
+
+count of iteration = 100, tau = 0.252
+
+count of iteration = 100, tau = 0.254
+
+count of iteration = 100, tau = 0.256
+
+count of iteration = 100, tau = 0.258
+
+count of iteration = 100, tau = 0.26
+
+count of iteration = 100, tau = 0.262
+
+count of iteration = 100, tau = 0.264
+
+count of iteration = 100, tau = 0.266
+
+count of iteration = 100, tau = 0.268
+
+count of iteration = 100, tau = 0.27
+
+count of iteration = 100, tau = 0.272
+
+count of iteration = 100, tau = 0.274
+
+count of iteration = 100, tau = 0.276
+
+count of iteration = 100, tau = 0.278
+
+count of iteration = 100, tau = 0.28
+
+count of iteration = 100, tau = 0.282
+
+count of iteration = 100, tau = 0.284
+
+count of iteration = 100, tau = 0.286
+
+count of iteration = 100, tau = 0.288
+
+count of iteration = 100, tau = 0.29
+
+count of iteration = 100, tau = 0.292
+
+count of iteration = 100, tau = 0.294
+
+count of iteration = 100, tau = 0.296
+
+count of iteration = 100, tau = 0.298
+
+count of iteration = 100, tau = 0.3
+
+count of iteration = 100, tau = 0.302
+
+count of iteration = 100, tau = 0.304
+
+count of iteration = 100, tau = 0.306
+
+count of iteration = 100, tau = 0.308
+
+count of iteration = 100, tau = 0.31
+
+count of iteration = 100, tau = 0.312
+
+count of iteration = 100, tau = 0.314
+
+count of iteration = 100, tau = 0.316
+
+count of iteration = 100, tau = 0.318
+
+count of iteration = 100, tau = 0.32
+
+count of iteration = 100, tau = 0.322
+
+count of iteration = 100, tau = 0.324
+
+count of iteration = 100, tau = 0.326
+
+count of iteration = 100, tau = 0.328
+
+count of iteration = 100, tau = 0.33
+
+count of iteration = 100, tau = 0.332
+
+count of iteration = 100, tau = 0.334
+
+count of iteration = 100, tau = 0.336
+
+count of iteration = 100, tau = 0.338
+
+count of iteration = 100, tau = 0.34
+
+count of iteration = 100, tau = 0.342
+
+count of iteration = 100, tau = 0.344
+
+count of iteration = 100, tau = 0.346
+
+count of iteration = 100, tau = 0.348
+
+count of iteration = 100, tau = 0.35
+
+count of iteration = 100, tau = 0.352
+
+count of iteration = 100, tau = 0.354
+
+count of iteration = 100, tau = 0.356
+
+count of iteration = 100, tau = 0.358
+
+count of iteration = 100, tau = 0.36
+
+count of iteration = 100, tau = 0.362
+
+count of iteration = 100, tau = 0.364
+
+count of iteration = 100, tau = 0.366
+
+count of iteration = 100, tau = 0.368
+
+count of iteration = 100, tau = 0.37
+
+count of iteration = 100, tau = 0.372
+
+count of iteration = 100, tau = 0.374
+
+count of iteration = 100, tau = 0.376
+
+count of iteration = 100, tau = 0.378
+
+count of iteration = 100, tau = 0.38
+
+count of iteration = 100, tau = 0.382
+
+count of iteration = 100, tau = 0.384
+
+count of iteration = 100, tau = 0.386
+
+count of iteration = 100, tau = 0.388
+
+count of iteration = 100, tau = 0.39
+
+count of iteration = 100, tau = 0.392
+
+count of iteration = 100, tau = 0.394
+
+count of iteration = 100, tau = 0.396
+
+count of iteration = 100, tau = 0.398
+
+count of iteration = 100, tau = 0.4
+
+count of iteration = 100, tau = 0.402
+
+count of iteration = 100, tau = 0.404
+
+count of iteration = 100, tau = 0.406
+
+count of iteration = 100, tau = 0.408
+
+count of iteration = 100, tau = 0.41
+
+count of iteration = 100, tau = 0.412
+
+count of iteration = 100, tau = 0.414
+
+count of iteration = 100, tau = 0.416
+
+count of iteration = 100, tau = 0.418
+
+count of iteration = 100, tau = 0.42
+
+count of iteration = 100, tau = 0.422
+
+count of iteration = 100, tau = 0.424
+
+count of iteration = 100, tau = 0.426
+
+count of iteration = 100, tau = 0.428
+
+count of iteration = 100, tau = 0.43
+
+count of iteration = 100, tau = 0.432
+
+count of iteration = 100, tau = 0.434
+
+count of iteration = 100, tau = 0.436
+
+count of iteration = 100, tau = 0.438
+
+count of iteration = 100, tau = 0.44
+
+count of iteration = 100, tau = 0.442
+
+count of iteration = 100, tau = 0.444
+
+count of iteration = 100, tau = 0.446
+
+count of iteration = 100, tau = 0.448
+
+count of iteration = 100, tau = 0.45
+
+count of iteration = 100, tau = 0.452
+
+count of iteration = 100, tau = 0.454
+
+count of iteration = 100, tau = 0.456
+
+count of iteration = 100, tau = 0.458
+
+count of iteration = 100, tau = 0.46
+
+count of iteration = 100, tau = 0.462
+
+count of iteration = 100, tau = 0.464
+
+count of iteration = 100, tau = 0.466
+
+count of iteration = 100, tau = 0.468
+
+count of iteration = 100, tau = 0.47
+
+count of iteration = 100, tau = 0.472
+
+count of iteration = 100, tau = 0.474
+
+count of iteration = 100, tau = 0.476
+
+count of iteration = 100, tau = 0.478
+
+count of iteration = 100, tau = 0.48
+
+count of iteration = 100, tau = 0.482
+
+count of iteration = 100, tau = 0.484
+
+count of iteration = 100, tau = 0.486
+
+count of iteration = 100, tau = 0.488
+
+count of iteration = 100, tau = 0.49
+
+count of iteration = 100, tau = 0.492
+
+count of iteration = 100, tau = 0.494
+
+count of iteration = 100, tau = 0.496
+
+count of iteration = 100, tau = 0.498
+
+count of iteration = 100, tau = 0.5
+
+count of iteration = 100, tau = 0.502
+
+count of iteration = 100, tau = 0.504
+
+count of iteration = 100, tau = 0.506
+
+count of iteration = 100, tau = 0.508
+
+count of iteration = 100, tau = 0.51
+
+count of iteration = 100, tau = 0.512
+
+count of iteration = 100, tau = 0.514
+
+count of iteration = 100, tau = 0.516
+
+count of iteration = 100, tau = 0.518
+
+count of iteration = 100, tau = 0.52
+
+count of iteration = 100, tau = 0.522
+
+count of iteration = 100, tau = 0.524
+
+count of iteration = 100, tau = 0.526
+
+count of iteration = 100, tau = 0.528
+
+count of iteration = 100, tau = 0.53
+
+count of iteration = 100, tau = 0.532
+
+count of iteration = 100, tau = 0.534
+
+count of iteration = 100, tau = 0.536
+
+count of iteration = 100, tau = 0.538
+
+count of iteration = 100, tau = 0.54
+
+count of iteration = 100, tau = 0.542
+
+count of iteration = 100, tau = 0.544
+
+count of iteration = 100, tau = 0.546
+
+count of iteration = 100, tau = 0.548
+
+count of iteration = 100, tau = 0.55
+
+count of iteration = 100, tau = 0.552
+
+count of iteration = 100, tau = 0.554
+
+count of iteration = 100, tau = 0.556
+
+count of iteration = 100, tau = 0.558
+
+count of iteration = 100, tau = 0.56
+
+count of iteration = 100, tau = 0.562
+
+count of iteration = 100, tau = 0.564
+
+count of iteration = 100, tau = 0.566
+
+count of iteration = 100, tau = 0.568
+
+count of iteration = 100, tau = 0.57
+
+count of iteration = 100, tau = 0.572
+
+count of iteration = 100, tau = 0.574
+
+count of iteration = 100, tau = 0.576
+
+count of iteration = 100, tau = 0.578
+
+count of iteration = 100, tau = 0.58
+
+count of iteration = 100, tau = 0.582
+
+count of iteration = 100, tau = 0.584
+
+count of iteration = 100, tau = 0.586
+
+count of iteration = 100, tau = 0.588
+
+count of iteration = 100, tau = 0.59
+
+count of iteration = 100, tau = 0.592
+
+count of iteration = 100, tau = 0.594
+
+count of iteration = 100, tau = 0.596
+
+count of iteration = 100, tau = 0.598
+
+count of iteration = 100, tau = 0.6
+
+count of iteration = 100, tau = 0.602
+
+count of iteration = 100, tau = 0.604
+
+count of iteration = 100, tau = 0.606
+
+count of iteration = 100, tau = 0.608
+
+count of iteration = 100, tau = 0.61
+
+count of iteration = 100, tau = 0.612
+
+count of iteration = 100, tau = 0.614
+
+count of iteration = 100, tau = 0.616
+
+count of iteration = 100, tau = 0.618
+
+count of iteration = 100, tau = 0.62
+
+count of iteration = 100, tau = 0.622
+
+count of iteration = 100, tau = 0.624
+
+count of iteration = 100, tau = 0.626
+
+count of iteration = 100, tau = 0.628
+
+count of iteration = 100, tau = 0.63
+
+count of iteration = 100, tau = 0.632
+
+count of iteration = 100, tau = 0.634
+
+count of iteration = 100, tau = 0.636
+
+count of iteration = 100, tau = 0.638
+
+count of iteration = 100, tau = 0.64
+
+count of iteration = 100, tau = 0.642
+
+count of iteration = 100, tau = 0.644
+
+count of iteration = 100, tau = 0.646
+
+count of iteration = 100, tau = 0.648
+
+count of iteration = 100, tau = 0.65
+
+count of iteration = 100, tau = 0.652
+
+count of iteration = 100, tau = 0.654
+
+count of iteration = 100, tau = 0.656
+
+count of iteration = 100, tau = 0.658
+
+count of iteration = 100, tau = 0.66
+
+count of iteration = 100, tau = 0.662
+
+count of iteration = 100, tau = 0.664
+
+count of iteration = 100, tau = 0.666
+
+count of iteration = 100, tau = 0.668
+
+count of iteration = 100, tau = 0.67
+
+count of iteration = 100, tau = 0.672
+
+count of iteration = 100, tau = 0.674
+
+count of iteration = 100, tau = 0.676
+
+count of iteration = 100, tau = 0.678
+
+count of iteration = 100, tau = 0.68
+
+count of iteration = 100, tau = 0.682
+
+count of iteration = 100, tau = 0.684
+
+count of iteration = 100, tau = 0.686
+
+count of iteration = 100, tau = 0.688
+
+count of iteration = 100, tau = 0.69
+
+count of iteration = 100, tau = 0.692
+
+count of iteration = 100, tau = 0.694
+
+count of iteration = 100, tau = 0.696
+
+count of iteration = 100, tau = 0.698
+
+count of iteration = 100, tau = 0.7
+
+count of iteration = 100, tau = 0.702
+
+count of iteration = 100, tau = 0.704
+
+count of iteration = 100, tau = 0.706
+
+count of iteration = 100, tau = 0.708
+
+count of iteration = 100, tau = 0.71
+
+count of iteration = 100, tau = 0.712
+
+count of iteration = 100, tau = 0.714
+
+count of iteration = 100, tau = 0.716
+
+count of iteration = 100, tau = 0.718
+
+count of iteration = 100, tau = 0.72
+
+count of iteration = 100, tau = 0.722
+
+count of iteration = 100, tau = 0.724
+
+count of iteration = 100, tau = 0.726
+
+count of iteration = 100, tau = 0.728
+
+count of iteration = 100, tau = 0.73
+
+count of iteration = 100, tau = 0.732
+
+count of iteration = 100, tau = 0.734
+
+count of iteration = 100, tau = 0.736
+
+count of iteration = 100, tau = 0.738
+
+count of iteration = 100, tau = 0.74
+
+count of iteration = 100, tau = 0.742
+
+count of iteration = 100, tau = 0.744
+
+count of iteration = 100, tau = 0.746
+
+count of iteration = 100, tau = 0.748
+
+count of iteration = 100, tau = 0.75
+
+count of iteration = 100, tau = 0.752
+
+count of iteration = 100, tau = 0.754
+
+count of iteration = 100, tau = 0.756
+
+count of iteration = 100, tau = 0.758
+
+count of iteration = 100, tau = 0.76
+
+count of iteration = 100, tau = 0.762
+
+count of iteration = 100, tau = 0.764
+
+count of iteration = 100, tau = 0.766
+
+count of iteration = 100, tau = 0.768
+
+count of iteration = 100, tau = 0.77
+
+count of iteration = 100, tau = 0.772
+
+count of iteration = 100, tau = 0.774
+
+count of iteration = 100, tau = 0.776
+
+count of iteration = 100, tau = 0.778
+
+count of iteration = 100, tau = 0.78
+
+count of iteration = 100, tau = 0.782
+
+count of iteration = 100, tau = 0.784
+
+count of iteration = 100, tau = 0.786
+
+count of iteration = 100, tau = 0.788
+
+count of iteration = 100, tau = 0.79
+
+count of iteration = 100, tau = 0.792
+
+count of iteration = 100, tau = 0.794
+
+count of iteration = 100, tau = 0.796
+
+count of iteration = 100, tau = 0.798
+
+count of iteration = 100, tau = 0.8
+
+count of iteration = 100, tau = 0.802
+
+count of iteration = 100, tau = 0.804
+
+count of iteration = 100, tau = 0.806
+
+count of iteration = 100, tau = 0.808
+
+count of iteration = 100, tau = 0.81
+
+count of iteration = 100, tau = 0.812
+
+count of iteration = 100, tau = 0.814
+
+count of iteration = 100, tau = 0.816
+
+count of iteration = 100, tau = 0.818
+
+count of iteration = 100, tau = 0.82
+
+count of iteration = 100, tau = 0.822
+
+count of iteration = 100, tau = 0.824
+
+count of iteration = 100, tau = 0.826
+
+count of iteration = 100, tau = 0.828
+
+count of iteration = 100, tau = 0.83
+
+count of iteration = 100, tau = 0.832
+
+count of iteration = 100, tau = 0.834
+
+count of iteration = 100, tau = 0.836
+
+count of iteration = 100, tau = 0.838
+
+count of iteration = 100, tau = 0.84
+
+count of iteration = 100, tau = 0.842
+
+count of iteration = 100, tau = 0.844
+
+count of iteration = 100, tau = 0.846
+
+count of iteration = 100, tau = 0.848
+
+count of iteration = 100, tau = 0.85
+
+count of iteration = 100, tau = 0.852
+
+count of iteration = 100, tau = 0.854
+
+count of iteration = 100, tau = 0.856
+
+count of iteration = 100, tau = 0.858
+
+count of iteration = 100, tau = 0.86
+
+count of iteration = 100, tau = 0.862
+
+count of iteration = 100, tau = 0.864
+
+count of iteration = 100, tau = 0.866
+
+count of iteration = 100, tau = 0.868
+
+count of iteration = 100, tau = 0.87
+
+count of iteration = 100, tau = 0.872
+
+count of iteration = 100, tau = 0.874
+
+count of iteration = 100, tau = 0.876
+
+count of iteration = 100, tau = 0.878
+
+count of iteration = 100, tau = 0.88
+
+count of iteration = 100, tau = 0.882
+
+count of iteration = 100, tau = 0.884
+
+count of iteration = 100, tau = 0.886
+
+count of iteration = 100, tau = 0.888
+
+count of iteration = 100, tau = 0.89
+
+count of iteration = 100, tau = 0.892
+
+count of iteration = 100, tau = 0.894
+
+count of iteration = 100, tau = 0.896
+
+count of iteration = 100, tau = 0.898
+
+count of iteration = 100, tau = 0.9
+
+count of iteration = 100, tau = 0.902
+
+count of iteration = 100, tau = 0.904
+
+count of iteration = 100, tau = 0.906
+
+count of iteration = 100, tau = 0.908
+
+count of iteration = 100, tau = 0.91
+
+count of iteration = 100, tau = 0.912
+
+count of iteration = 100, tau = 0.914
+
+count of iteration = 100, tau = 0.916
+
+count of iteration = 100, tau = 0.918
+
+count of iteration = 100, tau = 0.92
+
+count of iteration = 100, tau = 0.922
+
+count of iteration = 100, tau = 0.924
+
+count of iteration = 100, tau = 0.926
+
+count of iteration = 100, tau = 0.928
+
+count of iteration = 100, tau = 0.93
+
+count of iteration = 100, tau = 0.932
+
+count of iteration = 100, tau = 0.934
+
+count of iteration = 100, tau = 0.936
+
+count of iteration = 100, tau = 0.938
+
+count of iteration = 100, tau = 0.94
+
+count of iteration = 100, tau = 0.942
+
+count of iteration = 100, tau = 0.944
+
+count of iteration = 100, tau = 0.946
+
+count of iteration = 100, tau = 0.948
+
+count of iteration = 100, tau = 0.95
+
+count of iteration = 100, tau = 0.952
+
+count of iteration = 100, tau = 0.954
+
+count of iteration = 100, tau = 0.956
+
+count of iteration = 100, tau = 0.958
+
+count of iteration = 100, tau = 0.96
+
+count of iteration = 100, tau = 0.962
+
+count of iteration = 100, tau = 0.964
+
+count of iteration = 100, tau = 0.966
+
+count of iteration = 100, tau = 0.968
+
+count of iteration = 100, tau = 0.97
+
+count of iteration = 100, tau = 0.972
+
+count of iteration = 100, tau = 0.974
+
+count of iteration = 100, tau = 0.976
+
+count of iteration = 100, tau = 0.978
+
+count of iteration = 100, tau = 0.98
+
+count of iteration = 100, tau = 0.982
+
+count of iteration = 100, tau = 0.984
+
+count of iteration = 100, tau = 0.986
+
+count of iteration = 100, tau = 0.988
+
+count of iteration = 100, tau = 0.99
+
+count of iteration = 100, tau = 0.992
+
+count of iteration = 100, tau = 0.994
+
+count of iteration = 100, tau = 0.996
+
+count of iteration = 100, tau = 0.998
+
+count of iteration = 100, tau = 1
+
+count of iteration = 100, tau = 1.002
+
+count of iteration = 100, tau = 1.004
+
+count of iteration = 100, tau = 1.006
+
+count of iteration = 100, tau = 1.008
+
+
+StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
+count of iteration = 0, tau = 0.01
+
+count of iteration = 70, tau = 0.012
+
+count of iteration = 61, tau = 0.014
+
+count of iteration = 54, tau = 0.016
+
+count of iteration = 49, tau = 0.018
+
+count of iteration = 44, tau = 0.02
+
+count of iteration = 41, tau = 0.022
+
+count of iteration = 37, tau = 0.024
+
+count of iteration = 35, tau = 0.026
+
+count of iteration = 32, tau = 0.028
+
+count of iteration = 30, tau = 0.03
+
+count of iteration = 28, tau = 0.032
+
+count of iteration = 27, tau = 0.034
+
+count of iteration = 25, tau = 0.036
+
+count of iteration = 24, tau = 0.038
+
+count of iteration = 23, tau = 0.04
+
+count of iteration = 21, tau = 0.042
+
+count of iteration = 20, tau = 0.044
+
+count of iteration = 19, tau = 0.046
+
+count of iteration = 19, tau = 0.048
+
+count of iteration = 18, tau = 0.05
+
+count of iteration = 17, tau = 0.052
+
+count of iteration = 16, tau = 0.054
+
+count of iteration = 16, tau = 0.056
+
+count of iteration = 15, tau = 0.058
+
+count of iteration = 14, tau = 0.06
+
+count of iteration = 14, tau = 0.062
+
+count of iteration = 17, tau = 0.064
+
+count of iteration = 20, tau = 0.066
+
+count of iteration = 24, tau = 0.068
+
+count of iteration = 29, tau = 0.07
+
+count of iteration = 38, tau = 0.072
+
+count of iteration = 53, tau = 0.074
+
+count of iteration = 83, tau = 0.076
+
+count of iteration = 100, tau = 0.078
+
+count of iteration = 100, tau = 0.08
+
+count of iteration = 100, tau = 0.082
+
+count of iteration = 100, tau = 0.084
+
+count of iteration = 100, tau = 0.086
+
+count of iteration = 100, tau = 0.088
+
+count of iteration = 100, tau = 0.09
+
+count of iteration = 100, tau = 0.092
+
+count of iteration = 100, tau = 0.094
+
+count of iteration = 100, tau = 0.096
+
+count of iteration = 100, tau = 0.098
+
+count of iteration = 100, tau = 0.1
+
+count of iteration = 100, tau = 0.102
+
+count of iteration = 100, tau = 0.104
+
+count of iteration = 100, tau = 0.106
+
+count of iteration = 100, tau = 0.108
+
+count of iteration = 100, tau = 0.11
+
+count of iteration = 100, tau = 0.112
+
+count of iteration = 100, tau = 0.114
+
+count of iteration = 100, tau = 0.116
+
+count of iteration = 100, tau = 0.118
+
+count of iteration = 100, tau = 0.12
+
+count of iteration = 100, tau = 0.122
+
+count of iteration = 100, tau = 0.124
+
+count of iteration = 100, tau = 0.126
+
+count of iteration = 100, tau = 0.128
+
+count of iteration = 100, tau = 0.13
+
+count of iteration = 100, tau = 0.132
+
+count of iteration = 100, tau = 0.134
+
+count of iteration = 100, tau = 0.136
+
+count of iteration = 100, tau = 0.138
+
+count of iteration = 100, tau = 0.14
+
+count of iteration = 100, tau = 0.142
+
+count of iteration = 100, tau = 0.144
+
+count of iteration = 100, tau = 0.146
+
+count of iteration = 100, tau = 0.148
+
+count of iteration = 100, tau = 0.15
+
+count of iteration = 100, tau = 0.152
+
+count of iteration = 100, tau = 0.154
+
+count of iteration = 100, tau = 0.156
+
+count of iteration = 100, tau = 0.158
+
+count of iteration = 100, tau = 0.16
+
+count of iteration = 100, tau = 0.162
+
+count of iteration = 100, tau = 0.164
+
+count of iteration = 100, tau = 0.166
+
+count of iteration = 100, tau = 0.168
+
+count of iteration = 100, tau = 0.17
+
+count of iteration = 100, tau = 0.172
+
+count of iteration = 100, tau = 0.174
+
+count of iteration = 100, tau = 0.176
+
+count of iteration = 100, tau = 0.178
+
+count of iteration = 100, tau = 0.18
+
+count of iteration = 100, tau = 0.182
+
+count of iteration = 100, tau = 0.184
+
+count of iteration = 100, tau = 0.186
+
+count of iteration = 100, tau = 0.188
+
+count of iteration = 100, tau = 0.19
+
+count of iteration = 100, tau = 0.192
+
+count of iteration = 100, tau = 0.194
+
+count of iteration = 100, tau = 0.196
+
+count of iteration = 100, tau = 0.198
+
+count of iteration = 100, tau = 0.2
+
+count of iteration = 100, tau = 0.202
+
+count of iteration = 100, tau = 0.204
+
+count of iteration = 100, tau = 0.206
+
+count of iteration = 100, tau = 0.208
+
+count of iteration = 100, tau = 0.21
+
+count of iteration = 100, tau = 0.212
+
+count of iteration = 100, tau = 0.214
+
+count of iteration = 100, tau = 0.216
+
+count of iteration = 100, tau = 0.218
+
+count of iteration = 100, tau = 0.22
+
+count of iteration = 100, tau = 0.222
+
+count of iteration = 100, tau = 0.224
+
+count of iteration = 100, tau = 0.226
+
+count of iteration = 100, tau = 0.228
+
+count of iteration = 100, tau = 0.23
+
+count of iteration = 100, tau = 0.232
+
+count of iteration = 100, tau = 0.234
+
+count of iteration = 100, tau = 0.236
+
+count of iteration = 100, tau = 0.238
+
+count of iteration = 100, tau = 0.24
+
+count of iteration = 100, tau = 0.242
+
+count of iteration = 100, tau = 0.244
+
+count of iteration = 100, tau = 0.246
+
+count of iteration = 100, tau = 0.248
+
+count of iteration = 100, tau = 0.25
+
+count of iteration = 100, tau = 0.252
+
+count of iteration = 100, tau = 0.254
+
+count of iteration = 100, tau = 0.256
+
+count of iteration = 100, tau = 0.258
+
+count of iteration = 100, tau = 0.26
+
+count of iteration = 100, tau = 0.262
+
+count of iteration = 100, tau = 0.264
+
+count of iteration = 100, tau = 0.266
+
+count of iteration = 100, tau = 0.268
+
+count of iteration = 100, tau = 0.27
+
+count of iteration = 100, tau = 0.272
+
+count of iteration = 100, tau = 0.274
+
+count of iteration = 100, tau = 0.276
+
+count of iteration = 100, tau = 0.278
+
+count of iteration = 100, tau = 0.28
+
+count of iteration = 100, tau = 0.282
+
+count of iteration = 100, tau = 0.284
+
+count of iteration = 100, tau = 0.286
+
+count of iteration = 100, tau = 0.288
+
+count of iteration = 100, tau = 0.29
+
+count of iteration = 100, tau = 0.292
+
+count of iteration = 100, tau = 0.294
+
+count of iteration = 100, tau = 0.296
+
+count of iteration = 100, tau = 0.298
+
+count of iteration = 100, tau = 0.3
+
+count of iteration = 100, tau = 0.302
+
+count of iteration = 100, tau = 0.304
+
+count of iteration = 100, tau = 0.306
+
+count of iteration = 100, tau = 0.308
+
+count of iteration = 100, tau = 0.31
+
+count of iteration = 100, tau = 0.312
+
+count of iteration = 100, tau = 0.314
+
+count of iteration = 100, tau = 0.316
+
+count of iteration = 100, tau = 0.318
+
+count of iteration = 100, tau = 0.32
+
+count of iteration = 100, tau = 0.322
+
+count of iteration = 100, tau = 0.324
+
+count of iteration = 100, tau = 0.326
+
+count of iteration = 100, tau = 0.328
+
+count of iteration = 100, tau = 0.33
+
+count of iteration = 100, tau = 0.332
+
+count of iteration = 100, tau = 0.334
+
+count of iteration = 100, tau = 0.336
+
+count of iteration = 100, tau = 0.338
+
+count of iteration = 100, tau = 0.34
+
+count of iteration = 100, tau = 0.342
+
+count of iteration = 100, tau = 0.344
+
+count of iteration = 100, tau = 0.346
+
+count of iteration = 100, tau = 0.348
+
+count of iteration = 100, tau = 0.35
+
+count of iteration = 100, tau = 0.352
+
+count of iteration = 100, tau = 0.354
+
+count of iteration = 100, tau = 0.356
+
+count of iteration = 100, tau = 0.358
+
+count of iteration = 100, tau = 0.36
+
+count of iteration = 100, tau = 0.362
+
+count of iteration = 100, tau = 0.364
+
+count of iteration = 100, tau = 0.366
+
+count of iteration = 100, tau = 0.368
+
+count of iteration = 100, tau = 0.37
+
+count of iteration = 100, tau = 0.372
+
+count of iteration = 100, tau = 0.374
+
+count of iteration = 100, tau = 0.376
+
+count of iteration = 100, tau = 0.378
+
+count of iteration = 100, tau = 0.38
+
+count of iteration = 100, tau = 0.382
+
+count of iteration = 100, tau = 0.384
+
+count of iteration = 100, tau = 0.386
+
+count of iteration = 100, tau = 0.388
+
+count of iteration = 100, tau = 0.39
+
+count of iteration = 100, tau = 0.392
+
+count of iteration = 100, tau = 0.394
+
+count of iteration = 100, tau = 0.396
+
+count of iteration = 100, tau = 0.398
+
+count of iteration = 100, tau = 0.4
+
+count of iteration = 100, tau = 0.402
+
+count of iteration = 100, tau = 0.404
+
+count of iteration = 100, tau = 0.406
+
+count of iteration = 100, tau = 0.408
+
+count of iteration = 100, tau = 0.41
+
+count of iteration = 100, tau = 0.412
+
+count of iteration = 100, tau = 0.414
+
+count of iteration = 100, tau = 0.416
+
+count of iteration = 100, tau = 0.418
+
+count of iteration = 100, tau = 0.42
+
+count of iteration = 100, tau = 0.422
+
+count of iteration = 100, tau = 0.424
+
+count of iteration = 100, tau = 0.426
+
+count of iteration = 100, tau = 0.428
+
+count of iteration = 100, tau = 0.43
+
+count of iteration = 100, tau = 0.432
+
+count of iteration = 100, tau = 0.434
+
+count of iteration = 100, tau = 0.436
+
+count of iteration = 100, tau = 0.438
+
+count of iteration = 100, tau = 0.44
+
+count of iteration = 100, tau = 0.442
+
+count of iteration = 100, tau = 0.444
+
+count of iteration = 100, tau = 0.446
+
+count of iteration = 100, tau = 0.448
+
+count of iteration = 100, tau = 0.45
+
+count of iteration = 100, tau = 0.452
+
+count of iteration = 100, tau = 0.454
+
+count of iteration = 100, tau = 0.456
+
+count of iteration = 100, tau = 0.458
+
+count of iteration = 100, tau = 0.46
+
+count of iteration = 100, tau = 0.462
+
+count of iteration = 100, tau = 0.464
+
+count of iteration = 100, tau = 0.466
+
+count of iteration = 100, tau = 0.468
+
+count of iteration = 100, tau = 0.47
+
+count of iteration = 100, tau = 0.472
+
+count of iteration = 100, tau = 0.474
+
+count of iteration = 100, tau = 0.476
+
+count of iteration = 100, tau = 0.478
+
+count of iteration = 100, tau = 0.48
+
+count of iteration = 100, tau = 0.482
+
+count of iteration = 100, tau = 0.484
+
+count of iteration = 100, tau = 0.486
+
+count of iteration = 100, tau = 0.488
+
+count of iteration = 100, tau = 0.49
+
+count of iteration = 100, tau = 0.492
+
+count of iteration = 100, tau = 0.494
+
+count of iteration = 100, tau = 0.496
+
+count of iteration = 100, tau = 0.498
+
+count of iteration = 100, tau = 0.5
+
+count of iteration = 100, tau = 0.502
+
+count of iteration = 100, tau = 0.504
+
+count of iteration = 100, tau = 0.506
+
+count of iteration = 100, tau = 0.508
+
+count of iteration = 100, tau = 0.51
+
+count of iteration = 100, tau = 0.512
+
+count of iteration = 100, tau = 0.514
+
+count of iteration = 100, tau = 0.516
+
+count of iteration = 100, tau = 0.518
+
+count of iteration = 100, tau = 0.52
+
+count of iteration = 100, tau = 0.522
+
+count of iteration = 100, tau = 0.524
+
+count of iteration = 100, tau = 0.526
+
+count of iteration = 100, tau = 0.528
+
+count of iteration = 100, tau = 0.53
+
+count of iteration = 100, tau = 0.532
+
+count of iteration = 100, tau = 0.534
+
+count of iteration = 100, tau = 0.536
+
+count of iteration = 100, tau = 0.538
+
+count of iteration = 100, tau = 0.54
+
+count of iteration = 100, tau = 0.542
+
+count of iteration = 100, tau = 0.544
+
+count of iteration = 100, tau = 0.546
+
+count of iteration = 100, tau = 0.548
+
+count of iteration = 100, tau = 0.55
+
+count of iteration = 100, tau = 0.552
+
+count of iteration = 100, tau = 0.554
+
+count of iteration = 100, tau = 0.556
+
+count of iteration = 100, tau = 0.558
+
+count of iteration = 100, tau = 0.56
+
+count of iteration = 100, tau = 0.562
+
+count of iteration = 100, tau = 0.564
+
+count of iteration = 100, tau = 0.566
+
+count of iteration = 100, tau = 0.568
+
+count of iteration = 100, tau = 0.57
+
+count of iteration = 100, tau = 0.572
+
+count of iteration = 100, tau = 0.574
+
+count of iteration = 100, tau = 0.576
+
+count of iteration = 100, tau = 0.578
+
+count of iteration = 100, tau = 0.58
+
+count of iteration = 100, tau = 0.582
+
+count of iteration = 100, tau = 0.584
+
+count of iteration = 100, tau = 0.586
+
+count of iteration = 100, tau = 0.588
+
+count of iteration = 100, tau = 0.59
+
+count of iteration = 100, tau = 0.592
+
+count of iteration = 100, tau = 0.594
+
+count of iteration = 100, tau = 0.596
+
+count of iteration = 100, tau = 0.598
+
+count of iteration = 100, tau = 0.6
+
+count of iteration = 100, tau = 0.602
+
+count of iteration = 100, tau = 0.604
+
+count of iteration = 100, tau = 0.606
+
+count of iteration = 100, tau = 0.608
+
+count of iteration = 100, tau = 0.61
+
+count of iteration = 100, tau = 0.612
+
+count of iteration = 100, tau = 0.614
+
+count of iteration = 100, tau = 0.616
+
+count of iteration = 100, tau = 0.618
+
+count of iteration = 100, tau = 0.62
+
+count of iteration = 100, tau = 0.622
+
+count of iteration = 100, tau = 0.624
+
+count of iteration = 100, tau = 0.626
+
+count of iteration = 100, tau = 0.628
+
+count of iteration = 100, tau = 0.63
+
+count of iteration = 100, tau = 0.632
+
+count of iteration = 100, tau = 0.634
+
+count of iteration = 100, tau = 0.636
+
+count of iteration = 100, tau = 0.638
+
+count of iteration = 100, tau = 0.64
+
+count of iteration = 100, tau = 0.642
+
+count of iteration = 100, tau = 0.644
+
+count of iteration = 100, tau = 0.646
+
+count of iteration = 100, tau = 0.648
+
+count of iteration = 100, tau = 0.65
+
+count of iteration = 100, tau = 0.652
+
+count of iteration = 100, tau = 0.654
+
+count of iteration = 100, tau = 0.656
+
+count of iteration = 100, tau = 0.658
+
+count of iteration = 100, tau = 0.66
+
+count of iteration = 100, tau = 0.662
+
+count of iteration = 100, tau = 0.664
+
+count of iteration = 100, tau = 0.666
+
+count of iteration = 100, tau = 0.668
+
+count of iteration = 100, tau = 0.67
+
+count of iteration = 100, tau = 0.672
+
+count of iteration = 100, tau = 0.674
+
+count of iteration = 100, tau = 0.676
+
+count of iteration = 100, tau = 0.678
+
+count of iteration = 100, tau = 0.68
+
+count of iteration = 100, tau = 0.682
+
+count of iteration = 100, tau = 0.684
+
+count of iteration = 100, tau = 0.686
+
+count of iteration = 100, tau = 0.688
+
+count of iteration = 100, tau = 0.69
+
+count of iteration = 100, tau = 0.692
+
+count of iteration = 100, tau = 0.694
+
+count of iteration = 100, tau = 0.696
+
+count of iteration = 100, tau = 0.698
+
+count of iteration = 100, tau = 0.7
+
+count of iteration = 100, tau = 0.702
+
+count of iteration = 100, tau = 0.704
+
+count of iteration = 100, tau = 0.706
+
+count of iteration = 100, tau = 0.708
+
+count of iteration = 100, tau = 0.71
+
+count of iteration = 100, tau = 0.712
+
+count of iteration = 100, tau = 0.714
+
+count of iteration = 100, tau = 0.716
+
+count of iteration = 100, tau = 0.718
+
+count of iteration = 100, tau = 0.72
+
+count of iteration = 100, tau = 0.722
+
+count of iteration = 100, tau = 0.724
+
+count of iteration = 100, tau = 0.726
+
+count of iteration = 100, tau = 0.728
+
+count of iteration = 100, tau = 0.73
+
+count of iteration = 100, tau = 0.732
+
+count of iteration = 100, tau = 0.734
+
+count of iteration = 100, tau = 0.736
+
+count of iteration = 100, tau = 0.738
+
+count of iteration = 100, tau = 0.74
+
+count of iteration = 100, tau = 0.742
+
+count of iteration = 100, tau = 0.744
+
+count of iteration = 100, tau = 0.746
+
+count of iteration = 100, tau = 0.748
+
+count of iteration = 100, tau = 0.75
+
+count of iteration = 100, tau = 0.752
+
+count of iteration = 100, tau = 0.754
+
+count of iteration = 100, tau = 0.756
+
+count of iteration = 100, tau = 0.758
+
+count of iteration = 100, tau = 0.76
+
+count of iteration = 100, tau = 0.762
+
+count of iteration = 100, tau = 0.764
+
+count of iteration = 100, tau = 0.766
+
+count of iteration = 100, tau = 0.768
+
+count of iteration = 100, tau = 0.77
+
+count of iteration = 100, tau = 0.772
+
+count of iteration = 100, tau = 0.774
+
+count of iteration = 100, tau = 0.776
+
+count of iteration = 100, tau = 0.778
+
+count of iteration = 100, tau = 0.78
+
+count of iteration = 100, tau = 0.782
+
+count of iteration = 100, tau = 0.784
+
+count of iteration = 100, tau = 0.786
+
+count of iteration = 100, tau = 0.788
+
+count of iteration = 100, tau = 0.79
+
+count of iteration = 100, tau = 0.792
+
+count of iteration = 100, tau = 0.794
+
+count of iteration = 100, tau = 0.796
+
+count of iteration = 100, tau = 0.798
+
+count of iteration = 100, tau = 0.8
+
+count of iteration = 100, tau = 0.802
+
+count of iteration = 100, tau = 0.804
+
+count of iteration = 100, tau = 0.806
+
+count of iteration = 100, tau = 0.808
+
+count of iteration = 100, tau = 0.81
+
+count of iteration = 100, tau = 0.812
+
+count of iteration = 100, tau = 0.814
+
+count of iteration = 100, tau = 0.816
+
+count of iteration = 100, tau = 0.818
+
+count of iteration = 100, tau = 0.82
+
+count of iteration = 100, tau = 0.822
+
+count of iteration = 100, tau = 0.824
+
+count of iteration = 100, tau = 0.826
+
+count of iteration = 100, tau = 0.828
+
+count of iteration = 100, tau = 0.83
+
+count of iteration = 100, tau = 0.832
+
+count of iteration = 100, tau = 0.834
+
+count of iteration = 100, tau = 0.836
+
+count of iteration = 100, tau = 0.838
+
+count of iteration = 100, tau = 0.84
+
+count of iteration = 100, tau = 0.842
+
+count of iteration = 100, tau = 0.844
+
+count of iteration = 100, tau = 0.846
+
+count of iteration = 100, tau = 0.848
+
+count of iteration = 100, tau = 0.85
+
+count of iteration = 100, tau = 0.852
+
+count of iteration = 100, tau = 0.854
+
+count of iteration = 100, tau = 0.856
+
+count of iteration = 100, tau = 0.858
+
+count of iteration = 100, tau = 0.86
+
+count of iteration = 100, tau = 0.862
+
+count of iteration = 100, tau = 0.864
+
+count of iteration = 100, tau = 0.866
+
+count of iteration = 100, tau = 0.868
+
+count of iteration = 100, tau = 0.87
+
+count of iteration = 100, tau = 0.872
+
+count of iteration = 100, tau = 0.874
+
+count of iteration = 100, tau = 0.876
+
+count of iteration = 100, tau = 0.878
+
+count of iteration = 100, tau = 0.88
+
+count of iteration = 100, tau = 0.882
+
+count of iteration = 100, tau = 0.884
+
+count of iteration = 100, tau = 0.886
+
+count of iteration = 100, tau = 0.888
+
+count of iteration = 100, tau = 0.89
+
+count of iteration = 100, tau = 0.892
+
+count of iteration = 100, tau = 0.894
+
+count of iteration = 100, tau = 0.896
+
+count of iteration = 100, tau = 0.898
+
+count of iteration = 100, tau = 0.9
+
+count of iteration = 100, tau = 0.902
+
+count of iteration = 100, tau = 0.904
+
+count of iteration = 100, tau = 0.906
+
+count of iteration = 100, tau = 0.908
+
+count of iteration = 100, tau = 0.91
+
+count of iteration = 100, tau = 0.912
+
+count of iteration = 100, tau = 0.914
+
+count of iteration = 100, tau = 0.916
+
+count of iteration = 100, tau = 0.918
+
+count of iteration = 100, tau = 0.92
+
+count of iteration = 100, tau = 0.922
+
+count of iteration = 100, tau = 0.924
+
+count of iteration = 100, tau = 0.926
+
+count of iteration = 100, tau = 0.928
+
+count of iteration = 100, tau = 0.93
+
+count of iteration = 100, tau = 0.932
+
+count of iteration = 100, tau = 0.934
+
+count of iteration = 100, tau = 0.936
+
+count of iteration = 100, tau = 0.938
+
+count of iteration = 100, tau = 0.94
+
+count of iteration = 100, tau = 0.942
+
+count of iteration = 100, tau = 0.944
+
+count of iteration = 100, tau = 0.946
+
+count of iteration = 100, tau = 0.948
+
+count of iteration = 100, tau = 0.95
+
+count of iteration = 100, tau = 0.952
+
+count of iteration = 100, tau = 0.954
+
+count of iteration = 100, tau = 0.956
+
+count of iteration = 100, tau = 0.958
+
+count of iteration = 100, tau = 0.96
+
+count of iteration = 100, tau = 0.962
+
+count of iteration = 100, tau = 0.964
+
+count of iteration = 100, tau = 0.966
+
+count of iteration = 100, tau = 0.968
+
+count of iteration = 100, tau = 0.97
+
+count of iteration = 100, tau = 0.972
+
+count of iteration = 100, tau = 0.974
+
+count of iteration = 100, tau = 0.976
+
+count of iteration = 100, tau = 0.978
+
+count of iteration = 100, tau = 0.98
+
+count of iteration = 100, tau = 0.982
+
+count of iteration = 100, tau = 0.984
+
+count of iteration = 100, tau = 0.986
+
+count of iteration = 100, tau = 0.988
+
+count of iteration = 100, tau = 0.99
+
+count of iteration = 100, tau = 0.992
+
+count of iteration = 100, tau = 0.994
+
+count of iteration = 100, tau = 0.996
+
+count of iteration = 100, tau = 0.998
+
+count of iteration = 100, tau = 1
+
+count of iteration = 100, tau = 1.002
+
+count of iteration = 100, tau = 1.004
+
+count of iteration = 100, tau = 1.006
+
+count of iteration = 100, tau = 1.008
+
+
+StopCriteria ||Ax^k-f|| < epsilon
+count of iteration = 0, tau = 0.01
+
+count of iteration = 100, tau = 0.012
+
+count of iteration = 100, tau = 0.014
+
+count of iteration = 99, tau = 0.016
+
+count of iteration = 87, tau = 0.018
+
+count of iteration = 78, tau = 0.02
+
+count of iteration = 70, tau = 0.022
+
+count of iteration = 64, tau = 0.024
+
+count of iteration = 58, tau = 0.026
+
+count of iteration = 54, tau = 0.028
+
+count of iteration = 50, tau = 0.03
+
+count of iteration = 46, tau = 0.032
+
+count of iteration = 43, tau = 0.034
+
+count of iteration = 40, tau = 0.036
+
+count of iteration = 38, tau = 0.038
+
+count of iteration = 35, tau = 0.04
+
+count of iteration = 33, tau = 0.042
+
+count of iteration = 31, tau = 0.044
+
+count of iteration = 30, tau = 0.046
+
+count of iteration = 28, tau = 0.048
+
+count of iteration = 27, tau = 0.05
+
+count of iteration = 25, tau = 0.052
+
+count of iteration = 24, tau = 0.054
+
+count of iteration = 23, tau = 0.056
+
+count of iteration = 22, tau = 0.058
+
+count of iteration = 20, tau = 0.06
+
+count of iteration = 24, tau = 0.062
+
+count of iteration = 27, tau = 0.064
+
+count of iteration = 32, tau = 0.066
+
+count of iteration = 39, tau = 0.068
+
+count of iteration = 48, tau = 0.07
+
+count of iteration = 62, tau = 0.072
+
+count of iteration = 86, tau = 0.074
+
+count of iteration = 100, tau = 0.076
+
+count of iteration = 100, tau = 0.078
+
+count of iteration = 100, tau = 0.08
+
+count of iteration = 100, tau = 0.082
+
+count of iteration = 100, tau = 0.084
+
+count of iteration = 100, tau = 0.086
+
+count of iteration = 100, tau = 0.088
+
+count of iteration = 100, tau = 0.09
+
+count of iteration = 100, tau = 0.092
+
+count of iteration = 100, tau = 0.094
+
+count of iteration = 100, tau = 0.096
+
+count of iteration = 100, tau = 0.098
+
+count of iteration = 100, tau = 0.1
+
+count of iteration = 100, tau = 0.102
+
+count of iteration = 100, tau = 0.104
+
+count of iteration = 100, tau = 0.106
+
+count of iteration = 100, tau = 0.108
+
+count of iteration = 100, tau = 0.11
+
+count of iteration = 100, tau = 0.112
+
+count of iteration = 100, tau = 0.114
+
+count of iteration = 100, tau = 0.116
+
+count of iteration = 100, tau = 0.118
+
+count of iteration = 100, tau = 0.12
+
+count of iteration = 100, tau = 0.122
+
+count of iteration = 100, tau = 0.124
+
+count of iteration = 100, tau = 0.126
+
+count of iteration = 100, tau = 0.128
+
+count of iteration = 100, tau = 0.13
+
+count of iteration = 100, tau = 0.132
+
+count of iteration = 100, tau = 0.134
+
+count of iteration = 100, tau = 0.136
+
+count of iteration = 100, tau = 0.138
+
+count of iteration = 100, tau = 0.14
+
+count of iteration = 100, tau = 0.142
+
+count of iteration = 100, tau = 0.144
+
+count of iteration = 100, tau = 0.146
+
+count of iteration = 100, tau = 0.148
+
+count of iteration = 100, tau = 0.15
+
+count of iteration = 100, tau = 0.152
+
+count of iteration = 100, tau = 0.154
+
+count of iteration = 100, tau = 0.156
+
+count of iteration = 100, tau = 0.158
+
+count of iteration = 100, tau = 0.16
+
+count of iteration = 100, tau = 0.162
+
+count of iteration = 100, tau = 0.164
+
+count of iteration = 100, tau = 0.166
+
+count of iteration = 100, tau = 0.168
+
+count of iteration = 100, tau = 0.17
+
+count of iteration = 100, tau = 0.172
+
+count of iteration = 100, tau = 0.174
+
+count of iteration = 100, tau = 0.176
+
+count of iteration = 100, tau = 0.178
+
+count of iteration = 100, tau = 0.18
+
+count of iteration = 100, tau = 0.182
+
+count of iteration = 100, tau = 0.184
+
+count of iteration = 100, tau = 0.186
+
+count of iteration = 100, tau = 0.188
+
+count of iteration = 100, tau = 0.19
+
+count of iteration = 100, tau = 0.192
+
+count of iteration = 100, tau = 0.194
+
+count of iteration = 100, tau = 0.196
+
+count of iteration = 100, tau = 0.198
+
+count of iteration = 100, tau = 0.2
+
+count of iteration = 100, tau = 0.202
+
+count of iteration = 100, tau = 0.204
+
+count of iteration = 100, tau = 0.206
+
+count of iteration = 100, tau = 0.208
+
+count of iteration = 100, tau = 0.21
+
+count of iteration = 100, tau = 0.212
+
+count of iteration = 100, tau = 0.214
+
+count of iteration = 100, tau = 0.216
+
+count of iteration = 100, tau = 0.218
+
+count of iteration = 100, tau = 0.22
+
+count of iteration = 100, tau = 0.222
+
+count of iteration = 100, tau = 0.224
+
+count of iteration = 100, tau = 0.226
+
+count of iteration = 100, tau = 0.228
+
+count of iteration = 100, tau = 0.23
+
+count of iteration = 100, tau = 0.232
+
+count of iteration = 100, tau = 0.234
+
+count of iteration = 100, tau = 0.236
+
+count of iteration = 100, tau = 0.238
+
+count of iteration = 100, tau = 0.24
+
+count of iteration = 100, tau = 0.242
+
+count of iteration = 100, tau = 0.244
+
+count of iteration = 100, tau = 0.246
+
+count of iteration = 100, tau = 0.248
+
+count of iteration = 100, tau = 0.25
+
+count of iteration = 100, tau = 0.252
+
+count of iteration = 100, tau = 0.254
+
+count of iteration = 100, tau = 0.256
+
+count of iteration = 100, tau = 0.258
+
+count of iteration = 100, tau = 0.26
+
+count of iteration = 100, tau = 0.262
+
+count of iteration = 100, tau = 0.264
+
+count of iteration = 100, tau = 0.266
+
+count of iteration = 100, tau = 0.268
+
+count of iteration = 100, tau = 0.27
+
+count of iteration = 100, tau = 0.272
+
+count of iteration = 100, tau = 0.274
+
+count of iteration = 100, tau = 0.276
+
+count of iteration = 100, tau = 0.278
+
+count of iteration = 100, tau = 0.28
+
+count of iteration = 100, tau = 0.282
+
+count of iteration = 100, tau = 0.284
+
+count of iteration = 100, tau = 0.286
+
+count of iteration = 100, tau = 0.288
+
+count of iteration = 100, tau = 0.29
+
+count of iteration = 100, tau = 0.292
+
+count of iteration = 100, tau = 0.294
+
+count of iteration = 100, tau = 0.296
+
+count of iteration = 100, tau = 0.298
+
+count of iteration = 100, tau = 0.3
+
+count of iteration = 100, tau = 0.302
+
+count of iteration = 100, tau = 0.304
+
+count of iteration = 100, tau = 0.306
+
+count of iteration = 100, tau = 0.308
+
+count of iteration = 100, tau = 0.31
+
+count of iteration = 100, tau = 0.312
+
+count of iteration = 100, tau = 0.314
+
+count of iteration = 100, tau = 0.316
+
+count of iteration = 100, tau = 0.318
+
+count of iteration = 100, tau = 0.32
+
+count of iteration = 100, tau = 0.322
+
+count of iteration = 100, tau = 0.324
+
+count of iteration = 100, tau = 0.326
+
+count of iteration = 100, tau = 0.328
+
+count of iteration = 100, tau = 0.33
+
+count of iteration = 100, tau = 0.332
+
+count of iteration = 100, tau = 0.334
+
+count of iteration = 100, tau = 0.336
+
+count of iteration = 100, tau = 0.338
+
+count of iteration = 100, tau = 0.34
+
+count of iteration = 100, tau = 0.342
+
+count of iteration = 100, tau = 0.344
+
+count of iteration = 100, tau = 0.346
+
+count of iteration = 100, tau = 0.348
+
+count of iteration = 100, tau = 0.35
+
+count of iteration = 100, tau = 0.352
+
+count of iteration = 100, tau = 0.354
+
+count of iteration = 100, tau = 0.356
+
+count of iteration = 100, tau = 0.358
+
+count of iteration = 100, tau = 0.36
+
+count of iteration = 100, tau = 0.362
+
+count of iteration = 100, tau = 0.364
+
+count of iteration = 100, tau = 0.366
+
+count of iteration = 100, tau = 0.368
+
+count of iteration = 100, tau = 0.37
+
+count of iteration = 100, tau = 0.372
+
+count of iteration = 100, tau = 0.374
+
+count of iteration = 100, tau = 0.376
+
+count of iteration = 100, tau = 0.378
+
+count of iteration = 100, tau = 0.38
+
+count of iteration = 100, tau = 0.382
+
+count of iteration = 100, tau = 0.384
+
+count of iteration = 100, tau = 0.386
+
+count of iteration = 100, tau = 0.388
+
+count of iteration = 100, tau = 0.39
+
+count of iteration = 100, tau = 0.392
+
+count of iteration = 100, tau = 0.394
+
+count of iteration = 100, tau = 0.396
+
+count of iteration = 100, tau = 0.398
+
+count of iteration = 100, tau = 0.4
+
+count of iteration = 100, tau = 0.402
+
+count of iteration = 100, tau = 0.404
+
+count of iteration = 100, tau = 0.406
+
+count of iteration = 100, tau = 0.408
+
+count of iteration = 100, tau = 0.41
+
+count of iteration = 100, tau = 0.412
+
+count of iteration = 100, tau = 0.414
+
+count of iteration = 100, tau = 0.416
+
+count of iteration = 100, tau = 0.418
+
+count of iteration = 100, tau = 0.42
+
+count of iteration = 100, tau = 0.422
+
+count of iteration = 100, tau = 0.424
+
+count of iteration = 100, tau = 0.426
+
+count of iteration = 100, tau = 0.428
+
+count of iteration = 100, tau = 0.43
+
+count of iteration = 100, tau = 0.432
+
+count of iteration = 100, tau = 0.434
+
+count of iteration = 100, tau = 0.436
+
+count of iteration = 100, tau = 0.438
+
+count of iteration = 100, tau = 0.44
+
+count of iteration = 100, tau = 0.442
+
+count of iteration = 100, tau = 0.444
+
+count of iteration = 100, tau = 0.446
+
+count of iteration = 100, tau = 0.448
+
+count of iteration = 100, tau = 0.45
+
+count of iteration = 100, tau = 0.452
+
+count of iteration = 100, tau = 0.454
+
+count of iteration = 100, tau = 0.456
+
+count of iteration = 100, tau = 0.458
+
+count of iteration = 100, tau = 0.46
+
+count of iteration = 100, tau = 0.462
+
+count of iteration = 100, tau = 0.464
+
+count of iteration = 100, tau = 0.466
+
+count of iteration = 100, tau = 0.468
+
+count of iteration = 100, tau = 0.47
+
+count of iteration = 100, tau = 0.472
+
+count of iteration = 100, tau = 0.474
+
+count of iteration = 100, tau = 0.476
+
+count of iteration = 100, tau = 0.478
+
+count of iteration = 100, tau = 0.48
+
+count of iteration = 100, tau = 0.482
+
+count of iteration = 100, tau = 0.484
+
+count of iteration = 100, tau = 0.486
+
+count of iteration = 100, tau = 0.488
+
+count of iteration = 100, tau = 0.49
+
+count of iteration = 100, tau = 0.492
+
+count of iteration = 100, tau = 0.494
+
+count of iteration = 100, tau = 0.496
+
+count of iteration = 100, tau = 0.498
+
+count of iteration = 100, tau = 0.5
+
+count of iteration = 100, tau = 0.502
+
+count of iteration = 100, tau = 0.504
+
+count of iteration = 100, tau = 0.506
+
+count of iteration = 100, tau = 0.508
+
+count of iteration = 100, tau = 0.51
+
+count of iteration = 100, tau = 0.512
+
+count of iteration = 100, tau = 0.514
+
+count of iteration = 100, tau = 0.516
+
+count of iteration = 100, tau = 0.518
+
+count of iteration = 100, tau = 0.52
+
+count of iteration = 100, tau = 0.522
+
+count of iteration = 100, tau = 0.524
+
+count of iteration = 100, tau = 0.526
+
+count of iteration = 100, tau = 0.528
+
+count of iteration = 100, tau = 0.53
+
+count of iteration = 100, tau = 0.532
+
+count of iteration = 100, tau = 0.534
+
+count of iteration = 100, tau = 0.536
+
+count of iteration = 100, tau = 0.538
+
+count of iteration = 100, tau = 0.54
+
+count of iteration = 100, tau = 0.542
+
+count of iteration = 100, tau = 0.544
+
+count of iteration = 100, tau = 0.546
+
+count of iteration = 100, tau = 0.548
+
+count of iteration = 100, tau = 0.55
+
+count of iteration = 100, tau = 0.552
+
+count of iteration = 100, tau = 0.554
+
+count of iteration = 100, tau = 0.556
+
+count of iteration = 100, tau = 0.558
+
+count of iteration = 100, tau = 0.56
+
+count of iteration = 100, tau = 0.562
+
+count of iteration = 100, tau = 0.564
+
+count of iteration = 100, tau = 0.566
+
+count of iteration = 100, tau = 0.568
+
+count of iteration = 100, tau = 0.57
+
+count of iteration = 100, tau = 0.572
+
+count of iteration = 100, tau = 0.574
+
+count of iteration = 100, tau = 0.576
+
+count of iteration = 100, tau = 0.578
+
+count of iteration = 100, tau = 0.58
+
+count of iteration = 100, tau = 0.582
+
+count of iteration = 100, tau = 0.584
+
+count of iteration = 100, tau = 0.586
+
+count of iteration = 100, tau = 0.588
+
+count of iteration = 100, tau = 0.59
+
+count of iteration = 100, tau = 0.592
+
+count of iteration = 100, tau = 0.594
+
+count of iteration = 100, tau = 0.596
+
+count of iteration = 100, tau = 0.598
+
+count of iteration = 100, tau = 0.6
+
+count of iteration = 100, tau = 0.602
+
+count of iteration = 100, tau = 0.604
+
+count of iteration = 100, tau = 0.606
+
+count of iteration = 100, tau = 0.608
+
+count of iteration = 100, tau = 0.61
+
+count of iteration = 100, tau = 0.612
+
+count of iteration = 100, tau = 0.614
+
+count of iteration = 100, tau = 0.616
+
+count of iteration = 100, tau = 0.618
+
+count of iteration = 100, tau = 0.62
+
+count of iteration = 100, tau = 0.622
+
+count of iteration = 100, tau = 0.624
+
+count of iteration = 100, tau = 0.626
+
+count of iteration = 100, tau = 0.628
+
+count of iteration = 100, tau = 0.63
+
+count of iteration = 100, tau = 0.632
+
+count of iteration = 100, tau = 0.634
+
+count of iteration = 100, tau = 0.636
+
+count of iteration = 100, tau = 0.638
+
+count of iteration = 100, tau = 0.64
+
+count of iteration = 100, tau = 0.642
+
+count of iteration = 100, tau = 0.644
+
+count of iteration = 100, tau = 0.646
+
+count of iteration = 100, tau = 0.648
+
+count of iteration = 100, tau = 0.65
+
+count of iteration = 100, tau = 0.652
+
+count of iteration = 100, tau = 0.654
+
+count of iteration = 100, tau = 0.656
+
+count of iteration = 100, tau = 0.658
+
+count of iteration = 100, tau = 0.66
+
+count of iteration = 100, tau = 0.662
+
+count of iteration = 100, tau = 0.664
+
+count of iteration = 100, tau = 0.666
+
+count of iteration = 100, tau = 0.668
+
+count of iteration = 100, tau = 0.67
+
+count of iteration = 100, tau = 0.672
+
+count of iteration = 100, tau = 0.674
+
+count of iteration = 100, tau = 0.676
+
+count of iteration = 100, tau = 0.678
+
+count of iteration = 100, tau = 0.68
+
+count of iteration = 100, tau = 0.682
+
+count of iteration = 100, tau = 0.684
+
+count of iteration = 100, tau = 0.686
+
+count of iteration = 100, tau = 0.688
+
+count of iteration = 100, tau = 0.69
+
+count of iteration = 100, tau = 0.692
+
+count of iteration = 100, tau = 0.694
+
+count of iteration = 100, tau = 0.696
+
+count of iteration = 100, tau = 0.698
+
+count of iteration = 100, tau = 0.7
+
+count of iteration = 100, tau = 0.702
+
+count of iteration = 100, tau = 0.704
+
+count of iteration = 100, tau = 0.706
+
+count of iteration = 100, tau = 0.708
+
+count of iteration = 100, tau = 0.71
+
+count of iteration = 100, tau = 0.712
+
+count of iteration = 100, tau = 0.714
+
+count of iteration = 100, tau = 0.716
+
+count of iteration = 100, tau = 0.718
+
+count of iteration = 100, tau = 0.72
+
+count of iteration = 100, tau = 0.722
+
+count of iteration = 100, tau = 0.724
+
+count of iteration = 100, tau = 0.726
+
+count of iteration = 100, tau = 0.728
+
+count of iteration = 100, tau = 0.73
+
+count of iteration = 100, tau = 0.732
+
+count of iteration = 100, tau = 0.734
+
+count of iteration = 100, tau = 0.736
+
+count of iteration = 100, tau = 0.738
+
+count of iteration = 100, tau = 0.74
+
+count of iteration = 100, tau = 0.742
+
+count of iteration = 100, tau = 0.744
+
+count of iteration = 100, tau = 0.746
+
+count of iteration = 100, tau = 0.748
+
+count of iteration = 100, tau = 0.75
+
+count of iteration = 100, tau = 0.752
+
+count of iteration = 100, tau = 0.754
+
+count of iteration = 100, tau = 0.756
+
+count of iteration = 100, tau = 0.758
+
+count of iteration = 100, tau = 0.76
+
+count of iteration = 100, tau = 0.762
+
+count of iteration = 100, tau = 0.764
+
+count of iteration = 100, tau = 0.766
+
+count of iteration = 100, tau = 0.768
+
+count of iteration = 100, tau = 0.77
+
+count of iteration = 100, tau = 0.772
+
+count of iteration = 100, tau = 0.774
+
+count of iteration = 100, tau = 0.776
+
+count of iteration = 100, tau = 0.778
+
+count of iteration = 100, tau = 0.78
+
+count of iteration = 100, tau = 0.782
+
+count of iteration = 100, tau = 0.784
+
+count of iteration = 100, tau = 0.786
+
+count of iteration = 100, tau = 0.788
+
+count of iteration = 100, tau = 0.79
+
+count of iteration = 100, tau = 0.792
+
+count of iteration = 100, tau = 0.794
+
+count of iteration = 100, tau = 0.796
+
+count of iteration = 100, tau = 0.798
+
+count of iteration = 100, tau = 0.8
+
+count of iteration = 100, tau = 0.802
+
+count of iteration = 100, tau = 0.804
+
+count of iteration = 100, tau = 0.806
+
+count of iteration = 100, tau = 0.808
+
+count of iteration = 100, tau = 0.81
+
+count of iteration = 100, tau = 0.812
+
+count of iteration = 100, tau = 0.814
+
+count of iteration = 100, tau = 0.816
+
+count of iteration = 100, tau = 0.818
+
+count of iteration = 100, tau = 0.82
+
+count of iteration = 100, tau = 0.822
+
+count of iteration = 100, tau = 0.824
+
+count of iteration = 100, tau = 0.826
+
+count of iteration = 100, tau = 0.828
+
+count of iteration = 100, tau = 0.83
+
+count of iteration = 100, tau = 0.832
+
+count of iteration = 100, tau = 0.834
+
+count of iteration = 100, tau = 0.836
+
+count of iteration = 100, tau = 0.838
+
+count of iteration = 100, tau = 0.84
+
+count of iteration = 100, tau = 0.842
+
+count of iteration = 100, tau = 0.844
+
+count of iteration = 100, tau = 0.846
+
+count of iteration = 100, tau = 0.848
+
+count of iteration = 100, tau = 0.85
+
+count of iteration = 100, tau = 0.852
+
+count of iteration = 100, tau = 0.854
+
+count of iteration = 100, tau = 0.856
+
+count of iteration = 100, tau = 0.858
+
+count of iteration = 100, tau = 0.86
+
+count of iteration = 100, tau = 0.862
+
+count of iteration = 100, tau = 0.864
+
+count of iteration = 100, tau = 0.866
+
+count of iteration = 100, tau = 0.868
+
+count of iteration = 100, tau = 0.87
+
+count of iteration = 100, tau = 0.872
+
+count of iteration = 100, tau = 0.874
+
+count of iteration = 100, tau = 0.876
+
+count of iteration = 100, tau = 0.878
+
+count of iteration = 100, tau = 0.88
+
+count of iteration = 100, tau = 0.882
+
+count of iteration = 100, tau = 0.884
+
+count of iteration = 100, tau = 0.886
+
+count of iteration = 100, tau = 0.888
+
+count of iteration = 100, tau = 0.89
+
+count of iteration = 100, tau = 0.892
+
+count of iteration = 100, tau = 0.894
+
+count of iteration = 100, tau = 0.896
+
+count of iteration = 100, tau = 0.898
+
+count of iteration = 100, tau = 0.9
+
+count of iteration = 100, tau = 0.902
+
+count of iteration = 100, tau = 0.904
+
+count of iteration = 100, tau = 0.906
+
+count of iteration = 100, tau = 0.908
+
+count of iteration = 100, tau = 0.91
+
+count of iteration = 100, tau = 0.912
+
+count of iteration = 100, tau = 0.914
+
+count of iteration = 100, tau = 0.916
+
+count of iteration = 100, tau = 0.918
+
+count of iteration = 100, tau = 0.92
+
+count of iteration = 100, tau = 0.922
+
+count of iteration = 100, tau = 0.924
+
+count of iteration = 100, tau = 0.926
+
+count of iteration = 100, tau = 0.928
+
+count of iteration = 100, tau = 0.93
+
+count of iteration = 100, tau = 0.932
+
+count of iteration = 100, tau = 0.934
+
+count of iteration = 100, tau = 0.936
+
+count of iteration = 100, tau = 0.938
+
+count of iteration = 100, tau = 0.94
+
+count of iteration = 100, tau = 0.942
+
+count of iteration = 100, tau = 0.944
+
+count of iteration = 100, tau = 0.946
+
+count of iteration = 100, tau = 0.948
+
+count of iteration = 100, tau = 0.95
+
+count of iteration = 100, tau = 0.952
+
+count of iteration = 100, tau = 0.954
+
+count of iteration = 100, tau = 0.956
+
+count of iteration = 100, tau = 0.958
+
+count of iteration = 100, tau = 0.96
+
+count of iteration = 100, tau = 0.962
+
+count of iteration = 100, tau = 0.964
+
+count of iteration = 100, tau = 0.966
+
+count of iteration = 100, tau = 0.968
+
+count of iteration = 100, tau = 0.97
+
+count of iteration = 100, tau = 0.972
+
+count of iteration = 100, tau = 0.974
+
+count of iteration = 100, tau = 0.976
+
+count of iteration = 100, tau = 0.978
+
+count of iteration = 100, tau = 0.98
+
+count of iteration = 100, tau = 0.982
+
+count of iteration = 100, tau = 0.984
+
+count of iteration = 100, tau = 0.986
+
+count of iteration = 100, tau = 0.988
+
+count of iteration = 100, tau = 0.99
+
+count of iteration = 100, tau = 0.992
+
+count of iteration = 100, tau = 0.994
+
+count of iteration = 100, tau = 0.996
+
+count of iteration = 100, tau = 0.998
+
+count of iteration = 100, tau = 1
+
+count of iteration = 100, tau = 1.002
+
+count of iteration = 100, tau = 1.004
+
+count of iteration = 100, tau = 1.006
+
+count of iteration = 100, tau = 1.008
+

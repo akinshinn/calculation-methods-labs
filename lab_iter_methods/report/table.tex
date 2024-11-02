@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage{epigraph}
+\usepackage[english, russian]{babel} 
+\usepackage{amsmath,amsfonts,amssymb} 
+\usepackage{mathtools}
+\usepackage{pdflscape}
+\usepackage{graphicx} 
+
+\begin{document}
+\pagestyle{empty}
+\begin{landscape} 
+    \begin{table}[h!]
+        \centering
+        \caption{Результаты исследования итерационных методов при {$\varepsilon = 10^{-4}$}}
+        \resizebox{1.85\textwidth}{!}{ 
+        \begin{tabular}{|c|c|p{1.4cm}|p{2cm}|p{1.4cm}|c|c|c|c|c|c|}
+        \hline
+        \textbf{Метод} & $\|C\|$ & \textbf{Оценка для числа итераций $k_\text{est}$} & \textbf{Норма ошибки после $k_\text{est}$ операций} & \textbf{Число итераций, необходимых для решения с точностью $\varepsilon$} & \multicolumn{2}{c|}{$\|x^{k+1} - x^k\| < \varepsilon$} & \multicolumn{2}{c|}{$\dfrac{\|x^{k+1} - x^k\|}{\|x^k\| + \varepsilon_0} < \varepsilon$} & \multicolumn{2}{c|}{\textbf{$\|Ax^k - f\| < \varepsilon$}} \\
+        \cline{6-11}
+         & & & & & \textbf{Итерации} & \textbf{Ошибка} & \textbf{Итерации} & \textbf{Ошибка} & \textbf{Итерации} & \textbf{Ошибка} \\
+        \hline
+        Метод простых итераций ($\tau = 0.01$) & 0.962 в $\|\cdot\|_\infty$ &
+        238 &0 &138 &100 &3 $\cdot 10^{-3}$  & 83 & 12 $\cdot 10^{-3}$& 100 &3 $\cdot 10^{-3}$ \\
+        \hline
+        Метод простых итераций ($\tau = 0.05$) &0.95 в $\|\cdot\|_\infty$
+         &180 & 0& 22 &23 &9 $\cdot 10^{-5}$ &17 &287 $\cdot 10^{-5}$ &28 &3.5 $\cdot 10^{-6}$ \\
+        \hline
+        Якоби & 0.9 в  $\|\cdot\|_\infty$& 88 & 0& 17 &20 & 7 $\cdot 10^{-6}$& 14 &3 $\cdot 10^{-4}$ &23 & 9 $\cdot 10^{-7}$ \\
+        \hline
+        Зейделя & 0.8 в $\|\cdot\|_1$ & 42 & 0 &10 &11 &2.5 $\cdot 10^{-5}$ & 8& 6 $\cdot 10^{-4}$&
+        13 &3 $\cdot 10^{-6}$ \\
+        \hline
+        Релаксации ($\omega = 0.5$) & 0.9 в  $\|\cdot\|_\infty$ &88 & 3 $\cdot 10^{-13}$& 30 & 30&7.6 $\cdot 10^{-5}$ &20 &2 $\cdot 10^{-3}$ &39 &3.8 $\cdot 10^{-6}$ \\
+        \hline
+        Релаксации ($\omega = 1.1$) & 0.98 в  $\|\cdot\|_\infty$&466 & 0& 12 &   14 &7.4 $\cdot 10^{-6}$ &11 &$10^{-4}$ &16 &9 $\cdot 10^{-7}$ \\
+        \hline
+        \end{tabular}
+        } 
+    \end{table}
+\end{landscape}
+
+\end{document}
