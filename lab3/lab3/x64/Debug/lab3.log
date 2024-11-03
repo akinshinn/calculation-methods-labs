@@ -1,0 +1,10 @@
+﻿  lab3.cpp
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(39,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(71,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(183,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(317,20): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(383,20): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(413,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(424,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\lab3\lab3.cpp(474,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  lab3.vcxproj -> D:\VisualStdudio\calculatem\calculation-methods-labs\lab3\x64\Debug\lab3.exe
