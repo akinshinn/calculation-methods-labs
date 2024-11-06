@@ -3,11 +3,6 @@
 #include <fstream>
 #include <vector>
 #include <string>
-//#include "QR.cpp"
-//#pragma once
-//#include <vector>
-//#include <iostream>
-//#include <fstream>
 #include <cmath>
 #include <sstream>
 #include <algorithm>
@@ -15,6 +10,9 @@
 
 using namespace std;
 const double epsilon = 0.01;
+const int MAX_ITERATIONS = 1000;
+const double DELTA = 1e-2;
+
 void DisplayMatrix(vector<vector<double>> Matrix) {
     for (auto& row : Matrix) {
         for (auto el : row) {
@@ -22,6 +20,15 @@ void DisplayMatrix(vector<vector<double>> Matrix) {
         }
         cout << endl;
     }
+}
+
+
+double NormInfVec(const vector<double>& vec) {
+    double Maxel = -1;
+    for (int i = 0; i < vec.size(); i++) {
+        Maxel = max(Maxel, abs(vec[i]));
+    }
+    return Maxel;
 }
 
 
@@ -64,6 +71,7 @@ bool StopCriteria(vector<vector<double>> Matrix) {
     }
     return max_el < epsilon;
 }
+
 
 pair<vector<vector<double>>, vector<vector<double>>> QRDecomposition(vector<vector<double>> Matrix, int& prod) {
 
@@ -514,14 +522,214 @@ vector<double> EigenValuesHesenbergAndShift(vector<vector<double>> Matrix, int& 
 
     return res;
 }
-int main() {
 
+vector<double> matrix_prod_vec(const vector<vector<double>>& A, const vector<double>& b) {
+    int n = A.size();
+    vector<double> res(n);
+    for (int i = 0; i < n; ++i) {
+        double sum = 0;
+        for (int k = 0; k < n; ++k) {
+            sum += A[i][k] * b[k];
+        }
+        res[i] = sum;
+    }
+    return res;
+}
+
+
+double eigen_check(vector<vector<double>> ModifiedA,vector<double> vect) {
+    vector<double> vec1 = matrix_prod_vec(ModifiedA, vect);
+    //DisplayMatrix(ModifiedA);
+    //cout << NormInfVec(vec_diff(vec1, vec2));
+    return NormInfVec(vec1);
+}
+
+double NormSquareVec(const vector<double>& vec) {
+    double suma = 0;
+    for (int i = 0; i < vec.size(); i++) {
+        suma += vec[i] * vec[i];
+    }
+    return sqrt(suma);
+}
+
+
+
+vector<vector<double>> transpose(const vector<vector<double>>& matrix) {
+    vector<vector<double>> res = matrix;
+    for (int i = 0; i < matrix.size(); ++i) {
+        for (int j = 0; j < i; ++j) {
+            res[i][j] = matrix[j][i];
+            res[j][i] = matrix[i][j];
+        }
+    }
+    return res;
+}
+
+vector<double> QR_final_step(const vector<vector<double>>& Q_transpose, const vector<vector<double>>& R, vector<double> b) {
+    vector<double> res(R.size());
+    
+    b = matrix_prod_vec(Q_transpose, b);
+    double sum;
+    for (int i = R.size() - 1; i >= 0; i--) {
+        sum = 0;
+        for (int j = i + 1; j < R.size(); j++) {
+            sum += R[i][j] * res[j];
+        }
+        res[i] = (b[i] - sum) / R[i][i];
+    }
+    return res;
+}
+
+
+vector<double> InverseIterationMethod(double eigenValue, const vector<vector<double>>& A) {
+    int n = A.size();
+    vector<double> x_prev(n);
+    vector<vector<double>> A_copy = A;
+    x_prev[0] = 1;
+    vector<double> x_next;
+    vector<double> x_diff(n);
+    double norm;
+    int iterations = 0;
+
+    for (int i = 0; i < n; ++i) {
+        A_copy[i][i] -= eigenValue;
+    }
+    int prod;
+    pair<vector<vector<double>>, vector<vector<double>>> QR_decomp = QRDecomposition(A_copy, prod);
+    vector<vector<double>> Q = QR_decomp.first;
+    vector<vector<double>> R = QR_decomp.second;
+    do {
+        iterations++;
+        if (iterations > MAX_ITERATIONS) {
+            return InverseIterationMethod(eigenValue - DELTA, A);
+        }
+        x_next = QR_final_step(transpose(Q), R, x_prev);
+        norm = NormSquareVec(x_next);
+        for (int i = 0; i < n; ++i) {
+            x_next[i] /= norm;
+            x_diff[i] = x_next[i] - x_prev[i];
+        }
+        x_prev = x_next;
+    } while (NormSquareVec(x_diff) > epsilon);
+
+    return x_next;
+}
+
+
+vector<vector<double>> GetEigenVectors(const vector<double>& eigen_values, vector<vector<double>> A) {
+    vector<vector<double>> vectors(A.size());
+    
+    for (int i = 0; i < A.size(); ++i) {
+        vectors[i] = InverseIterationMethod(eigen_values[i], A);
+    }
+    return vectors;
+}
+
+
+void EigenVectorsCheck(const vector<vector<double>>& vectors, const vector<double>& values, const vector<vector<double>>& A) {
+    double discrepancy;
+    vector<vector<double>> A_copy = A;
+    cout << endl;
+    cout << "Check eigen vectors" << endl;
+    for (int i = 0; i < values.size(); ++i) {
+        cout << "eigen value = " << values[i] << endl;
+        cout << "vector = ";
+        DisplayVector(vectors[i]);
+        for (int j = 0; j < A.size(); ++j) A_copy[j][j] = A[j][j] - values[i];
+        cout << "discrepancy = " << eigen_check(A_copy, vectors[i]) << endl;
+        cout << endl;
+    }
+}
+
+
+double ScalarProduct(const vector<double>& a, const vector<double>& b) {
+    double res = 0;
+    for (int i = 0; i < a.size(); ++i) {
+        res += a[i] * b[i];
+    }
+    return res;
+}
+
+
+vector<double> RelaxationMethod(int size, double w,const  vector<vector<double>>& matrix, vector<double> b) {
+    vector<double> CurIterSol(size);
+    vector<double> NextIterSol(size);
+    double suma = 0;
+    int iteration = 0;
+    vector<double> x_diff(size);
+    do {
+        iteration++;
+        CurIterSol = NextIterSol;
+        for (int i = 0; i < size; i++) {
+            suma = 0;
+            for (int j = 0; j < i; j++) {
+                suma += matrix[i][j] * NextIterSol[j];
+            }
+            for (int j = i + 1; j < size; j++) {
+                suma += matrix[i][j] * CurIterSol[j];
+            }
+            NextIterSol[i] = (1 - w) * CurIterSol[i] + w * (b[i] - suma) / matrix[i][i];
+            x_diff[i] = NextIterSol[i] - CurIterSol[i];
+        }
+
+        if (iteration > 100000000) { cout << iteration << endl;  break; }
+        cout << NormInfVec(x_diff) << endl;
+    } while (NormInfVec(x_diff) > epsilon);
+    cout << iteration << endl;
+    return NextIterSol;
+}
+
+pair<double, vector<double>> ModifiedInverseIterationMethod(const vector<vector<double>>& A, const vector<double>& x0) {
+    double lambda_next = 0, lambda_prev; 
+    vector<double> x_next, x_prev;
+    x_prev = x0;
+    int n = A.size();
+    double norm = NormSquareVec(x0);
+    for (int i = 0; i < n; ++i) {
+        x_prev[i] /= norm;
+    }
+    vector<vector<double>> modifiedA = A;
+    int prod;
+    do
+    {
+        lambda_prev = lambda_next;
+        lambda_next = ScalarProduct(matrix_prod_vec(A, x_prev), x_prev);
+        for (int i = 0; i < n; ++i) {
+            modifiedA[i][i] = A[i][i] - lambda_next;
+        }
+        pair<vector<vector<double>>, vector<vector<double>>> QR_decomp = QRDecomposition(modifiedA, prod);
+        vector<vector<double>> Q = QR_decomp.first;
+        vector<vector<double>> R = QR_decomp.second;
+
+        x_next = QR_final_step(transpose(Q), R, x_prev);
+        //x_next = RelaxationMethod(n, 0.000000001, modifiedA, x_prev);
+        norm = NormSquareVec(x_next);
+        for (int i = 0; i < n; ++i) {
+            x_next[i] /= norm;
+        }
+        x_prev = x_next;
+    } while (abs(lambda_next - lambda_prev) > epsilon);
+
+    cout << endl;
+    cout << "ModifiedInverseIterationMethod for approximation: ";
+    DisplayVector(x0);
+    cout << "Eigen value = " << lambda_next << endl;
+    cout << "Eigen vector: ";
+    DisplayVector(x_next);
+    cout << endl;
+    pair<double, vector<double>> res(lambda_next, x_next);
+    return res;
+}
+
+
+
+int main() {
     vector<vector<double>> Matrix;
     DataRead(Matrix, "Matrix.txt");
     int prodVanilaQr = 0, prodQrWithHesenberg=0, prodQrWithShift=0, prodQrWithHesenbergAndShift=0;
-
     cout << "Vanila QR decompositon" << endl;
-    DisplayVector(EigenValuesQR(Matrix, prodVanilaQr));
+    vector<double> eigens_v = EigenValuesQR(Matrix, prodVanilaQr);
+    DisplayVector(eigens_v);
 
     cout << endl;
     cout << "QR with Hesenberg" << endl;
@@ -534,4 +742,20 @@ int main() {
     cout << endl;
     cout << "QR with Hesenberg And Shift" << endl;
     DisplayVector(EigenValuesHesenbergAndShift(Matrix, prodQrWithHesenbergAndShift));
+
+    vector<vector<double>> approx_vecs = { {-1, 0.05, -0.3, -0.45},{0.1, 0.65, -0.67, 0.2}, {0.1, 0.00, -0.15, -0.1},
+        {-0.1, 0.5, 0.25, -0.1} };
+    for (int i = 0; i < approx_vecs.size(); ++i) ModifiedInverseIterationMethod(Matrix, approx_vecs[i]);
+
+
+    cout << "Matrix A: " << endl;
+    vector<vector<double>> eigen_vectors = GetEigenVectors(eigens_v, Matrix);
+    cout << endl;
+    EigenVectorsCheck(eigen_vectors, eigens_v, Matrix);
+
+    cout << endl;
+    cout << "Transposed matrix A:" << endl;
+    eigen_vectors = GetEigenVectors(eigens_v, transpose(Matrix));
+    cout << endl;
+    EigenVectorsCheck(eigen_vectors, eigens_v, Matrix);
 }

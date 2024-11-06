@@ -3,45 +3,26 @@ epsilon = 0.0001
 
 
 Matrix 1
-Norm C = 0.962963
-Norm C_L = 0.666667
-Norm C_U = 0.444444
-Matrix 2
-Norm C = 2.08802
-Norm C_L = 0.0880161
-Norm C_U = 0.112941
+Norm C = 1.00677
+Norm C_L = 0.0147
+Norm C_U = 0.0137
 StopCriteria ||x^(k+1)-x^k|| < epsilon
 Example 1
 count of iteration = 100
-Norm of delta = 0.00294167
-tau = 0.037037
-x1=4.99955 x2=-6.99985 x3=11.9971 x4=3.99902 
-Example 2
-count of iteration = 100
-Norm of delta = 0.00294167
-tau = 0.00503525
-x1=-1.85848e+46 x2=-9.00349e+46 x3=-3.33147e+46 x4=-1.06752e+48 
+Norm of delta = 11.8789
+tau = 0.01
+x1=0.857305 x2=0.000278213 x3=0.121094 x4=0.213435 
 
 StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
 Example 1
-count of iteration = 83
-Norm of delta = 0.0127468
-tau = 0.037037
-x1=4.99745 x2=-6.9995 x3=11.9873 x4=3.99643 
-Example 2
 count of iteration = 100
-Norm of delta = 0.0127468
-tau = 0.00503525
-x1=-1.85848e+46 x2=-9.00349e+46 x3=-3.33147e+46 x4=-1.06752e+48 
+Norm of delta = 11.8789
+tau = 0.01
+x1=0.857305 x2=0.000278213 x3=0.121094 x4=0.213435 
 
 StopCriteria ||Ax^k-f|| < epsilon
 Example 1
 count of iteration = 100
-Norm of delta = 0.00294167
-tau = 0.037037
-x1=4.99955 x2=-6.99985 x3=11.9971 x4=3.99902 
-Example 2
-count of iteration = 100
-Norm of delta = 0.00294167
-tau = 0.00503525
-x1=-1.85848e+46 x2=-9.00349e+46 x3=-3.33147e+46 x4=-1.06752e+48 
+Norm of delta = 11.8789
+tau = 0.01
+x1=0.857305 x2=0.000278213 x3=0.121094 x4=0.213435 
