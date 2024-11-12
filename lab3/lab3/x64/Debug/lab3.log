@@ -5,11 +5,11 @@ C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(191,29): warning C4267: ини
 C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(325,22): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(391,22): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(421,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(432,39): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(482,39): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(527,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(573,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(585,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(630,12): warning C4101: discrepancy: неиспользованная локальная переменная
-C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(686,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(433,39): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(484,39): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(529,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(575,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(587,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(633,12): warning C4101: discrepancy: неиспользованная локальная переменная
+C:\Users\mouze\Desktop\CM_labs\lab3\lab3\lab3.cpp(660,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   lab3.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab3\x64\Debug\lab3.exe

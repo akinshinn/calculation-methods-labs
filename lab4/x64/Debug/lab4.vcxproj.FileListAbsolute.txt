@@ -1,1 +1,2 @@
 D:\VisualStdudio\calculatem\calculation-methods-labs\lab4\x64\Debug\lab4.exe
+C:\Users\mouze\Desktop\CM_labs\lab4\x64\Debug\lab4.exe
