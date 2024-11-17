@@ -72,6 +72,22 @@ double func5(double x) {
     return exp(x);
 }
 
+double runge(double x) {
+    return 1 / (1 + 25*x * x);
+}
+
+double func_test(double x) {
+    double R1 = cos(pow(x,5) - x + 3 + cbrt(2));
+    double R2 = atan((pow(x,3) - 5 * sqrt(2) * x - 4) / (sqrt(6) * x + sqrt(3)));
+
+    return R1 + R2 + 1.8;
+}
+
+double const_f(double x) {
+    return 1;
+}
+
+
 pair<vector<double>, vector<double>> GenerateUniformGrid(double a, double b, int n, double(& func)(double x)) {
     // n - количество узлов, [a, b] - отрезок интерполирования
     vector<double> xValues{}, yValues{};
@@ -149,32 +165,54 @@ vector<vector<double>> SplainInterpolationUniformGrid(double a, double b, int n,
 }
 
 
+double split_diff(const vector<double>& x, const vector<double>& y) {
+    double res = 0;
+    int k = x.size();
+    for (int j = 0; j < k; j++) {
+        double prod = 1;
+        for (int i = 0; i < j; i++) {
+            prod *= x[j] - x[i];
+        }
+        for (int i = j+1; i < k; i++) {
+            prod *= x[j] - x[i];
+        }
+        res += y[j] / prod;
+    }
+    return res;
+}
+double split_diff(const vector<double>& x, const vector<double>& y, int k) {
+    double res = 0;
+    for (int j = 0; j < k+1; j++) {
+        double prod = 1;
+        for (int i = 0; i < j; i++) {
+            prod *= x[j] - x[i];
+        }
+        for (int i = j + 1; i < k+1; i++) {
+            prod *= x[j] - x[i];
+        }
+        res +=  y[j]/ prod;
+    }
+    return res;
+}
+
+
 Polynom LagrangeInterpolation(const pair<vector<double>, vector<double>>& grid) {
     int n = grid.first.size()-1;
     const vector<double>& x = grid.first;
     const vector<double>& y = grid.second;
     Polynom p(n);
-    for (int k = 0; k < n + 1; k++) {
-        Polynom c_k(n);
-        c_k.coefs[n] = 1;
-        double global_coef =1 ;
-        for (int j = 0; j < k; j++) {
-            //Polynom sub_c({1/(x[k] - x[j]), -x[j] / (x[k] - x[j])});
-            Polynom sub_c({ 1,-x[j] });
-            global_coef *= x[k] - x[j];
-            c_k *= sub_c;
-        }
-        for (int j = k+1; j < n+1; j++) {
-            Polynom sub_c({ 1,-x[j] });
-            global_coef *= x[k] - x[j];
-            c_k *= sub_c;
+    p.coefs[n] = y[0];
+    Polynom subp(vector<double> {1});
+    Polynom coef;
+    for (int i = 1; i <= n; i++) {
+        Polynom curP({ 1,-x[i-1] });
+        subp *= curP;
+        coef = subp;
+        subp *= split_diff(x, y, i);
+        p += subp;
 
-        }
-        c_k *= y[k] /global_coef;
-        p += c_k;
-        //p.print();
+        subp = coef;
     }
-
     return p;
 }
 
@@ -192,10 +230,19 @@ bool check_interpolate(double a, double b, double(&func)(double x), double eps, 
             return true; 
         };
     }
-    cout << p.getValue(6.79)<<  endl;
     return false;
 }
 
+
+double error_norm(const Polynom& Ln, double(&func)(double x), double a, double b) {
+    int n = 1000;
+    double maxx = -1;
+    pair<vector<double>, vector<double>> subgrid = GenerateUniformGrid(a, b, 1000, func);
+    for (int i = 0; i < n; i++) {
+        maxx = max(maxx, abs(subgrid.second[i] - Ln.getValue(subgrid.first[i])));
+    }
+    return maxx;
+}
 
 
 Polynom find_best_chebyshev(double a, double b, double(&func)(double x), double eps) {
@@ -203,9 +250,9 @@ Polynom find_best_chebyshev(double a, double b, double(&func)(double x), double 
     int n = 1;
     do {
         n++;
+        cout << n << endl;
         pair<vector<double>, vector<double>> grid = GenerateChebyshevGrid(a, b, n, func);
         p = LagrangeInterpolation(grid);
-        cout << n << endl;
     } while (check_interpolate(a, b, func, eps, p));
     return p;
 
@@ -221,14 +268,32 @@ int main()
     //for (int i = 1; i <= n1; i++) {
     //    cout << ex1[0][i] << " " << ex1[1][i] << " " << ex1[2][i] << " " << ex1[3][i] << endl;
     //}
+    //Polynom a((vector<double>{1}));
+    //cout << a.n << endl;
+    //a *= a;
+    //a.print();
+
+    //a.print();
+    //a.write_file("test.txt");
+    //cout << a.getValue(2);
+   
+    int n = 128;
+    pair<vector<double>, vector<double>> grid = GenerateUniformGrid(-1,1,n,const_f);
+    pair<vector<double>, vector<double>> chebyshev = GenerateChebyshevGrid(-1, 1, n, const_f);
+    PrintGrid(grid);    
+    //cout << split_diff(grid.first, grid.second,4) << endl;
+    Polynom p = LagrangeInterpolation(grid);
+    p.print();
+    //p.write_file("constF128_u.txt");
+    Polynom p2 = LagrangeInterpolation(chebyshev);
+    p2.print();
+    //p2.write_file("constF128_c.txt");
+    //cout << "Uniform grid error norm = " << error_norm(p, runge, -1, 1) << endl;
+    //cout << "Chebyshev grid error norm = " << error_norm(p2, runge, -1, 1) << endl;
+    ////cout << p.getValue(1.5);
+    //p.write_file("exp.txt");
     
-
-    pair<vector<double>, vector<double>> grid = GenerateUniformGrid(0,2,10,exp);
-    PrintGrid(grid);
-    cout << LagrangeInterpolation(grid).getValue(2.2);
-
-    //Polynom p = find_best_chebyshev(0, 10, func3, 0.01);
+    //Polynom p = find_best_chebyshev(0, 10, exp, 0.0001);
     //p.write_file("atan.txt");
-    //cout << p.getValue(6.79) << endl;
     //p.print();
 }

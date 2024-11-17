@@ -1,5 +1,6 @@
 ﻿  lab4.cpp
 C:\Users\mouze\Desktop\CM_labs\lab4\Polynom.h(30,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab4\lab4.cpp(31,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab4\lab4.cpp(153,32): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab4\lab4.cpp(170,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab4\lab4.cpp(200,32): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   lab4.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab4\x64\Debug\lab4.exe

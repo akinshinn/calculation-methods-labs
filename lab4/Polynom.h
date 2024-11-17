@@ -79,7 +79,7 @@ class Polynom {
 			int max_n = max(n, P2.n);
 			int min_n = n + P2.n - max_n;
 			Polynom& minP = *this, maxP = P2;
-			Polynom res(maxP);
+			Polynom res;
 
 			if (max_n != min_n) {
 				if (max_n == n){
@@ -90,12 +90,14 @@ class Polynom {
 					maxP = P2;
 					minP = *this;
 				}
-
+				res.copy(maxP);
 				for (int i = min_n; i >= 0; --i) {
 					res.coefs[i + (max_n - min_n)] += minP.coefs[i];
 				}
 			}
 			else {
+				res.copy(maxP);
+
 				for (int i = 0; i < max_n + 1; i++) {
 					res.coefs[i] += minP.coefs[i];
 				}
@@ -122,7 +124,7 @@ class Polynom {
 			return *this;
 		}
 
-		double getValue(double x) {
+		double getValue(double x) const {
 			double res = 0;
 			for (int i = 0; i < n + 1; i++) {
 				res += coefs[i] * pow(x, n - i);
