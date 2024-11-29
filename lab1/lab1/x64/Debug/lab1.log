@@ -1,27 +1,28 @@
-﻿  Gauss.cpp
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(19,31): warning C4305: инициализация: усечение из "double" в "float"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.cpp(592,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.cpp(620,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(309,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.cpp(126): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> MultiplyMatrix<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &,std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(579,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.cpp(173): message : выполняется компиляция ссылки на экземпляр шаблон функции "T AssessmentConditionality<double>(std::vector<double,std::allocator<double>> &,std::vector<double,std::allocator<double>> &,std::vector<double,std::allocator<double>> &,std::vector<double,std::allocator<double>> &,T (__cdecl &)(std::vector<double,std::allocator<double>> &))"
+﻿  lab1.cpp
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(19,31): warning C4305: инициализация: усечение из "double" в "float"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\lab1.cpp(4,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(28,52): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\lab1.cpp(6,16): message : выполняется компиляция ссылки на экземпляр шаблон функции "void print_matrix<double>(const std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(134,51): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\lab1.cpp(7,35): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::vector<double,std::allocator<double>> Gauss_method<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(65,47): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(134,51): message : выполняется компиляция ссылки на экземпляр шаблон функции "void triangularize<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\lab1.cpp(7,35): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::vector<double,std::allocator<double>> Gauss_method<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
+  Gauss.cpp
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(19,31): warning C4305: инициализация: усечение из "double" в "float"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.cpp(592,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.cpp(620,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(309,83): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.cpp(126,81): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> MultiplyMatrix<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &,std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(579,150): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.cpp(173,131): message : выполняется компиляция ссылки на экземпляр шаблон функции "T AssessmentConditionality<double>(std::vector<double,std::allocator<double>> &,std::vector<double,std::allocator<double>> &,std::vector<double,std::allocator<double>> &,std::vector<double,std::allocator<double>> &,T (__cdecl &)(std::vector<double,std::allocator<double>> &))"
           with
           [
               T=double
           ]
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(509,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.cpp(210): message : выполняется компиляция ссылки на экземпляр шаблон функции "void WriteCheckPoint<double>(std::vector<std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>>,std::allocator<std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>>>> &,std::string)"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(509,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-  lab1.cpp
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(19,31): warning C4305: инициализация: усечение из "double" в "float"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\lab1.cpp(4,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(28,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\lab1.cpp(6): message : выполняется компиляция ссылки на экземпляр шаблон функции "void print_matrix<double>(const std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(134,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\lab1.cpp(7): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::vector<double,std::allocator<double>> Gauss_method<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(65,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\Gauss.h(134): message : выполняется компиляция ссылки на экземпляр шаблон функции "void triangularize<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
-C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\lab1\lab1.cpp(7): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::vector<double,std::allocator<double>> Gauss_method<double>(std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>> &)"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(509,71): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.cpp(210,50): message : выполняется компиляция ссылки на экземпляр шаблон функции "void WriteCheckPoint<double>(std::vector<std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>>,std::allocator<std::vector<std::vector<double,std::allocator<double>>,std::allocator<std::vector<double,std::allocator<double>>>>>> &,std::string)"
+C:\Users\mouze\Desktop\CM_labs\lab1\lab1\Gauss.h(509,71): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  QR.cpp
   Создание кода...
-  lab1.vcxproj -> C:\Users\ASUS\Desktop\calculation-methods-labs-master\lab1\x64\Debug\lab1.exe
+  lab1.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab1\x64\Debug\lab1.exe

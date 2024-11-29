@@ -1,3 +1,5 @@
 AssessmentConditionality
 Example: 1
 IndOne: 3, IndInfty: 3
+Example: 2
+IndOne: 1, IndInfty: 1

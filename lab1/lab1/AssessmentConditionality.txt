@@ -1,3 +1,5 @@
 AssessmentConditionality
 Example: 1
 NormOne: 190.432, NormInfty: 79.5455
+Example: 2
+NormOne: 1, NormInfty: 1

@@ -580,8 +580,9 @@ pair<vector<double>, int> RelaxationMethod(int size, double w, vector<vector<dou
             }
             NextIterSol[i] = (1 - w) * CurIterSol[i] + w * (matrix[i][size] - suma) / matrix[i][i];
         }
-        if (iteration > 200) break;
+        if (iteration > 200) { cout << iteration << endl;  break; }
     } while (!StopCriteria(size, matrix, CurIterSol, NextIterSol, NormOneVec));
+    cout << iteration << endl;
     //vector<double> x_true = { 5, -7, 12, 4 };
     //vector<double> delta(4);
 
@@ -964,6 +965,7 @@ pair<vector<double>, int> SeidelMethod(int size, vector<vector<double>>& matrix,
         }
 
     } while (!StopCriteria(size, matrix, curSol, nextSol, NormInfVec));
+    cout << iteration << endl;
     //for (int k = 0; k < 42; ++k) {
     //    curSol = nextSol;
     //    for (int j = 0; j < size; ++j) {
@@ -1337,19 +1339,20 @@ int main()
     vector<vector<vector<double>>> Matrix{};
 
     DataRead(SystemNumber, size, Matrix, "System.txt");
-
     //print_graph_norm_err_vs_iter_jacoby(Matrix[0], 60, "jacoby_err_vs_iter.txt");
     //print_graph_norm_err_vs_iter_relaxation(Matrix[0],60, 0.5, "relax_err_vs_iter.txt");
-    WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
-    WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
-    WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
-    WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
+    vector<double> x = RelaxationMethod(size[0], 1.1,Matrix[0], StopCriteriaOne).first;
+    DisplayVector(x);
+    //WriteSimpleIterationAnswer(SystemNumber, size, Matrix, "SimpleIterationAnswer.txt");
+    //WriteSeidelAnswer(SystemNumber, size, Matrix, "SeidelAnswer.txt");
+    //WriteJacobyAnswer(SystemNumber, size, Matrix, "JacobyAnswer.txt");
+    //WriteRelaxationAnswer(SystemNumber, size, Matrix, "RelaxationAnswer.txt");
 
 
-    GenerateThreeDiagonal(201, "triangleMatrix.txt");
-    DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
-    WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
-    OmegaVsIteration(SystemNumber, size, Matrix, "OmegaVsIteration.txt", "WoframOmegaVsIteration.txt");
-    TauVsIteration(Matrix[0], "tau_vs_iter.txt", "wolfram_tau_vs_iter.txt", 500);
+    //GenerateThreeDiagonal(201, "triangleMatrix.txt");
+    //DataReadTriangleMatrix(SizeTriangleMatrix, TriangleMatrix, "triangleMatrix.txt");
+    //WriteRelaxationTriangleAnswer(SizeTriangleMatrix, TriangleMatrix, "RelaxationTriangle.txt");
+    //OmegaVsIteration(SystemNumber, size, Matrix, "OmegaVsIteration.txt", "WoframOmegaVsIteration.txt");
+    //TauVsIteration(Matrix[0], "tau_vs_iter.txt", "wolfram_tau_vs_iter.txt", 500);
 
 }
