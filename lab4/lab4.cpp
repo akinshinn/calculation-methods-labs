@@ -8,6 +8,7 @@
 #include <math.h>
 #include "Polynom.h"
 # define pi 3.14159265358979323846
+const int koltestpoints = 1000;
 using namespace std;
 void DisplayMatrix(vector<vector<double>> Matrix) {
     for (auto& row : Matrix) {
@@ -49,6 +50,8 @@ vector<double> Progonka(vector<vector<double>> matrix, vector<double> right) {
 }
 
 
+
+
 double func0(double x) {
     return x;
 }
@@ -72,6 +75,9 @@ double func5(double x) {
     return exp(x);
 }
 
+double func6(double x) {
+    return sin(pi * x);
+}
 double runge(double x) {
     return 1 / (1 + 25*x * x);
 }
@@ -130,8 +136,8 @@ void PrintGrid(pair<vector<double>, vector<double>> grid) {
 vector<vector<double>> SplainInterpolationUniformGrid(double a, double b, int n, double(&func)(double x)) {
     pair<vector<double>, vector<double>> grid = GenerateUniformGrid(a, b, n, func);
     vector<double> xValues = grid.first, yValues = grid.second;
-    cout << "Uniform grid" << endl;
-    PrintGrid(grid.first, grid.second);
+    //cout << "Uniform grid" << endl;
+    //PrintGrid(grid.first, grid.second);
     vector<double> A(n+1, 0), B(n+1, 0), C(n+1, 0), D(n+1, 0), H(n+1,0), G(n+1,0);
     
     for (int i = 1; i < n+1; i++) {
@@ -260,6 +266,31 @@ Polynom find_best_chebyshev(double a, double b, double(&func)(double x), double 
 
 }
 
+double calculateNorm(double a, double b, double h, double(&func)(double x)) {
+    int n = (b - a) / h;
+    vector<double> A, B, C, D;
+    vector<vector<double>> res = SplainInterpolationUniformGrid(a, b, n, func);
+    A = res[0];
+    B = res[1];
+    C = res[2];
+    D = res[3];
+    double curr = a;
+    double norm = 0;
+    vector<double> xValues{}, yValues{};
+
+    for (int i = 0; i < n + 1; i++) {
+        xValues.push_back(a + i * h);
+    }
+
+    for (int i = 0; i < n; i++) {
+        curr = a;
+        for (int j = 0; j < 50; j++) {
+            norm = max(norm, abs(func(curr) - (A[i] + B[i] * (curr - xValues[i]) + C[i] * pow(curr - xValues[i], 2) + D[i] * pow(curr - xValues[i], 3))));
+            curr += h / 50;
+        }
+    }
+    return norm;
+}
 int main()
 {
     //double a1=-1, a2=-1, a3=-3, a4=-1, b1=1, b2=1, b3=3, b4=1;
@@ -279,6 +310,7 @@ int main()
     //a.write_file("test.txt");
     //cout << a.getValue(2);
    
+<<<<<<< HEAD
     int n = 16;
     pair<vector<double>, vector<double>> grid = GenerateUniformGrid(-1,1,n,func4);
     pair<vector<double>, vector<double>> chebyshev = GenerateChebyshevGrid(-1, 1, n, func4);
@@ -290,6 +322,20 @@ int main()
     Polynom p2 = LagrangeInterpolation(chebyshev);
     p2.write_file("test16_c.txt");
     cout << "Uniform grid error norm = " << error_norm(p, func4, -1, 1) << endl;
+=======
+    //int n = 128;
+    //pair<vector<double>, vector<double>> grid = GenerateUniformGrid(-1,1,n,const_f);
+    //pair<vector<double>, vector<double>> chebyshev = GenerateChebyshevGrid(-1, 1, n, const_f);
+    //PrintGrid(grid);    
+    //cout << split_diff(grid.first, grid.second,4) << endl;
+    //Polynom p = LagrangeInterpolation(grid);
+    //p.print();
+    //p.write_file("constF128_u.txt");
+    //Polynom p2 = LagrangeInterpolation(chebyshev);
+    //p2.print();
+    //p2.write_file("constF128_c.txt");
+    //cout << "Uniform grid error norm = " << error_norm(p, runge, -1, 1) << endl;
+>>>>>>> 7cdee46c01cf605ac895434ec51f6a4b4065ba36
     //cout << "Chebyshev grid error norm = " << error_norm(p2, runge, -1, 1) << endl;
     ////cout << p.getValue(1.5);
     //p.write_file("exp.txt");
@@ -297,4 +343,9 @@ int main()
     //Polynom p = find_best_chebyshev(0, 10, exp, 0.0001);
     //p.write_file("atan.txt");
     //p.print();
+
+    double q = 0.5, h = 0.5, a = -1, b = 1;
+    for (int i = 0; i < 5; i++) {
+        cout << "err" << calculateNorm(a, b, pow(q, i) * h, func6) << endl;
+    }
 }
