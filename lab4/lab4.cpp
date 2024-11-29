@@ -138,6 +138,7 @@ vector<vector<double>> SplainInterpolationUniformGrid(double a, double b, int n,
         A[i] = yValues[i - 1];
         H[i] = xValues[i] - xValues[i - 1];
         G[i] = (yValues[i] - yValues[i - 1]) / H[i];
+
     }
     vector<vector<double>> SystemMatrix{};
     vector <double> right{}, sol{};
@@ -161,6 +162,7 @@ vector<vector<double>> SplainInterpolationUniformGrid(double a, double b, int n,
     }
     B[n] = G[n] - 2 * C[n] * H[n] / 3;
     D[n] = -C[n] / (3 * H[n]);
+
     return { A,B,C,D };
 }
 
@@ -277,18 +279,17 @@ int main()
     //a.write_file("test.txt");
     //cout << a.getValue(2);
    
-    int n = 128;
-    pair<vector<double>, vector<double>> grid = GenerateUniformGrid(-1,1,n,const_f);
-    pair<vector<double>, vector<double>> chebyshev = GenerateChebyshevGrid(-1, 1, n, const_f);
+    int n = 16;
+    pair<vector<double>, vector<double>> grid = GenerateUniformGrid(-1,1,n,func4);
+    pair<vector<double>, vector<double>> chebyshev = GenerateChebyshevGrid(-1, 1, n, func4);
     PrintGrid(grid);    
     //cout << split_diff(grid.first, grid.second,4) << endl;
     Polynom p = LagrangeInterpolation(grid);
+    p.write_file("test16_u.txt");
     p.print();
-    //p.write_file("constF128_u.txt");
     Polynom p2 = LagrangeInterpolation(chebyshev);
-    p2.print();
-    //p2.write_file("constF128_c.txt");
-    //cout << "Uniform grid error norm = " << error_norm(p, runge, -1, 1) << endl;
+    p2.write_file("test16_c.txt");
+    cout << "Uniform grid error norm = " << error_norm(p, func4, -1, 1) << endl;
     //cout << "Chebyshev grid error norm = " << error_norm(p2, runge, -1, 1) << endl;
     ////cout << p.getValue(1.5);
     //p.write_file("exp.txt");

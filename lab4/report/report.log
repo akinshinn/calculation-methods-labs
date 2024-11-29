@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.10)  17 NOV 2024 20:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.10)  27 NOV 2024 15:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1360,12 +1360,141 @@ Overfull \hbox (6.92865pt too wide) in paragraph at lines 185--189
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\hss' on input line 273.
 
-[7]
+[7] [8]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hss' on input line 306.
+(hyperref)                removing `\hss' on input line 348.
 
-[8] [9] (./report.aux)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hss' on input line 397.
+
+[9] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 491--491
+[]|\T2A/cmr/m/n/10 Норма ошиб-ки
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 491--491
+[]|\T2A/cmr/m/n/10 Отношение оши-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 512--512
+[]|\T2A/cmr/m/n/10 Норма ошиб-ки
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 512--512
+[]|\T2A/cmr/m/n/10 Отношение оши-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--533
+[]|\T2A/cmr/m/n/10 Порядок схо-ди-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--533
+\T2A/cmr/m/n/10 мо-сти по-ли-но-ма
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
+[]|\T2A/cmr/m/n/10 Порядок схо-ди-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
+\T2A/cmr/m/n/10 мо-сти по-ли-но-ма
+ []
+
+
+Underfull \hbox (badness 1616) in paragraph at lines 533--534
+\T2A/cmr/m/n/10 Лагран-жа на че-
+ []
+
+
+Overfull \hbox (39.84825pt too wide) in paragraph at lines 530--548
+ [][] 
+ []
+
+<../runge4.png, id=112, 522.15076pt x 237.88875pt>
+File: ../runge4.png Graphic file (type png)
+<use ../runge4.png>
+Package pdftex.def Info: ../runge4.png  used on input line 550.
+(pdftex.def)             Requested size: 455.24408pt x 207.41525pt.
+[11]
+<../runge8.png, id=121, 522.15076pt x 237.88875pt>
+File: ../runge8.png Graphic file (type png)
+<use ../runge8.png>
+Package pdftex.def Info: ../runge8.png  used on input line 554.
+(pdftex.def)             Requested size: 455.24408pt x 207.41525pt.
+<../runge16.png, id=122, 522.15076pt x 243.309pt>
+File: ../runge16.png Graphic file (type png)
+<use ../runge16.png>
+Package pdftex.def Info: ../runge16.png  used on input line 558.
+(pdftex.def)             Requested size: 455.24408pt x 212.14119pt.
+<../atan4.png, id=123, 710.05275pt x 388.45125pt>
+File: ../atan4.png Graphic file (type png)
+<use ../atan4.png>
+Package pdftex.def Info: ../atan4.png  used on input line 562.
+(pdftex.def)             Requested size: 455.24408pt x 249.05841pt.
+ [12 <../runge4.png (PNG copy)> <../runge8.png (PNG copy)>]
+<../atan8.png, id=131, 710.05275pt x 388.45125pt>
+File: ../atan8.png Graphic file (type png)
+<use ../atan8.png>
+Package pdftex.def Info: ../atan8.png  used on input line 566.
+(pdftex.def)             Requested size: 455.24408pt x 249.05841pt.
+<../atan16.png, id=132, 710.05275pt x 388.45125pt>
+File: ../atan16.png Graphic file (type png)
+<use ../atan16.png>
+Package pdftex.def Info: ../atan16.png  used on input line 570.
+(pdftex.def)             Requested size: 455.24408pt x 249.05841pt.
+ [13 <../runge16.png (PNG copy)> <../atan4.png (PNG copy)>]
+File: ../atan16.png Graphic file (type png)
+<use ../atan16.png>
+Package pdftex.def Info: ../atan16.png  used on input line 574.
+(pdftex.def)             Requested size: 455.24408pt x 249.05841pt.
+<../test4.png, id=140, 710.05275pt x 388.45125pt>
+File: ../test4.png Graphic file (type png)
+<use ../test4.png>
+Package pdftex.def Info: ../test4.png  used on input line 578.
+(pdftex.def)             Requested size: 455.24408pt x 249.05841pt.
+ [14 <../atan8.png (PNG copy)> <../atan16.png (PNG copy)>]
+<../test8.png, id=147, 710.05275pt x 388.45125pt>
+File: ../test8.png Graphic file (type png)
+<use ../test8.png>
+Package pdftex.def Info: ../test8.png  used on input line 582.
+(pdftex.def)             Requested size: 455.24408pt x 249.05841pt.
+<../splinerunge4.png, id=148, 473.97075pt x 240.9pt>
+File: ../splinerunge4.png Graphic file (type png)
+<use ../splinerunge4.png>
+Package pdftex.def Info: ../splinerunge4.png  used on input line 586.
+(pdftex.def)             Requested size: 455.24408pt x 231.37898pt.
+ [15 <../test4.png (PNG copy)>]
+<../splinerunge8.png, id=155, 473.97075pt x 240.9pt>
+File: ../splinerunge8.png Graphic file (type png)
+<use ../splinerunge8.png>
+Package pdftex.def Info: ../splinerunge8.png  used on input line 590.
+(pdftex.def)             Requested size: 455.24408pt x 231.37898pt.
+<../splinerunge16.png, id=156, 473.97075pt x 240.9pt>
+File: ../splinerunge16.png Graphic file (type png)
+<use ../splinerunge16.png>
+Package pdftex.def Info: ../splinerunge16.png  used on input line 594.
+(pdftex.def)             Requested size: 455.24408pt x 231.37898pt.
+ [16 <../test8.png (PNG copy)> <../splinerunge4.png (PNG copy)>]
+<../splinetest4.png, id=163, 473.97075pt x 237.88875pt>
+File: ../splinetest4.png Graphic file (type png)
+<use ../splinetest4.png>
+Package pdftex.def Info: ../splinetest4.png  used on input line 598.
+(pdftex.def)             Requested size: 455.24408pt x 228.48674pt.
+<../splinetest8.png, id=164, 473.97075pt x 237.88875pt>
+File: ../splinetest8.png Graphic file (type png)
+<use ../splinetest8.png>
+Package pdftex.def Info: ../splinetest8.png  used on input line 602.
+(pdftex.def)             Requested size: 455.24408pt x 228.48674pt.
+ [17 <../splinerunge8.png (PNG copy)> <../splinerunge16.png (PNG copy)>] [18 <../splinetest4.png (PNG copy)> <../splinetest8.png (PNG copy)>] (./report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2020/03/25>
@@ -1377,18 +1506,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 44021 strings out of 475436
- 983291 string characters out of 5782550
- 1947190 words of memory out of 5000000
- 65234 multiletter control sequences out of 15000+600000
+ 44179 strings out of 475436
+ 986289 string characters out of 5782550
+ 1956190 words of memory out of 5000000
+ 65357 multiletter control sequences out of 15000+600000
  572991 words of font info for 67 fonts, out of 8000000 for 9000
  497 hyphenation exceptions out of 8191
- 101i,10n,109p,1222b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,14n,109p,1222b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbi1728.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (9 pages, 457851 bytes).
+Output written on report.pdf (18 pages, 962202 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 146 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
- 62 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 281 PDF objects out of 1000 (max. 8388607)
+ 211 compressed objects within 3 object streams
+ 66 named destinations out of 1000 (max. 500000)
+ 135 words of extra memory for PDF output out of 10000 (max. 10000000)
 

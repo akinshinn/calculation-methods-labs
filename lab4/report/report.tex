@@ -26,7 +26,7 @@
 \usepackage{slashbox}
 \usepackage{pdflscape}
 \usepackage{array} 
-\graphicspath{{../../style/}}
+\graphicspath{{../../style/}{../}}
 
   
 
@@ -296,14 +296,105 @@
         \item Почему на функции Рунге норма ошибки стремится к бесконечности при достаточно большом количетсве узлов?
         \newline
         {\bfseries Ответ. } 
+        Если рассматривать интерполяцию Лагранжа на равномерной сетке, то оценка погрешности оценивается по следующей формуле
+        \[
+        ||f-L_n|| \le \frac{||f^{n+1}(x)||}{n+1} \cdot (\frac{b-a}{n})^{n+1}
+        \]
+        При увеличении количества точек интерполяции норма ошибка растет. Это связано с тем, что $||f^(n+1)||$ не ограничено при росте $n$. Однако, только этого было бы не достаточно. Оказывается, что $||f^{(n+1)}||$ растет быстрее чем $(\frac{b-a}{n})^{n+1} \cdot \frac{1}{n}$. Для того, чтобы это показать проведем расчеты в wolfram mathematica. Рассмотрим таблицу
+        \begin{table}[H]
+        	\centering
+        	\caption{Норма ошибки пример рунге равномерная сетка}
+        	\begin{tabular}{|c|p{5cm}|p{5cm}|}
+        		\hline
+        		Количество узлов $n$ & Норма ошибки интерполяции
+        		на равномерной сетке \\ \hline 
+        		10 & < 0.4 \\ \hline 
+        		40 & $10^{-6}$ \\ \hline 
+        		70 & < 0.005 \\ \hline
+        		100 & $10^9$ \\ \hline
+        		130 & $10^{43}$ \\ \hline
+        		199 & $10^{112}$\\ \hline
+        	\end{tabular}
+        \end{table}
+        
+        
+        На чебышевской сетке ситуация немного улучшиться за счет того что корни распределены ближе к краям отрезка. В случаи Чебышевской сетки погрешность можно оценить по формуле
+        \[
+        ||f-L_n||\le \frac{M_{n+1}}{(n+1)!}\frac{(b-a)^{n+1}}{2^{2n+1}} = \epsilon_{ch}
+        \]
+		Проведем аналогичные расчеты для чебышевской сетки.
+		
+		\begin{table}[H]
+			\centering
+			\caption{Норма ошибки пример рунге чебышевская сетка}
+			\begin{tabular}{|c|p{5cm}|p{5cm}|}
+				\hline
+				Количество узлов $n$ & Норма ошибки интерполяции
+				на равномерной сетке \\ \hline 
+				30 & < 0.35 \\ \hline 
+				100 & $10^9$ \\ \hline
+				130 & $10^{43}$ \\ \hline
+				187 & $10^{106}$\\ \hline
+			\end{tabular}
+		\end{table}
         \item Что такое многочлен, наименее отклоняющийся от 0?  
              \newline
         {\bfseries Ответ. } 
+        Многочлен $T_n(x)$ степени n со старшим коэффициентом 1 для которого величина $\max\limits_{x\in [-1,1]}|T_n(x)|$ является минимальной называется многочленом наименее уклоняющегося от нуля. т.е это многочлен $\min\limits_{T_n(x)} \max_{y \in [-1;\, 1]} |T_n(x)|$.
+    
     \end{enumerate}
     \newpage
 
+    \section{Дополнительные вопросы 2}
+    \begin{enumerate}
+        \item Какая связь между тригонометрической и полиномиальной интерполяцией?
+        \newline
+        {\bfseries Ответ. } 
+        Запишем тригонометрический полином на равномерной сетке 
+        \begin{equation*}
+            Q_n = a_0 + \sum_{k=1}^{n} (a_k \cos (k \omega x) + b_k \sin (k \omega x)),
+        \end{equation*}
+        где $\omega = \dfrac{2 \pi}{b-a}$.
+        Чебышевская сетка задается 
+        \begin{equation*}
+            x_k = \frac{a+b}{2} + \frac{b-a}{2} \cos (\frac{2k-1}{2n} \pi)
+        \end{equation*}
+        Запишем полином Лагранжа 
+        \begin{equation*}
+            \sum_{k=0}^{n} f_i \prod_{i=0;i\neq k}^{n} \dfrac{x-x_i}{x_k - x_i}.
+        \end{equation*}
+        Запишем полином Лагранжа на чебышевской сетке 
+        \begin{equation*}
+            \sum_{k=0}^{n} f_i \prod_{i=0;i\neq k}^{n} \dfrac{x-\frac{a+b}{2} - \frac{b-a}{2} \cos (\frac{2i-1}{2n} \pi)}{\frac{a+b}{2} + \frac{b-a}{2} \cos (\frac{2k-1}{2n} \pi) -\frac{a+b}{2} - \frac{b-a}{2} \cos (\frac{2i-1}{2n} \pi)}.
+        \end{equation*}
+        Сделаем замену 
+        \begin{equation*}
+            x = \frac{a+b}{2} + \frac{b-a}{2} \cos \varphi
+        \end{equation*}
+        и подставим
+        \begin{equation*}
+            \sum_{k=0}^{n} f_i \prod_{i=0;i\neq k}^{n} \dfrac{ \frac{b-a}{2} \cos \varphi - \frac{b-a}{2} \cos (\frac{2i-1}{2n} \pi)}{\frac{b-a}{2} \cos (\frac{2k-1}{2n} \pi)  - \frac{b-a}{2} \cos (\frac{2i-1}{2n} \pi)}.
+        \end{equation*}
+        Получили произведение косинусов. Заметим, что косинус в произвольной степени легко привести к линейной комбинации $\sin$ и $\cos$. То есть получили тригонометрический полином на равномерной сетке.
+        \item Есть ли смысл в чебышевской сетке при сплайн-интерполяции?
+        \newline
+        {\bfseries Ответ. } 
+        Нет смысла, потому что для сплайн-интерполяции справедлива следующая оценка
+        \begin{equation*}
+            \|f - S_3\|_C \leqslant C_1 M_4 h^4
+        \end{equation*}
+        Для чебышевской сетки известно, что при увеличении количества точек $h \to 0$
+        \item Основные отличия интерполирования при помощи полиномов Лагранжа и интерполирования при помощи сплайнов?
+        \newline
+        {\bfseries Ответ. } 
+        \begin{enumerate}
+            \item Сплайн - локальная интерполяция, полином Лагранжа - глобальная интерполяция
+            \item Лагранж сильнее чувствителен к погрешностям
+            \item  Если функция не имеет n+1 ой ограниченной производной, то погрешность в случае глобальной интерполяции в отличии от интерполяции сплайном может вести себя плохо.
+        \end{enumerate}
+    \end{enumerate}
 
-    \section{Результаты}
+\section{Результаты}
 
     
     \begin{table}[H]
@@ -315,12 +406,12 @@
             на равномерной сетке & Норма ошибки интерполяции
             на чебышевской сетке \\
             \hline 
-            4 & 1.38778e-17 & 1.11022e-15 \\ \hline
-            8 & 1.56541e-14 & 8.27116e-14\\ \hline
-            16 &4.16477e-11 & 4.11692e-10\\ \hline
-            32 & 0.00135712 &  0.0270299\\ \hline
-            64 &1.79857e+11 & 9.43626e+13\\ \hline
-            128 &3.30446e+41&   3.3719e+46\\ \hline
+            4 & 1.39e-17 & 1.11e-15 \\ \hline
+            8 & 1.57e-14 & 8.27e-14\\ \hline
+            16 &4.16e-11 & 4.12e-10\\ \hline
+            32 & 0.0013 &  0.027\\ \hline
+            64 &1.8e+11 & 9.44e+13\\ \hline
+            128 &3.30e+41&   3.37e+46\\ \hline
         \end{tabular}
     \end{table}
     \begin{table}[H]
@@ -332,12 +423,12 @@
             на равномерной сетке & Норма ошибки интерполяции
             на чебышевской сетке \\
             \hline 
-            4 & 0.0222816 &   0.0121951 \\ \hline
-            8 & 0.00225823 & 0.000358938\\ \hline
-            16 &3.99059e-05 & 3.11367e-07\\ \hline
-            32 &  0.00299503 &  0.024117\\ \hline
-            64 &1.33188e+13 & 1.03685e+14\\ \hline
-            128 & 4.17637e+43&   4.16101e+46\\ \hline
+            4 & 0.02 &   0.01 \\ \hline
+            8 & 0.002 & 0.0004\\ \hline
+            16 &3.99e-05 & 3.11e-07\\ \hline
+            32 &  0.003 &  0.024\\ \hline
+            64 &1.33e+13 & 1.04e+14\\ \hline
+            128 & 4.18e+43&   4.16e+46\\ \hline
         \end{tabular}
     \end{table}
     \begin{table}[H]
@@ -349,12 +440,12 @@
             на равномерной сетке & Норма ошибки интерполяции
             на чебышевской сетке \\
             \hline 
-            4 & 0.41874 &  0.439841 \\ \hline
-            8 &  1.24549 & 0.311175\\ \hline
-            16 &54.2254 & 0.142036\\ \hline
-            32 & 194965 & 0.0273522\\ \hline
-            64 &3.17024e+16 &  5.28623e+14\\ \hline
-            128 &  3.24367e+50&  5.39712e+46\\ \hline
+            4 & 0.41 &  0.43 \\ \hline
+            8 &  1.24 & 0.31\\ \hline
+            16 &54.22 & 0.14\\ \hline
+            32 & 194965 & 0.027\\ \hline
+            64 &3.17e+16 &  5.28e+14\\ \hline
+            128 &  3.24e+50&  5.39e+46\\ \hline
         \end{tabular}
     \end{table}
 
@@ -367,12 +458,12 @@
             на равномерной сетке & Норма ошибки интерполяции
             на чебышевской сетке \\
             \hline 
-            4 &  0.599609 &  0.330792 \\ \hline
-            8 &  0.0247732 & 0.00794908\\ \hline
-            16 &0.00853036 & 7.25871e-05\\ \hline
-            32 & 0.00849413 & 0.0038532\\ \hline
-            64 & 6.79558e+11 & 4.35913e+14\\ \hline
-            128 & 5.66375e+43&  2.29985e+47\\ \hline
+            4 &  0.6 &  0.33 \\ \hline
+            8 &  0.02 & 0.008\\ \hline
+            16 &0.009 & 7.25e-05\\ \hline
+            32 & 0.008 & 0.004\\ \hline
+            64 & 6.8e+11 & 4.36e+14\\ \hline
+            128 & 5.66e+43&  2.3e+47\\ \hline
         \end{tabular}
     \end{table}
     \begin{table}[H]
@@ -384,12 +475,132 @@
             на равномерной сетке & Норма ошибки интерполяции
             на чебышевской сетке \\
             \hline 
-            4 & 2.473 &  1.81 \\ \hline
+            4 & 2.47 &  1.81 \\ \hline
             8 & 2.79 & 2.42\\ \hline
             16 &32.12 & 2.62\\ \hline
             32 & 2563.75 & 2.43\\ \hline
-            64 &1.24941e+13 & 2.4652e+14\\ \hline
-            128 & 2.98996e+43&  8.24608e+45\\ \hline
+            64 &1.25e+13 & 2.47e+14\\ \hline
+            128 & 2.99e+43&  8.25e+45\\ \hline
         \end{tabular}
     \end{table}
+    \begin{table}[H]
+        \centering
+        \caption{Исследование скорости сходимости функции $y = \sin(\pi x)$, $h = 1$, $q = 1/3$}
+        \begin{tabular}{|c|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+            \hline
+            $n$ & Шаг сетки & Норма ошибки $err_n$ & Отношение ошибок $z_n = \dfrac{err_n}{err_{n-1}}$ & Порядок сходимости $p_n = \log_q z_n$ \\
+            \hline 
+            $1$ & $h$ & 1 & --- & --- \\
+            \hline 
+            $2$ & $qh$ &0.018 & 0.018 & 3.62\\
+            \hline 
+            $3$ & $q^2 h$ &7.45e-09 & 4.14e-7& 13.2\\
+            \hline 
+            $4$ & $q^3 h$ &  4.32e+09&5.79e17 &-36.8 \\
+            \hline
+            $5$ & $q^4 h$ &  6.75e+66&1.56e57 & -118.7\\
+            \hline 
+        \end{tabular}
+    \end{table}
+
+
+    \begin{table}[H]
+        \centering
+        \caption{Исследование скорости сходимости функции $y = \sin(\pi x)$, $h = 0.5$, $q = 0.5$ для сплайн-интерполяции}
+        \begin{tabular}{|c|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+            \hline
+            $n$ & Шаг сетки & Норма ошибки $err_n$ & Отношение ошибок $z_n = \dfrac{err_n}{err_{n-1}}$ & Порядок сходимости $p_n = \log_q z_n$ \\
+            \hline 
+            $1$ & $h$ & 1.39461 & --- & --- \\
+            \hline 
+            $2$ & $qh$ &0.764926 & 0.548487 & 0.86647\\
+            \hline 
+            $3$ & $q^2 h$ & 0.390168& 0.510073& 0.971225\\
+            \hline 
+            $4$ & $q^3 h$ &  0.196034&0.502435 &0.992992\\
+            \hline 
+            $5$ & $q^4 h$ &  0.0981353&0.500603 & 0.99826\\
+            \hline 
+        \end{tabular}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \caption{Исследование скорости сходимости функции $y = \sin(\pi x)$}
+        \begin{tabular}{|c|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+            \hline
+            Количество узлов $n$ & Порядок сходимости полинома Лагранжа на равномерной сетке 
+            & Порядок сходимости полинома Лагранжа на чебышевской сетке 
+            & Порядок сходимости сплайна на отрезке [-1, 1]
+            & Порядок сходимости сплайна на отрезке [-1.25, 1.25] \\
+            \hline 
+            8 & ---& --- & ---& ---\\
+            \hline 
+            16 &20.45 & 21.76 & 0.971225& 0.411548\\
+            \hline 
+            32 & -22.02& -26.25 &0.992992 & 0\\
+            \hline 
+            64 &-48.37 & -53&0.99826 & 0\\
+            \hline 
+            128 &-102.515 & -105&0.999563 & 0\\
+            \hline
+        \end{tabular}
+    \end{table}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{runge4.png}
+        \caption{Интерполирование примера Рунге для 4 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{runge8.png}
+        \caption{Интерполирование примера Рунге для 8 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{runge16.png}
+        \caption{Интерполирование примера Рунге для 16 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{atan4.png}
+        \caption{Интерполирование $y = \dfrac{1}{\arctg (1+10x^2)}$ для 4 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{atan8.png}
+        \caption{Интерполирование $y = \dfrac{1}{\arctg (1+10x^2)}$ для 8 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{atan16.png}
+        \caption{Интерполирование $y = \dfrac{1}{\arctg (1+10x^2)}$ для 16 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{atan16.png}
+        \caption{Интерполирование $y = \dfrac{1}{\arctg (1+10x^2)}$ для 16 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{test4.png}
+        \caption{Интерполирование $y = (4x^3 + 2x^2 - 4x + 2 )^{\sqrt{2}} + \arcsin{\dfrac{1}{5+x - x^2}} - 5$ для 4 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{test8.png}
+        \caption{Интерполирование$y = (4x^3 + 2x^2 - 4x + 2 )^{\sqrt{2}} + \arcsin{\dfrac{1}{5+x - x^2}} - 5$ для 8 узлов многочленом Лагранжа}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{splinerunge4.png}
+        \caption{{Интерполирование примера Рунге для 4 узлов сплайном}}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{splinerunge8.png}
+        \caption{{Интерполирование примера Рунге для 8 узлов сплайном}}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{splinerunge16.png}
+        \caption{{Интерполирование примера Рунге для 16 узлов сплайном}}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{splinetest4.png}
+        \caption{{Интерполирование $y = (4x^3 + 2x^2 - 4x + 2 )^{\sqrt{2}} + \arcsin{\dfrac{1}{5+x - x^2}} - 5$ для 4 узлов сплайном}}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{splinetest8.png}
+        \caption{{Интерполирование $y = (4x^3 + 2x^2 - 4x + 2 )^{\sqrt{2}} + \arcsin{\dfrac{1}{5+x - x^2}} - 5$ для 8 узлов сплайном}}
+    \end{figure}
+
 \end{document}
