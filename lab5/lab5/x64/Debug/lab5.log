@@ -1,0 +1,4 @@
+﻿  lab5.cpp
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(73,32): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(92,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  lab5.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab5\x64\Debug\lab5.exe
