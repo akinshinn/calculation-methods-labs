@@ -418,7 +418,7 @@ vector<double> NewtonMethodModification(double a, double b, double x0, double(&f
             cout << "der = " << der_value << endl;
             x2 = x1 - (func(x1)) / (der_value);
             if (x2 < a) x2 = (a * func(b) - b*func(a))/(func(b) - func(a)) ;
-            else if (x2 > b) x2 = b - sn;
+            else if (x2 > b) x2 = (a * func(b) - b * func(a)) / (func(b) - func(a));
             cout << "x2 = " << x2 << endl;
         } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
         roots[i] = x2;
@@ -442,8 +442,8 @@ vector<double> NewtonMethodModification(double a, double b, double x0, double(&f
             double der_value = der(x1);
             cout << "der = " << der_value << endl;
             x2 = x1 - (func(x1)) / (der_value)+0.5 * epsilon;
-            if (x2 < a) x2 = a + sn;
-            else if (x2 > b) x2 = b - sn;
+            if (x2 < a) x2 = (a * func(b) - b * func(a)) / (func(b) - func(a));
+            else if (x2 > b) x2 = (a * func(b) - b * func(a)) / (func(b) - func(a));
             cout << "x2 = " << x2 << endl;
         } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
         roots[i] = x2;
@@ -620,7 +620,7 @@ vector<pair<double, double>> AccurateSearchRoots2D(double L1, double L2, double(
 
 int main()
 {
-   /* DisplayVector(NewtonMethodModification(-1,10,8, test2, exact_der_test2));*/
+    DisplayVector(NewtonMethodModification(0,1,0, test1, exact_der_test1));
     
     //cout << "test1" << endl;
     //DisplayVector(BisectionMethod(0, 1, test3));
