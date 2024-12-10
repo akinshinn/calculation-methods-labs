@@ -1,7 +1,4 @@
-﻿// lab5.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <fstream>
+﻿#include <fstream>
 #include <string>
 #include <sstream>
 #include <algorithm>
@@ -15,15 +12,121 @@
 using namespace std; 
 const double epsilon = 1e-6;
 const int MAX_ITER = 100;
-const int BINS = 100;
+const int BINS = 73;
 const int n1 = 10;
 const int n2=10;
 const double sn = 1e-8;  // sn - Small Number
+
+
+double f1(double x, double y) {
+    return 2 * x + y * y * y - 3;
+}
+
+
+double der_f1(double x, double y,int var) {
+    if (var == 1) return 2;
+    return 3 * y * y;
+}
+
+
+double f2(double x, double y) {
+    return 2 * x * x + y * y - 3;
+}
+
+
+double der_f2(double x, double y, int var) {
+    if (var == 2)
+    return 2 * y;
+    return 4 * x;
+}
+
+
+double x_sqr(double x) {
+    return x * x;
+}
+
+
+double der_x_sqr(double x) {
+    return 2*x;
+}
 
 double test1(double x) {
     return (x - 0.1)*(x - 0.22)*(x - 0.55)*(x - 0.7)*(x - 0.75);
 }
 
+
+double exact_der_test1(double x) {
+    return (-0.75 + x) * (-0.7 + x) * (-0.55 + x) * (-0.22 + x) + (-0.75 + x) * (-0.7 +
+        x) * (-0.55 + x) * (-0.1 + x) + (-0.75 + x) * (-0.7 + x) * (-0.22 +
+            x) * (-0.1 + x) + (-0.75 + x) * (-0.55 + x) * (-0.22 + x) * (-0.1 +
+                x) + (-0.7 + x) * (-0.55 + x) * (-0.22 + x) * (-0.1 + x);
+}
+double test2(double x) {
+    return sqrt(x+1) - 1;
+}
+
+double exact_der_test2(double x) {
+    return 1 / (2 * sqrt(x + 1));
+}
+
+double test3(double x) {
+    return 35 * x * x * x - 67 * x * x - 3 * x + 3;
+}
+
+
+double exact_der_test3(double x) {
+    return -3 - 134*x + 105*x *x;
+}
+// varibale -- переменная по которой будет взята частная производная
+double fun1(double x1, double x2) {
+    return x1 * x1 - x2 * x2 - 15;
+}
+
+double fun2(double x1, double x2) {
+    return x1 * x2 + 4;
+}
+
+double Derivativefun1(double x1, double x2, int var) {
+    if (var == 1) { return 2 * x1; }
+    return -2 * x2;
+}
+
+double Derivativefun2(double x1, double x2, int var) {
+    if (var == 1) { return x1; }
+    return x2;
+}
+
+double fun3(double x1, double x2) {
+    return x1 * x1 + x2 * x2 + x1 + x2 - 8;
+}
+
+double fun4(double x1, double x2) {
+    return x1 * x1 + x2 * x2 + x1 * x2 - 7;
+}
+
+double Derivativefun3(double x1, double x2, int var) {
+    if (var == 1) { return 2 * x1 + 1; }
+    return 2 * x2 + 1;
+}
+
+double Derivativefun4(double x1, double x2, int var) {
+    if (var == 1) { return 2 * x1 + x2; }
+    return 2 * x2 + x1;
+}
+
+double Derivative(pair<double, double> Point, double(&func)(double x1, double x2), int variable) {
+    if (variable == 1) {
+        return (func(Point.first + sn, Point.second) - func(Point.first, Point.second)) / sn;
+    }
+    return (func(Point.first, Point.second + sn) - func(Point.first, Point.second)) / sn;
+
+}
+
+double Derivative1D(double x, double(&func)(double x)) {
+    //return (func(Point.first, Point.second + sn) - func(Point.first, Point.second)) / sn;
+    return (func(x + sn) - func(x - sn)) / (2 * sn);
+
+}
 
 void DisplayMatrix(vector<vector<double>> Matrix) {
     for (auto& row : Matrix) {
@@ -167,67 +270,236 @@ vector<double> BisectionMethod(double a, double b, double(&func)(double x)) {
 }
 
 
-//vector<double> NewtonMethod(double a, double b, double(&func)(double x)) {
-//    pair<vector<double>, vector<double>> interval_roots = LocalizeRoots(a, b, BINS, func);
-//    int n = interval_roots.first.size();
-//    int iterations = 0;
-//    vector<double> roots(n);
-//    double x1, x2;
-//    for (int i = 0; i < n; ++i) {
-//        x1 = interval_roots.first[i];
-//        do {
-//            x2 = x1 - 
-//        } while ((abs(x1 - x2) > eplsilon) && (iterations < MAX_ITER))
-//    }
-//    cout << "Iterations in Newton method = " << iterations << endl;
-//    return roots;
-//}
-
-
-// varibale -- переменная по которой будет взята частная производная
-double fun1(double x1, double x2) {
-    return x1 * x1 - x2 * x2 - 15;
-}
-
-double fun2(double x1, double x2) {
-    return x1 * x2 + 4;
-}
-
-double Derivativefun1(double x1, double x2, int var) {
-    if (var == 1) {return 2 * x1; }
-    return -2 * x2;
-}
-
-double Derivativefun2(double x1, double x2, int var) {
-    if (var == 1) { return x1; }
-    return x2;
-}
-
-double fun3(double x1, double x2) {
-    return x1 * x1 + x2 * x2 + x1 + x2 - 8;
-}
-
-double fun4(double x1, double x2) {
-    return x1 * x1 + x2 * x2 + x1 * x2 - 7;
-}
-
-double Derivativefun3(double x1, double x2, int var) {
-    if (var == 1) { return 2 * x1 + 1; }
-    return 2 * x2 + 1;
-}
-
-double Derivativefun4(double x1, double x2, int var) {
-    if (var == 1) { return 2 * x1 + x2; }
-    return 2 * x2 + x1;
-}
-
-double Derivative(pair<double, double> Point, double(&func)(double x1, double x2), int variable) {
-    if (variable == 1) {
-        return (func(Point.first + sn, Point.second) - func(Point.first, Point.second)) / sn;
+// Общий случай метода Ньютона с n корнями и численной производной
+vector<double> NewtonMethod(double a, double b, double(&func)(double x)) {
+    pair<vector<pair<double, double>>, vector<pair<double, double>>> interval_roots = LocalizeRoots(a, b, BINS, func);
+    int n = interval_roots.first.size();
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2, y1, y2;
+    for (int i = 0; i < n; ++i) {
+        y1 = interval_roots.first[i].second;
+        x2 = interval_roots.first[i].first; // Чтобы в начале цикла x1 = x2, все равно потом x2 поменяется
+        y2 = interval_roots.second[i].second;
+        if (y1 == 0) { roots[i] = interval_roots.first[i].first; continue; }
+        if (y2 == 0) { roots[i] = interval_roots.second[i].first; continue; }
+        do {
+            iterations++;
+            x1 = x2;
+            double der_value = Derivative1D(x1, func);
+            x2 = x1 - (func(x1)) / (der_value);
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
     }
-    return (func(Point.first, Point.second + sn) - func(Point.first, Point.second)) / sn;
+    int i = 0, cntRoot = 0;
+    vector<double> Roots = {};
+    while (i < n - 1) {
+        if (roots[i] == roots[i + 1]) {
+            cntRoot++;
+            Roots.push_back(roots[i]);
+            i += 2;
+        }
+        else {
+            cntRoot++;
+            Roots.push_back(roots[i]);
+            i++;
+        }
+    }
+    if (i <= n - 1) {
+        Roots.push_back(roots[i]);
+    }
 
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return Roots;
 }
+
+
+// Общий случай метода Ньютона с n корнями и точной производной
+vector<double> NewtonMethod(double a, double b, double(&func)(double x), double(&der)(double x)) {
+    pair<vector<pair<double, double>>, vector<pair<double, double>>> interval_roots = LocalizeRoots(a, b, BINS, func);
+    int n = interval_roots.first.size();
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2, y1, y2;
+    for (int i = 0; i < n; ++i) {
+        y1 = interval_roots.first[i].second;
+        x2 = interval_roots.first[i].first; // Чтобы в начале цикла x1 = x2, все равно потом x2 поменяется
+        y2 = interval_roots.second[i].second;
+        if (y1 == 0) { roots[i] = interval_roots.first[i].first; continue; }
+        if (y2 == 0) { roots[i] = interval_roots.second[i].first; continue; }
+        do {
+            iterations++;
+            x1 = x2;
+            double der_value = der(x1);
+            x2 = x1 - (func(x1)) / (der_value);
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
+    }
+    int i = 0, cntRoot = 0;
+    vector<double> Roots = {};
+    while (i < n - 1) {
+        if (roots[i] == roots[i + 1]) {
+            cntRoot++;
+            Roots.push_back(roots[i]);
+            i += 2;
+        }
+        else {
+            cntRoot++;
+            Roots.push_back(roots[i]);
+            i++;
+        }
+    }
+    if (i <= n - 1) {
+        Roots.push_back(roots[i]);
+    }
+
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return Roots;
+}
+
+
+// Случай с 1 корнем и численной производной
+vector<double> NewtonMethod(double a, double b, double x0, double(&func)(double x)) {
+    int n = 1;
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2 = x0;
+    for (int i = 0; i < n; ++i) {
+        do {
+            iterations++;
+            x1 = x2;
+            double der_value = Derivative1D(x1, func);
+            cout << "der = " << der_value << endl;
+            x2 = x1 - (func(x1)) / (der_value);
+            cout << "x2 = " << x2 << endl;
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
+    }
+
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return roots;
+}
+
+
+// Случай с 1 корнем и точной производной
+vector<double> NewtonMethod(double a, double b, double x0, double(&func)(double x), double(&der)(double x)) {
+    int n = 1;
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2 = x0;
+    for (int i = 0; i < n; ++i) {
+        do {
+            iterations++;
+            x1 = x2;
+            double der_value = der(x1);
+            cout << "der = " << der_value << endl;
+            x2 = x1 - (func(x1)) / (der_value);
+            cout << "x2 = " << x2 << endl;
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
+    }
+
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return roots;
+}
+
+
+// Модификация (исключение выхода за границы отрезка) метода Ньютона с 1 корнем и численной производной
+vector<double> NewtonMethodModification(double a, double b, double x0, double(&func)(double x)) {
+    int n = 1;
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2 = x0;
+    for (int i = 0; i < n; ++i) {
+        do {
+            iterations++;
+            x1 = x2;
+            double der_value = Derivative1D(x1, func);
+            cout << "der = " << der_value << endl;
+            x2 = x1 - (func(x1)) / (der_value);
+            if (x2 < a) x2 = (a * func(b) - b*func(a))/(func(b) - func(a)) ;
+            else if (x2 > b) x2 = b - sn;
+            cout << "x2 = " << x2 << endl;
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
+    }
+
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return roots;
+}
+
+
+// Модификация (исключение выхода за границы отрезка и зацикливание) метода Ньютона с 1 корнем и точной производной
+vector<double> NewtonMethodModification(double a, double b, double x0, double(&func)(double x), double(&der)(double x)) {
+    int n = 1;
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2 = x0;
+    for (int i = 0; i < n; ++i) {
+        do {
+            iterations++;
+            x1 = x2;
+            double der_value = der(x1);
+            cout << "der = " << der_value << endl;
+            x2 = x1 - (func(x1)) / (der_value)+0.5 * epsilon;
+            if (x2 < a) x2 = a + sn;
+            else if (x2 > b) x2 = b - sn;
+            cout << "x2 = " << x2 << endl;
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
+    }
+
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return roots;
+}
+
+
+vector<double> SecantMethod(double a, double b, double(&func)(double x)) {
+    pair<vector<pair<double, double>>, vector<pair<double, double>>> interval_roots = LocalizeRoots(a, b, BINS, func);
+    int n = interval_roots.first.size();
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2, y1, y2;
+    for (int i = 0; i < n; ++i) {
+        y1 = interval_roots.first[i].second;
+        x2 = interval_roots.first[i].first; // Чтобы в начале цикла x1 = x2, все равно потом x2 поменяется
+        y2 = interval_roots.second[i].second;
+        if (y1 == 0) { roots[i] = interval_roots.first[i].first; continue; }
+        if (y2 == 0) { roots[i] = interval_roots.second[i].first; continue; }
+        b = interval_roots.second[i].first;
+        a = interval_roots.first[i].first;
+        do {
+            iterations++;
+            x1 = x2;
+            
+            x2 = x1 - func(x1)* (b-x1) / (func(b) - func(x1));
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
+    }
+    int i = 0, cntRoot = 0;
+    vector<double> Roots = {};
+    while (i < n - 1) {
+        if (roots[i] == roots[i + 1]) {
+            cntRoot++;
+            Roots.push_back(roots[i]);
+            i += 2;
+        }
+        else {
+            cntRoot++;
+            Roots.push_back(roots[i]);
+            i++;
+        }
+    }
+    if (i <= n - 1) {
+        Roots.push_back(roots[i]);
+    }
+
+    cout << "Iterations in Secant method = " << iterations << endl;
+    return Roots;
+}
+
+
+
 
 
 void triangularize(vector<vector<double>>& matrix) {
@@ -348,21 +620,23 @@ vector<pair<double, double>> AccurateSearchRoots2D(double L1, double L2, double(
 
 int main()
 {
-    cout << "test1" << endl;
-    DisplayVector(BisectionMethod(0, 1, test1));
-    cout << endl;
-    cout << "test4" << endl;
-    cout << "Derivative approximately" << endl;
-    Display(SearchRoots2D(10, 10, fun1, fun2));
+   /* DisplayVector(NewtonMethodModification(-1,10,8, test2, exact_der_test2));*/
+    
+    //cout << "test1" << endl;
+    //DisplayVector(BisectionMethod(0, 1, test3));
+    //cout << endl;
+    //cout << "test4" << endl;
+    //cout << "Derivative approximately" << endl;
+    //Display(SearchRoots2D(10, 10, fun1, fun2));
 
-    cout << "Derivative accurate" << endl;
-    Display(AccurateSearchRoots2D(10, 10, fun1, fun2, Derivativefun1, Derivativefun2));
+    //cout << "Derivative accurate" << endl;
+    //Display(AccurateSearchRoots2D(10, 10, fun1, fun2, Derivativefun1, Derivativefun2));
+    //Display(AccurateSearchRoots2D(2, 2, f1, f2, der_f1, der_f2));
+    //cout << endl;
+    //cout << "test5" << endl;
+    //cout << "Derivative approximately" << endl;
+    //Display(SearchRoots2D(10, 10, fun3, fun4));
 
-    cout << endl;
-    cout << "test5" << endl;
-    cout << "Derivative approximately" << endl;
-    Display(SearchRoots2D(10, 10, fun3, fun4));
-
-    cout << "Derivative accurate" << endl;
-    Display(AccurateSearchRoots2D(10, 10, fun3, fun4, Derivativefun3, Derivativefun4));
+    //cout << "Derivative accurate" << endl;
+    //Display(AccurateSearchRoots2D(10, 10, fun3, fun4, Derivativefun3, Derivativefun4));
 }
