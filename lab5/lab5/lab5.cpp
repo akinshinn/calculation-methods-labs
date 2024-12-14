@@ -18,6 +18,20 @@ const int n2=10;
 const double sn = 1e-8;  // sn - Small Number
 
 
+
+double var1(double x) {
+    double R1 = exp((x * x * x * x + x * x - x + sqrt(5)) / 5);
+    double R2 = sinh((x * x * x + 21 * x + 9) / (21 * x + 6));
+    return R1 + R2 - 3;
+}
+
+
+double der_var1(double x) {
+    return 0.2 * exp(0.2* (sqrt(5) -x + x*x + x * x *x *x))* (-1 +2*x +4*x*x*x)+ 
+        ((21+3*x*x)/(6+21*x) - (21*(9+21*x +x*x*x))/((6+21*x)* (6 + 21 * x)))*cosh((9+21*x+x*x*x)/(6+21*x));
+}
+
+
 double f1(double x, double y) {
     return 2 * x + y * y * y - 3;
 }
@@ -33,6 +47,15 @@ double f2(double x, double y) {
     return 2 * x * x + y * y - 3;
 }
 
+
+double test_newton1(double x, double y) {
+    return 2 * (x + y) * (x + y) + (x - y) * (x - y) - 8;
+}
+
+
+double test_newton2(double x, double y) {
+    return 5*x*x+(y-3)*(y-3)-9;
+}
 
 double der_f2(double x, double y, int var) {
     if (var == 2)
@@ -128,6 +151,14 @@ double Derivative1D(double x, double(&func)(double x)) {
 
 }
 
+double Derivative1D(double x, double FixedArg, int num, double(&func)(double x, double y)) {
+    //return (func(Point.first, Point.second + sn) - func(Point.first, Point.second)) / sn;
+    if (num == 1) {
+        return (func(x + sn, FixedArg) - func(x - sn, FixedArg)) / (2 * sn);
+    }
+    return (func(FixedArg, x + sn) - func(FixedArg, x - sn)) / (2 * sn);
+
+}
 void DisplayMatrix(vector<vector<double>> Matrix) {
     for (auto& row : Matrix) {
         for (auto el : row) {
@@ -363,16 +394,19 @@ vector<double> NewtonMethod(double a, double b, double x0, double(&func)(double 
     int n = 1;
     int iterations = 0;
     vector<double> roots(n);
-    double x1, x2 = x0;
+    double x1 = x0, x2 = x0;
+    double lastx;
     for (int i = 0; i < n; ++i) {
         do {
             iterations++;
+            lastx = x1;
             x1 = x2;
             double der_value = Derivative1D(x1, func);
-            cout << "der = " << der_value << endl;
             x2 = x1 - (func(x1)) / (der_value);
-            cout << "x2 = " << x2 << endl;
-        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+            cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " <<
+                log(abs((x2 - 0.485204) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (lastx - 0.485204))) << " \\\\ \\hline" << endl;
+            /*} while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));*/ // Оригинальное условие
+        } while (iterations < 20); // условие для оценки скорости
         roots[i] = x2;
     }
 
@@ -386,16 +420,19 @@ vector<double> NewtonMethod(double a, double b, double x0, double(&func)(double 
     int n = 1;
     int iterations = 0;
     vector<double> roots(n);
-    double x1, x2 = x0;
+    double x1 = x0 , x2 = x0;
+    double lastx;
     for (int i = 0; i < n; ++i) {
         do {
             iterations++;
+            lastx = x1;
             x1 = x2;
             double der_value = der(x1);
-            cout << "der = " << der_value << endl;
             x2 = x1 - (func(x1)) / (der_value);
-            cout << "x2 = " << x2 << endl;
-        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+            //cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " <<
+            //    log(abs((x2 - 0.485204) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (lastx - 0.485204))) << " \\\\ \\hline" << endl;
+            /*} while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));*/ // Оригинальное условие
+        } while (iterations < 20); // условие для оценки скорости
         roots[i] = x2;
     }
 
@@ -409,18 +446,20 @@ vector<double> NewtonMethodModification(double a, double b, double x0, double(&f
     int n = 1;
     int iterations = 0;
     vector<double> roots(n);
-    double x1, x2 = x0;
+    double x1 = x0, x2 = x0;
+    double lastx;
     for (int i = 0; i < n; ++i) {
         do {
             iterations++;
+            lastx = x1;
             x1 = x2;
             double der_value = Derivative1D(x1, func);
-            cout << "der = " << der_value << endl;
             x2 = x1 - (func(x1)) / (der_value);
             if (x2 < a) x2 = (a * func(b) - b*func(a))/(func(b) - func(a)) ;
             else if (x2 > b) x2 = (a * func(b) - b * func(a)) / (func(b) - func(a));
-            cout << "x2 = " << x2 << endl;
-        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+            cout  << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << log(abs((x2 - x1) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (x1 - lastx))) << "\\ \hline" << endl;
+            /*} while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));*/ // Оригинальное условие
+        } while (iterations < 20); // условие для оценки скорости
         roots[i] = x2;
     }
 
@@ -440,11 +479,11 @@ vector<double> NewtonMethodModification(double a, double b, double x0, double(&f
             iterations++;
             x1 = x2;
             double der_value = der(x1);
-            cout << "der = " << der_value << endl;
+            //cout << "der = " << der_value << endl;
             x2 = x1 - (func(x1)) / (der_value)+0.5 * epsilon;
             if (x2 < a) x2 = (a * func(b) - b * func(a)) / (func(b) - func(a));
             else if (x2 > b) x2 = (a * func(b) - b * func(a)) / (func(b) - func(a));
-            cout << "x2 = " << x2 << endl;
+            //cout << "x2 = " << x2 << endl;
         } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
         roots[i] = x2;
     }
@@ -453,6 +492,70 @@ vector<double> NewtonMethodModification(double a, double b, double x0, double(&f
     return roots;
 }
 
+vector<double> NewtonMethodModificationForSystem(double a, double b, double x0,double FixedVar, int num,  double(&func)(double x, double y)) {
+    int n = 1;
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1 = x0, x2 = x0;
+    double lastx;
+    for (int i = 0; i < n; ++i) {
+        do {
+            iterations++;
+            lastx = x1;
+            x1 = x2;
+            double der_value = Derivative1D(x1, FixedVar, num, func);
+            if (num == 1) {
+                x2 = x1 - (func(x1, FixedVar)) / (der_value);
+                if (x2 < a) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
+                else if (x2 > b) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
+                cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << log(abs((x2 - x1) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (x1 - lastx))) << "\\ \hline" << endl;
+                /*} while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));*/ // Оригинальное условие
+            }
+            else {
+                x2 = x1 - (func(FixedVar,x1)) / (der_value);
+                if (x2 < a) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
+                else if (x2 > b) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
+                cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << log(abs((x2 - x1) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (x1 - lastx))) << "\\ \hline" << endl;
+            }
+        } while (iterations < 20); // условие для оценки скорости
+        roots[i] = x2;
+    }
+
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return roots;
+}
+
+vector<double> NewtonMethodModificationForSystem(double a, double b, double x0,double FixedVar,int num, double(&func)(double x, double y), double(&der)(double x, double y)) {
+    int n = 1;
+    int iterations = 0;
+    vector<double> roots(n);
+    double x1, x2 = x0;
+    for (int i = 0; i < n; ++i) {
+        do {
+            iterations++;
+            x1 = x2;
+            if (num==1){
+                double der_value = der(x1, FixedVar);
+                x2 = x1 - (func(x1, FixedVar)) / (der_value)+0.5 * epsilon;
+                if (x2 < a) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
+                else if (x2 > b) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
+            }
+            else {
+                double der_value = der(FixedVar, x1);
+                x2 = x1 - (func(FixedVar, x1)) / (der_value)+0.5 * epsilon;
+                if (x2 < a) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
+                else if (x2 > b) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
+            }
+            //cout << "der = " << der_value << endl;
+
+            //cout << "x2 = " << x2 << endl;
+        } while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));
+        roots[i] = x2;
+    }
+
+    cout << "Iterations in Newton method = " << iterations << endl;
+    return roots;
+}
 
 vector<double> SecantMethod(double a, double b, double(&func)(double x)) {
     pair<vector<pair<double, double>>, vector<pair<double, double>>> interval_roots = LocalizeRoots(a, b, BINS, func);
@@ -499,7 +602,30 @@ vector<double> SecantMethod(double a, double b, double(&func)(double x)) {
 }
 
 
+double SecantMethodOneRoot(double a, double b, double x0, double(&func)(double x)) {
+    int iterations = 0;
+    double x1 = (b-a)/2 , x2 = (b - a) / 2;
+    double lastx=a;
+    double res;
+    do {
+        iterations++;
 
+
+        x2 = lastx - func(lastx) * (x1 - lastx) / (func(x1) - func(lastx));
+        cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << 
+            log(abs((x2 - 0.485204) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (lastx - 0.485204))) << " \\\\ \\hline" << endl;
+        //cout << "x2 = " << x2 << endl;
+        lastx = x1;
+        x1 = x2;
+        /*} while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));*/ // Оригинальное условие
+    } while (iterations < 20); // условие для оценки скорости
+
+    res = x2;
+
+
+    cout << "Iterations in Secant method = " << iterations << endl;
+    return res;
+}
 
 
 void triangularize(vector<vector<double>>& matrix) {
@@ -558,6 +684,21 @@ pair<pair<double, double>, pair<double, double>>NewtonMethodSystem(pair<double, 
     }
     return { nextPoint, curPoint };
 }
+
+//pair<pair<double, double>, pair<double, double>>NewtonMethodSystemModification(pair<double, double> boundar,pair<double, double> StartPoint, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2), int& iteration) {
+//    int iterations = 0;
+//    pair<double, double> nextPoint = StartPoint, curPoint = StartPoint;
+//    vector<double> sol{};
+//    while (iterations < MAX_ITER)
+//    {
+//        curPoint = nextPoint;
+//        vector<double> NewtonMethodModificationForSystem(boundar.first, boundar.second, curPoint.first, curPoint.second, 2, func1);
+//
+//        iteration++;
+//        iterations++;
+//    }
+//    return { nextPoint, curPoint };
+//}
 
 pair<pair<double, double>, pair<double, double>>NewtonMethodSystemAccurate(pair<double, double> StartPoint, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2), double(&derfunc1)(double x1, double x2,int var), double(&derfunc2)(double x1, double x2,int var), int& iteration) {
     int iterations = 0;
@@ -618,9 +759,153 @@ vector<pair<double, double>> AccurateSearchRoots2D(double L1, double L2, double(
     return Roots;
 }
 
+
+vector<pair<double, double>> generate_2d_grid(double x0, double x1, double y0, double y1, int nx, int ny) {
+    double hx = abs(x1 - x0) / nx, hy = abs(y1 - y0) / ny;
+    vector<pair<double, double>> res;
+    for (int i = 0; i < ny; i++) {
+        y0 += hy;
+        for (int j = 0; j < nx; j++) {
+            res.push_back({ x0,y0 });
+
+            x0 += hx;
+
+        }
+        cout << x0 << " " << y0 << endl;
+    }
+    return res;
+}
+
+
+pair<vector<pair<double, double>>, vector<int>> get_matrix_convergence(double x0, double x1, double y0, double y1, int nx, int ny, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2)) {
+    vector<pair<double, double>> grid = generate_2d_grid(x0, x1, y0, y1, nx, ny);
+    vector<int> all_iterations;
+    for (int i = 0; i < grid.size(); ++i) {
+        pair<double, double> point = grid[i];
+        int cur_iter = 0;
+        NewtonMethodSystem(point, func1, func2, cur_iter);
+        all_iterations.push_back(cur_iter);
+        cout << grid[i].first << " " << grid[i].second << " " << cur_iter << endl;
+        //cout << cur_iter << endl;
+
+    }
+    return { grid, all_iterations };
+}
+
+
+void print_matix_convergence(pair<vector<pair<double, double>>, vector<int>> grid_iter, string file,int nx, int ny) {
+    ofstream f;
+    f.open(file);
+    cout << grid_iter.first.size();
+    if (f.is_open()) {
+        for (int i = 0; i < ny; ++i) {
+            for (int j = 0; j < nx; j++) {
+                f << grid_iter.second[j + i] << " ";
+            }
+            f << endl;
+
+        }
+        f.close();
+    }
+}
+
+void SearchVelocityOfConverge(pair<double, double> StartPoint, pair<double, double> answer, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2)) {
+    int iterations = 0;
+    pair<double, double> nextPoint = StartPoint, curPoint = StartPoint;
+    vector<double> sol{};
+    vector<pair<double, double>> ListSol{ curPoint,{0,0},{0,0} };
+    for (int i = 1; i < 3; i++) {
+        curPoint = nextPoint;
+        vector<vector<double>> Jacoby{ {Derivative(curPoint, func1, 1), Derivative(curPoint, func1, 2), -func1(curPoint.first, curPoint.second)},{Derivative(curPoint, func2, 1), Derivative(curPoint, func2, 2), -func2(curPoint.first, curPoint.second)} };
+        sol = Gauss_method(Jacoby);
+        nextPoint.first = curPoint.first + sol[0];
+        nextPoint.second = curPoint.second + sol[1];
+        ListSol[i] = nextPoint;
+    }
+    double  ch1, ch2, ch3;
+    ch1 = sqrt((ListSol[2].first - answer.first) * (ListSol[2].first - answer.first) + (ListSol[2].second - answer.second) * (ListSol[2].second - answer.second));
+    ch2 = sqrt((ListSol[1].first - answer.first) * (ListSol[1].first - answer.first) + (ListSol[1].second - answer.second) * (ListSol[1].second - answer.second));
+    ch3 = sqrt((ListSol[0].first - answer.first) * (ListSol[0].first - answer.first) + (ListSol[0].second - answer.second) * (ListSol[0].second - answer.second));
+    cout << "k=3| " << "p = " << log(abs(ch1 / ch2)) / log(abs(ch2 / ch3)) << endl;
+    while (iterations < MAX_ITER)
+    {
+        curPoint = nextPoint;
+        vector<vector<double>> Jacoby{ {Derivative(curPoint, func1, 1), Derivative(curPoint, func1, 2), -func1(curPoint.first, curPoint.second)},{Derivative(curPoint, func2, 1), Derivative(curPoint, func2, 2), -func2(curPoint.first, curPoint.second)} };
+        sol = Gauss_method(Jacoby);
+        nextPoint.first = curPoint.first + sol[0];
+        nextPoint.second = curPoint.second + sol[1];
+
+        ListSol[0] = ListSol[1];
+        ListSol[1] = ListSol[2];
+        ListSol[2] = nextPoint;
+        ch1 = sqrt((ListSol[2].first - answer.first) * (ListSol[2].first - answer.first) + (ListSol[2].second - answer.second) * (ListSol[2].second - answer.second));
+        ch2 = sqrt((ListSol[1].first - answer.first) * (ListSol[1].first - answer.first) + (ListSol[1].second - answer.second) * (ListSol[1].second - answer.second));
+        ch3 = sqrt((ListSol[0].first - answer.first) * (ListSol[0].first - answer.first) + (ListSol[0].second - answer.second) * (ListSol[0].second - answer.second));
+        cout << "k= " << 4 + iterations << "| " << "p = " << log(abs(ch1 / ch2)) / log(abs(ch2 / ch3)) << endl;
+        if (sqrt(sol[0] * sol[0] + sol[1] * sol[1]) < epsilon) { break; }
+        iterations++;
+    }
+
+
+}
+
+
+void SearchVelocityOfConvergeAccurate(pair<double, double> StartPoint, pair<double, double> answer, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2), double(&derfunc1)(double x1, double x2, int var), double(&derfunc2)(double x1, double x2, int var)) {
+    int iterations = 0;
+    pair<double, double> nextPoint = StartPoint, curPoint = StartPoint;
+    vector<double> sol{};
+    vector<pair<double, double>> ListSol{ curPoint,{0,0},{0,0} };
+    for (int i = 1; i < 3; i++) {
+        curPoint = nextPoint;
+        vector<vector<double>> Jacoby{ {derfunc1(curPoint.first,curPoint.second,1),derfunc1(curPoint.first,curPoint.second,2), -func1(curPoint.first, curPoint.second)},{derfunc2(curPoint.first,curPoint.second,1), derfunc2(curPoint.first,curPoint.second,2), -func2(curPoint.first, curPoint.second)} };
+        sol = Gauss_method(Jacoby);
+        nextPoint.first = curPoint.first + sol[0];
+        nextPoint.second = curPoint.second + sol[1];
+        ListSol[i] = nextPoint;
+    }
+    double  ch1, ch2, ch3;
+    ch1 = sqrt((ListSol[2].first - answer.first) * (ListSol[2].first - answer.first) + (ListSol[2].second - answer.second) * (ListSol[2].second - answer.second));
+    ch2 = sqrt((ListSol[1].first - answer.first) * (ListSol[1].first - answer.first) + (ListSol[1].second - answer.second) * (ListSol[1].second - answer.second));
+    ch3 = sqrt((ListSol[0].first - answer.first) * (ListSol[0].first - answer.first) + (ListSol[0].second - answer.second) * (ListSol[0].second - answer.second));
+    cout << "k=3| " << "p = " << log(abs(ch1 / ch2)) / log(abs(ch2 / ch3)) << endl;
+    while (iterations < MAX_ITER)
+    {
+        curPoint = nextPoint;
+        vector<vector<double>> Jacoby{ {derfunc1(curPoint.first,curPoint.second,1),derfunc1(curPoint.first,curPoint.second,2), -func1(curPoint.first, curPoint.second)},{derfunc2(curPoint.first,curPoint.second,1), derfunc2(curPoint.first,curPoint.second,2), -func2(curPoint.first, curPoint.second)} };
+        sol = Gauss_method(Jacoby);
+        nextPoint.first = curPoint.first + sol[0];
+        nextPoint.second = curPoint.second + sol[1];
+
+        ListSol[0] = ListSol[1];
+        ListSol[1] = ListSol[2];
+        ListSol[2] = nextPoint;
+        ch1 = sqrt((ListSol[2].first - answer.first) * (ListSol[2].first - answer.first) + (ListSol[2].second - answer.second) * (ListSol[2].second - answer.second));
+        ch2 = sqrt((ListSol[1].first - answer.first) * (ListSol[1].first - answer.first) + (ListSol[1].second - answer.second) * (ListSol[1].second - answer.second));
+        ch3 = sqrt((ListSol[0].first - answer.first) * (ListSol[0].first - answer.first) + (ListSol[0].second - answer.second) * (ListSol[0].second - answer.second));
+        cout << "k= " << 4 + iterations << "| " << "p = " << log(abs(ch1 / ch2)) / log(abs(ch2 / ch3)) << endl;
+        if (sqrt(sol[0] * sol[0] + sol[1] * sol[1]) < epsilon) { break; }
+        iterations++;
+    }
+
+
+}
+
+
+
+
 int main()
 {
-    DisplayVector(NewtonMethodModification(0,1,0, test1, exact_der_test1));
+
+    print_matix_convergence(get_matrix_convergence(-10, 10, -10, 10, 5, 5, fun1, fun2), "matrix_conv1.txt",5,5);
+    //print_matix_convergence(get_matrix_convergence(-5, 5, -5, 5, 300, 300, test_newton1, test_newton2), "matrix_conv3.txt", 300, 300);
+    //int iter = 0;
+    //NewtonMethodSystem({ -10,-10 }, fun1, fun2,iter);
+    //cout << iter << endl;
+    //iter = 0;
+    //NewtonMethodSystem({ -10 + 2/30 * 0.5,-10 + 2/30 * 0.5 }, fun1, fun2, iter);
+    //cout << iter << endl;
+    //Display(SearchRoots2D(100, 100, test_newton1, test_newton2));
+    //DisplayVector(NewtonMethod(0, 1, 0, var1));
     
     //cout << "test1" << endl;
     //DisplayVector(BisectionMethod(0, 1, test3));
