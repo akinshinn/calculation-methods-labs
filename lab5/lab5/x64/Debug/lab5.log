@@ -1,12 +1,10 @@
 ﻿  lab5.cpp
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(229,30): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(245,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(307,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(351,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(460,185): warning C4129: h: неизвестная escape-последовательность
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(511,188): warning C4129: h: неизвестная escape-последовательность
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(518,188): warning C4129: h: неизвестная escape-последовательность
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(562,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(632,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(655,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  lab5.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab5\x64\Debug\lab5.exe
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(229,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(245,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(307,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(351,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(460,185): warning C4129: h: неизвестная escape-последовательность
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(562,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(632,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\lab5\lab5.cpp(655,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  lab5.vcxproj -> D:\VisualStdudio\calculatem\calculation-methods-labs\lab5\x64\Debug\lab5.exe

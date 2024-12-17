@@ -508,24 +508,24 @@ vector<double> NewtonMethodModificationForSystem(double a, double b, double x0,d
                 x2 = x1 - (func(x1, FixedVar)) / (der_value);
                 if (x2 < a) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
                 else if (x2 > b) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
-                cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << log(abs((x2 - x1) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (x1 - lastx))) << "\\ \hline" << endl;
+                //cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << log(abs((x2 - x1) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (x1 - lastx))) << "\\ \hline" << endl;
                 /*} while ((abs(x1 - x2) > epsilon) && (iterations < MAX_ITER));*/ // Оригинальное условие
             }
             else {
                 x2 = x1 - (func(FixedVar,x1)) / (der_value);
                 if (x2 < a) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
                 else if (x2 > b) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
-                cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << log(abs((x2 - x1) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (x1 - lastx))) << "\\ \hline" << endl;
+                //cout << iterations << " & " << abs(x2 - x1) << " & " << abs(x2 - 0.485204) << " & " << log(abs((x2 - x1) / (x1 - 0.485204))) / log(abs((x1 - 0.485204) / (x1 - lastx))) << "\\ \hline" << endl;
             }
         } while (iterations < 20); // условие для оценки скорости
         roots[i] = x2;
     }
 
-    cout << "Iterations in Newton method = " << iterations << endl;
+    //cout << "Iterations in Newton method = " << iterations << endl;
     return roots;
 }
 
-vector<double> NewtonMethodModificationForSystem(double a, double b, double x0,double FixedVar,int num, double(&func)(double x, double y), double(&der)(double x, double y)) {
+vector<double> NewtonMethodModificationForSystem(double a, double b, double x0,double FixedVar,int num, double(&func)(double x, double y), double(&der)(double x, double y, int var)) {
     int n = 1;
     int iterations = 0;
     vector<double> roots(n);
@@ -535,13 +535,13 @@ vector<double> NewtonMethodModificationForSystem(double a, double b, double x0,d
             iterations++;
             x1 = x2;
             if (num==1){
-                double der_value = der(x1, FixedVar);
+                double der_value = der(x1, FixedVar, 1);
                 x2 = x1 - (func(x1, FixedVar)) / (der_value)+0.5 * epsilon;
                 if (x2 < a) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
                 else if (x2 > b) x2 = (a * func(b, FixedVar) - b * func(a, FixedVar)) / (func(b, FixedVar) - func(a, FixedVar));
             }
             else {
-                double der_value = der(FixedVar, x1);
+                double der_value = der(FixedVar, x1, 2);
                 x2 = x1 - (func(FixedVar, x1)) / (der_value)+0.5 * epsilon;
                 if (x2 < a) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
                 else if (x2 > b) x2 = (a * func(FixedVar, b) - b * func(FixedVar, a)) / (func(FixedVar, b) - func(FixedVar, a));
@@ -553,7 +553,7 @@ vector<double> NewtonMethodModificationForSystem(double a, double b, double x0,d
         roots[i] = x2;
     }
 
-    cout << "Iterations in Newton method = " << iterations << endl;
+    //cout << "Iterations in Newton method = " << iterations << endl;
     return roots;
 }
 
@@ -685,20 +685,43 @@ pair<pair<double, double>, pair<double, double>>NewtonMethodSystem(pair<double, 
     return { nextPoint, curPoint };
 }
 
-//pair<pair<double, double>, pair<double, double>>NewtonMethodSystemModification(pair<double, double> boundar,pair<double, double> StartPoint, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2), int& iteration) {
-//    int iterations = 0;
-//    pair<double, double> nextPoint = StartPoint, curPoint = StartPoint;
-//    vector<double> sol{};
-//    while (iterations < MAX_ITER)
-//    {
-//        curPoint = nextPoint;
-//        vector<double> NewtonMethodModificationForSystem(boundar.first, boundar.second, curPoint.first, curPoint.second, 2, func1);
-//
-//        iteration++;
-//        iterations++;
-//    }
-//    return { nextPoint, curPoint };
-//}
+pair<double, double> NewtonMethodSystemModification(pair<double, double> boundar,pair<double, double> StartPoint, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2), int& iteration) {
+    int iterations = 0;
+    pair<double, double> nextPoint = StartPoint, curPoint = StartPoint;
+    vector<double> sol{};
+    while (iterations < MAX_ITER)
+    {
+        curPoint = nextPoint;
+        vector<double> res = NewtonMethodModificationForSystem(boundar.first, boundar.second, curPoint.first, curPoint.second, 1, func1);
+        nextPoint.first = res[0];
+        res = NewtonMethodModificationForSystem(boundar.first, boundar.second, nextPoint.first, nextPoint.second, 2, func2);
+        nextPoint.second = res[0];
+        if (sqrt((nextPoint.first - curPoint.first) * (nextPoint.first - curPoint.first) + (nextPoint.second - curPoint.second) * (nextPoint.second - curPoint.second)) < epsilon) { break; }
+        iteration++;
+        iterations++;
+    }
+    return { nextPoint };
+}
+
+pair<double, double> NewtonMethodSystemModification(pair<double, double> boundar, pair<double, double> StartPoint, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2), double(&der1)(double x1, double x2, int var), double(&der2)(double x1, double x2, int var), int& iteration) {
+    int iterations = 0;
+    pair<double, double> nextPoint = StartPoint, curPoint = StartPoint;
+    vector<double> sol{};
+    while (iterations < MAX_ITER)
+    {
+        curPoint = nextPoint;
+        vector<double> res = NewtonMethodModificationForSystem(boundar.first, boundar.second, curPoint.first, curPoint.second, 1, func1 , der1);
+        nextPoint.first = res[0];
+        res = NewtonMethodModificationForSystem(boundar.first, boundar.second, nextPoint.first, nextPoint.second, 2, func2, der2);
+        nextPoint.second = res[0];
+        if (sqrt((nextPoint.first - curPoint.first) * (nextPoint.first - curPoint.first) + (nextPoint.second - curPoint.second) * (nextPoint.second - curPoint.second)) < epsilon) { break; }
+        iteration++;
+        iterations++;
+    }
+    return { nextPoint };
+}
+///////////////////////////////////////
+
 
 pair<pair<double, double>, pair<double, double>>NewtonMethodSystemAccurate(pair<double, double> StartPoint, double(&func1)(double x1, double x2), double(&func2)(double x1, double x2), double(&derfunc1)(double x1, double x2,int var), double(&derfunc2)(double x1, double x2,int var), int& iteration) {
     int iterations = 0;
@@ -896,7 +919,7 @@ void SearchVelocityOfConvergeAccurate(pair<double, double> StartPoint, pair<doub
 int main()
 {
 
-    print_matix_convergence(get_matrix_convergence(-10, 10, -10, 10, 5, 5, fun1, fun2), "matrix_conv1.txt",5,5);
+    //print_matix_convergence(get_matrix_convergence(-10, 10, -10, 10, 5, 5, fun1, fun2), "matrix_conv1.txt",5,5);
     //print_matix_convergence(get_matrix_convergence(-5, 5, -5, 5, 300, 300, test_newton1, test_newton2), "matrix_conv3.txt", 300, 300);
     //int iter = 0;
     //NewtonMethodSystem({ -10,-10 }, fun1, fun2,iter);
@@ -924,4 +947,10 @@ int main()
 
     //cout << "Derivative accurate" << endl;
     //Display(AccurateSearchRoots2D(10, 10, fun3, fun4, Derivativefun3, Derivativefun4));
+    int iter = 0;
+    pair<double, double> res = NewtonMethodSystemModification({ -10,10 }, { 1,0 }, fun1, fun2,Derivativefun1,Derivativefun2, iter);
+    cout << "sol: " << res.first << " " << res.second << ", iter =  " << iter << endl;
+    iter = 0;
+    pair<pair<double, double>, pair<double, double>> res2 = NewtonMethodSystem( { 1,0 }, fun1, fun2, iter);
+    cout << "sol: " << res2.first.first << " " << res2.first.second << ", iter =  " << iter << endl;
 }
