@@ -785,16 +785,19 @@ vector<pair<double, double>> AccurateSearchRoots2D(double L1, double L2, double(
 
 vector<pair<double, double>> generate_2d_grid(double x0, double x1, double y0, double y1, int nx, int ny) {
     double hx = abs(x1 - x0) / nx, hy = abs(y1 - y0) / ny;
+    double cx , cy;
     vector<pair<double, double>> res;
-    for (int i = 0; i < ny; i++) {
-        y0 += hy;
-        for (int j = 0; j < nx; j++) {
-            res.push_back({ x0,y0 });
+    for (int i = 0; i <= ny; i++) {
+        cx = x0;
+        for (int j = 0; j <= nx; j++) {
+            res.push_back({ cx,y0 });
+            cout << cx << " " << y0 << endl;
 
-            x0 += hx;
+            cx += hx;
 
         }
-        cout << x0 << " " << y0 << endl;
+        y0 += hy;
+
     }
     return res;
 }
@@ -919,11 +922,11 @@ void SearchVelocityOfConvergeAccurate(pair<double, double> StartPoint, pair<doub
 int main()
 {
 
-    //print_matix_convergence(get_matrix_convergence(-10, 10, -10, 10, 5, 5, fun1, fun2), "matrix_conv1.txt",5,5);
-    //print_matix_convergence(get_matrix_convergence(-5, 5, -5, 5, 300, 300, test_newton1, test_newton2), "matrix_conv3.txt", 300, 300);
-    //int iter = 0;
-    //NewtonMethodSystem({ -10,-10 }, fun1, fun2,iter);
-    //cout << iter << endl;
+    //print_matix_convergence(get_matrix_convergence(-10, 10, -10, 10, 10, 10, fun1, fun2), "matrix_conv1test.txt",10,10);
+    //print_matix_convergence(get_matrix_convergence(-5, 5, -5, 5, 300, 300, test_newton1, test_newton2), "matrix_conv3test.txt", 300, 300);
+    int iter = 0;
+    NewtonMethodSystem({ -4,4 }, fun1, fun2,iter);
+    cout << iter << endl;
     //iter = 0;
     //NewtonMethodSystem({ -10 + 2/30 * 0.5,-10 + 2/30 * 0.5 }, fun1, fun2, iter);
     //cout << iter << endl;
@@ -947,10 +950,12 @@ int main()
 
     //cout << "Derivative accurate" << endl;
     //Display(AccurateSearchRoots2D(10, 10, fun3, fun4, Derivativefun3, Derivativefun4));
-    int iter = 0;
-    pair<double, double> res = NewtonMethodSystemModification({ -10,10 }, { 1,0 }, fun1, fun2,Derivativefun1,Derivativefun2, iter);
-    cout << "sol: " << res.first << " " << res.second << ", iter =  " << iter << endl;
-    iter = 0;
-    pair<pair<double, double>, pair<double, double>> res2 = NewtonMethodSystem( { 1,0 }, fun1, fun2, iter);
-    cout << "sol: " << res2.first.first << " " << res2.first.second << ", iter =  " << iter << endl;
+    //int iter = 0;
+    //pair<double, double> res = NewtonMethodSystemModification({ -10,10 }, { 3,2 }, fun1, fun2,Derivativefun1,Derivativefun2, iter);
+    //cout << "sol: " << res.first << " " << res.second << ", iter =  " << iter << endl;
+    //cout << "System 1" << endl;
+    //SearchVelocityOfConverge({ 1,0 }, { 4,-1 }, fun1, fun2);
+    //cout << endl;
+    //cout << "System 2" << endl;
+    //SearchVelocityOfConverge({ -2.5,0 }, { -3,1 }, fun3, fun4);
 }
