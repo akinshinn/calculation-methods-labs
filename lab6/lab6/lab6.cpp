@@ -12,6 +12,35 @@
 using namespace std;
 const double epsilon = 1e-8;
 const int Maxiter = 1000;
+
+double f1_system1_book(vector<double> values) {
+    return 2 * values[1] + values[2] * values[2] - 1;
+}
+
+
+double f2_system1_book(vector<double> values) {
+    return 6 * values[1] - values[2] * values[2] + 1;
+}
+
+
+double f1_system1_test(vector<double> values) {
+    return values[2];
+}
+
+
+double f2_system1_test(vector<double> values) {
+    return values[1];
+}
+
+
+void DisplayVector(vector<double> vec) {
+    for (auto el : vec) {
+        cout << el << " ";
+    }
+    cout << endl;
+}
+
+
 void DisplayMatrix(vector<vector<double>> Matrix) {
     for (auto& row : Matrix) {
         for (auto el : row) {
@@ -153,6 +182,119 @@ vector<double> ImplicitEuler(double tau, double T, vector<double> y0, vector<dou
         }
     }
 }
+
+
+vector<double> GenerateUniformGrid(double t0, double T, int n) {
+    // n - количество отрезков, [t0, T] - отрезок 
+    vector<double> res;
+    double h = (T - t0) / n;
+    vector<double> values{};
+
+    for (int i = 0; i < n + 1; i++) {
+        res.push_back(t0 + i * h);
+    }
+
+    return res;
+}
+
+
+vector<vector<double>> Euler_explicit(
+    vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(vector<double>)> syst) {
+
+    int n = grid.size(); // количество узлов
+    int num_vars = syst.size(); // количество переменных
+    double tau = grid[1] - grid[0];
+    vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
+    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
+
+    res.emplace_back(y0); // добавляем начальный слой времени
+
+    // i - номер узла, j - номер переменной
+    for (int i = 1; i < n; i++) {
+        vector<double> y_cur(num_vars);
+        vector<double> prev_vars;
+        prev_vars.emplace_back(grid[i - 1]);
+        prev_vars.insert(prev_vars.end(), res[i - 1].begin(), res[i - 1].end());
+        for (int j = 0; j < num_vars; j++) {
+            y_cur[j] = res[i - 1][j] + tau * syst[j](prev_vars);
+
+        }
+        res.emplace_back(y_cur);
+    }
+
+    return res;
+}
+
+
+
+
+
+vector<double> GenerateUniformGrid(double t0, double T, int n) {
+    // n - количество отрезков, [t0, T] - отрезок 
+    vector<double> res;
+    double h = (T - t0) / n;
+    vector<double> values{};
+
+    for (int i = 0; i < n + 1; i++) {
+        res.push_back(t0 + i * h);
+    }
+
+    return res;
+}
+
+
+vector<vector<double>> Euler_explicit(
+    vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(vector<double>)> syst) {
+
+    int n = grid.size(); // количество узлов
+    int num_vars = syst.size(); // количество переменных
+    double tau = grid[1] - grid[0];
+    vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
+    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
+
+    res.emplace_back(y0); // добавляем начальный слой времени
+
+    // i - номер узла, j - номер переменной
+    for (int i = 1; i < n; i++) {
+        vector<double> y_cur(num_vars);
+        vector<double> prev_vars;
+        prev_vars.emplace_back(grid[i - 1]);
+        prev_vars.insert(prev_vars.end(), res[i - 1].begin(), res[i - 1].end());
+        for (int j = 0; j < num_vars; j++) {
+            y_cur[j] = res[i - 1][j] + tau * syst[j](prev_vars);
+
+        }
+        res.emplace_back(y_cur);
+    }
+
+    return res;
+}
+
+
+
+
+
+void PrintGridFunc(const vector<vector<double>>& vec) {
+    int num_vars = vec[0].size();
+    int n = vec.size();
+    cout << endl;
+    for (int j = 0; j < num_vars; j++) {
+        cout << "x" << j + 1 << " ";
+    }
+    cout << endl;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < num_vars; j++) {
+            cout << vec[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
     
