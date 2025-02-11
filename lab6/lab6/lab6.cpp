@@ -13,23 +13,23 @@ using namespace std;
 const double epsilon = 1e-8;
 const int Maxiter = 1000;
 
-double f1_system1_book(vector<double> values) {
-    return 2 * values[1] + values[2] * values[2] - 1;
+double f1_system1_book(double, vector<double> values) {
+    return 2 * values[0] + values[1] * values[1] - 1;
 }
 
 
-double f2_system1_book(vector<double> values) {
-    return 6 * values[1] - values[2] * values[2] + 1;
+double f2_system1_book(double, vector<double> values) {
+    return 6 * values[0] - values[1] * values[1] + 1;
 }
 
 
-double f1_system1_test(vector<double> values) {
-    return values[2];
-}
-
-
-double f2_system1_test(vector<double> values) {
+double f1_system1_test(double, vector<double> values) {
     return values[1];
+}
+
+
+double f2_system1_test(double, vector<double> values) {
+    return values[0];
 }
 
 
@@ -95,7 +95,7 @@ vector<double> Gauss_method(vector<vector<double>>& matrix) {
 }
 
 double inftyNorm(vector<double> vec1, vector<double> vec2) {
-    double res = -9999999999999999999;
+    double res = 0;
     int n = vec1.size();
     for (int i = 0; i < n; i++) {
         res = max(res, abs(vec1[i] - vec2[i]));
@@ -147,7 +147,7 @@ vector<double>NewtonMethod(vector<double> y0, vector<double(*)(vector<double>)> 
 }
 
 // tau - шаг, T = tmax, y0 - начанльная точка, f - вектор правых частей
-vector<double> ImplicitEuler(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+vector<vector<double>> ImplicitEuler(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
     int n = f.size();
     // Делаем сетку
     vector<double> time = {};
@@ -172,15 +172,45 @@ vector<double> ImplicitEuler(double tau, double T, vector<double> y0, vector<dou
             for (int fun = 0; fun < n; fun++) {
                 str = {};
                 for (int var = 0; var < n; var++) {
-                    NewPoint = prevstep;
                     NewPoint[var] += epsilon;
-                    str.push_back((tau*f[fun](time[i],NewPoint) - f[fun](time[i],prevstep)) / epsilon);
+                    if (fun == var) {
+                        str.push_back(tau * (f[fun](time[i], NewPoint) - f[fun](time[i], prevstep)) / epsilon -1);
+                    }
+                    else {
+                        str.push_back(tau * (f[fun](time[i], NewPoint) - f[fun](time[i], prevstep)) / epsilon);
+                    }
+                    NewPoint[var] -= epsilon;
                 }
                 JacobyMatrix.push_back(str);
             }
+            for (int j= 0; j < n; j++) {
+                JacobyMatrix[j].push_back(b[j]);
+            }
             delta = Gauss_method(JacobyMatrix);
+            for (int j = 0; j < n; j++) {
+                curstep[j] = prevstep[j] + delta[j];
+            }
+            if (inftyNorm(curstep, prevstep) < 1e-6) { break; }
+            prevstep = curstep;
+            iteration++;
         }
+        res.push_back(curstep);
     }
+    return res;
+}
+
+
+void WriteImplicitEuler(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+    vector<vector<double>> Matrix = ImplicitEuler(tau, T, y0, f);
+    ofstream outFile("output.txt");
+    for (auto& row : Matrix) {
+        for (auto& el : row) {
+            outFile << el << " ";
+        }
+        outFile << endl;
+    }
+    outFile.close();
+
 }
 
 
@@ -226,56 +256,6 @@ vector<vector<double>> Euler_explicit(
 
     return res;
 }
-
-
-
-
-
-vector<double> GenerateUniformGrid(double t0, double T, int n) {
-    // n - количество отрезков, [t0, T] - отрезок 
-    vector<double> res;
-    double h = (T - t0) / n;
-    vector<double> values{};
-
-    for (int i = 0; i < n + 1; i++) {
-        res.push_back(t0 + i * h);
-    }
-
-    return res;
-}
-
-
-vector<vector<double>> Euler_explicit(
-    vector<double> y0,
-    const vector<double>& grid,
-    vector<double(*)(vector<double>)> syst) {
-
-    int n = grid.size(); // количество узлов
-    int num_vars = syst.size(); // количество переменных
-    double tau = grid[1] - grid[0];
-    vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
-    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
-
-    res.emplace_back(y0); // добавляем начальный слой времени
-
-    // i - номер узла, j - номер переменной
-    for (int i = 1; i < n; i++) {
-        vector<double> y_cur(num_vars);
-        vector<double> prev_vars;
-        prev_vars.emplace_back(grid[i - 1]);
-        prev_vars.insert(prev_vars.end(), res[i - 1].begin(), res[i - 1].end());
-        for (int j = 0; j < num_vars; j++) {
-            y_cur[j] = res[i - 1][j] + tau * syst[j](prev_vars);
-
-        }
-        res.emplace_back(y_cur);
-    }
-
-    return res;
-}
-
-
-
 
 
 void PrintGridFunc(const vector<vector<double>>& vec) {
@@ -297,5 +277,5 @@ void PrintGridFunc(const vector<vector<double>>& vec) {
 
 int main()
 {
-    
+    WriteImplicitEuler(0.001, 10, { 0,0 }, { f1_system1_book , f2_system1_book });
 }

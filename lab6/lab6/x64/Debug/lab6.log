@@ -1,5 +1,12 @@
 ﻿  lab6.cpp
-D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(26,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(50,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(70,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(55,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(79,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(99,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(107,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(125,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(151,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(236,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(237,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(262,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\lab6\lab6.cpp(263,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   lab6.vcxproj -> D:\VisualStdudio\calculatem\calculation-methods-labs\lab6\x64\Debug\lab6.exe
