@@ -162,13 +162,13 @@ vector<vector<double>> ImplicitEuler(double tau, double T, vector<double> y0, ve
         // Нужно найти y_i. Для этого используем метод Ньютона
         int iteration = 0;
         vector<double> prevstep = res[i-1], curstep = res[i - 1], b = res[i - 1], delta{};
-        vector<vector<double>> JacobyMatrix{};
 
         while (iteration < Maxiter) {
             for (int j = 0; j < n; j++) {
                 b[j] = -tau*f[j](time[i], prevstep)+ prevstep[j] - res[i-1][j];
             }
-            vector<double> NewPoint{}, str{};
+            vector<vector<double>> JacobyMatrix{};
+            vector<double> NewPoint =prevstep, str{};
             for (int fun = 0; fun < n; fun++) {
                 str = {};
                 for (int var = 0; var < n; var++) {
@@ -277,5 +277,5 @@ void PrintGridFunc(const vector<vector<double>>& vec) {
 
 int main()
 {
-    WriteImplicitEuler(0.001, 10, { 0,0 }, { f1_system1_book , f2_system1_book });
+    WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
 }
