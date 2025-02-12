@@ -13,25 +13,33 @@ using namespace std;
 const double epsilon = 1e-8;
 const int Maxiter = 1000;
 
-double f1_system1_book(double, vector<double> values) {
+double f1_system1_book(double t, vector<double> values) {
     return 2 * values[0] + values[1] * values[1] - 1;
 }
 
 
-double f2_system1_book(double, vector<double> values) {
+double f2_system1_book(double t, vector<double> values) {
     return 6 * values[0] - values[1] * values[1] + 1;
 }
 
 
-double f1_system1_test(double, vector<double> values) {
+double f1_system1_test(double t, vector<double> values) {
     return values[1];
 }
 
 
-double f2_system1_test(double, vector<double> values) {
+double f2_system1_test(double t, vector<double> values) {
     return values[0];
 }
 
+double f1_system2_test(double t, vector<double> values) {
+    return 4 * values[0] - values[1]+exp(3*t)*(t+sin(t));
+}
+
+
+double f2_system2_test(double t, vector<double> values) {
+    return values[0] + 2*values[1]+t*exp(3*t)*cos(t);
+}
 
 void DisplayVector(vector<double> vec) {
     for (auto el : vec) {
@@ -199,10 +207,84 @@ vector<vector<double>> ImplicitEuler(double tau, double T, vector<double> y0, ve
     return res;
 }
 
+vector<vector<double>> AdamsBashford(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+    // Сетка
+    int n = f.size();
+    vector<double> time = {};
+    double t0 = 0;
+    while (t0 <= T) {
+        time.push_back(t0);
+        t0 += tau;
+    }
+
+
+    // Найдем y1, y2, y3 с помощью метода Эйлера
+    vector<vector<double>> res{ y0 };
+
+    for (int i = 1; i < 4; i++) {
+        vector<double> tmp{};
+        
+        for (int j = 0; j < n; j++) {
+            tmp.push_back(res[i - 1][j] + tau * f[j](time[i - 1], res[i - 1]));
+        }
+        res.push_back(tmp);
+    }
+    
+    // Продолжим с помощью метода Адамса Бэшфорда 4-го порядка
+    for (int i = 4; i < time.size(); i++) {
+        vector<double> tmp{};
+        for (int j = 0; j < n; j++) {
+            tmp.push_back(res[i - 1][j] + tau / 24 * (55 * f[j](time[i - 1], res[i - 1]) - 59 * f[j](time[i - 2], res[i - 2]) + 37 * f[j](time[i - 3], res[i - 3]) - 9 * f[j](time[i - 4], res[i - 4])));
+        }
+        res.push_back(tmp);
+    }
+    return res;
+}
+
+
+vector<vector<double>> PredictionCorection(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+    // Сетка
+    int n = f.size();
+    vector<double> time = {};
+    double t0 = 0;
+    while (t0 <= T) {
+        time.push_back(t0);
+        t0 += tau;
+    }
+
+
+    // Найдем y1, y2, y3 с помощью метода Эйлера
+    vector<vector<double>> res{ y0 };
+
+    for (int i = 1; i < 4; i++) {
+        vector<double> tmp{};
+
+        for (int j = 0; j < n; j++) {
+            tmp.push_back(res[i - 1][j] + tau * f[j](time[i - 1], res[i - 1]));
+        }
+        res.push_back(tmp);
+    }
+
+    // Продолжим с помощью метода Адамса Бэшфорда 4-го порядка
+    for (int i = 4; i < time.size(); i++) {
+        // Прогноз
+        vector<double> tmp{};
+        for (int j = 0; j < n; j++) {
+            tmp.push_back(res[i - 1][j] + tau / 24 * (55 * f[j](time[i - 1], res[i - 1]) - 59 * f[j](time[i - 2], res[i - 2]) + 37 * f[j](time[i - 3], res[i - 3]) - 9 * f[j](time[i - 4], res[i - 4])));
+        }
+        res.push_back(tmp);
+
+        // Коррекция
+        for (int j = 0; j < n; j++) {
+            res[i][j] = res[i - 1][j] + tau / 24 * (9 * f[j](time[i], tmp) + 19 * f[j](time[i - 1], res[i - 1]) - 5 * f[j](time[i - 2], res[i - 2]) + f[j](time[i - 3], res[i - 3]));
+        }
+    }
+    return res;
+}
 
 void WriteImplicitEuler(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
     vector<vector<double>> Matrix = ImplicitEuler(tau, T, y0, f);
-    ofstream outFile("output.txt");
+    ofstream outFile("ImplicitEuler.txt");
     for (auto& row : Matrix) {
         for (auto& el : row) {
             outFile << el << " ";
@@ -211,6 +293,32 @@ void WriteImplicitEuler(double tau, double T, vector<double> y0, vector<double(*
     }
     outFile.close();
 
+}
+
+
+void WriteAdamsBashford(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+    vector<vector<double>> Matrix = AdamsBashford(tau, T, y0, f);
+    ofstream outFile("AdamsBashford.txt");
+    for (auto& row : Matrix) {
+        for (auto& el : row) {
+            outFile << el << " ";
+        }
+        outFile << endl;
+    }
+    outFile.close();
+}
+
+
+void WritePredictionCorection(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+    vector<vector<double>> Matrix = PredictionCorection(tau, T, y0, f);
+    ofstream outFile("PredictionCorection.txt");
+    for (auto& row : Matrix) {
+        for (auto& el : row) {
+            outFile << el << " ";
+        }
+        outFile << endl;
+    }
+    outFile.close();
 }
 
 
@@ -277,5 +385,13 @@ void PrintGridFunc(const vector<vector<double>>& vec) {
 
 int main()
 {
-    WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    // Пример аналитический 1
+    /*WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });*/
+
+    // Пример аналитический 2
+    WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
+    WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
+    WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
 }
