@@ -16,6 +16,17 @@ const double eps = 1e-6;
 using namespace std;
 const double epsilon = 1e-8;
 const int Maxiter = 1000;
+const double k = 10;
+const double m = 1;
+
+double f2_system0_test(double t, vector<double> values) {
+    return -k / m * values[0];
+}
+
+double f1_system0_test(double t, vector<double> values) {
+    return values[1];
+}
+
 
 double f1_system1_book(double t, vector<double> values) {
     return 2 * values[0] + values[1] * values[1] - 1;
@@ -343,6 +354,14 @@ vector<vector<double>> PredictionCorection(double tau, double T, vector<double> 
     return res;
 }
 
+void ProcessAitken(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f, double q, vector<vector<double>>(&solver)(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f)) {
+    vector<vector<double>> sol1 = solver(tau, T, y0, f);
+    vector<vector<double>> sol2 = solver(tau * q, T, y0, f);
+    vector<vector<double>> sol3 = solver(tau * q * q, T, y0, f);
+    int center = sol1.size() / 10;
+    cout << log(abs((sol3[center / (q * q)][0] - sol2[center / q][0]) / (sol2[center / q][0] - sol1[center][0]))) / log(q);
+}
+
 vector<vector<double>> Euler_explicit(
     vector<double> y0,
     const vector<double>& grid,
@@ -485,15 +504,29 @@ void PrintGridFunc(const vector<vector<double>>& vec) {
 
 int main()
 {
+    /// Пример пружина неявный Эйлер
+    /*WriteImplicitEuler(0.1, 10, { 2,0 }, { f1_system0_test , f2_system0_test });*/
+
     // Пример аналитический 1
-    WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
-    //WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
-    //WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    /*WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });*/
 
     // Пример аналитический 2
-    WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
+    /*WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
     WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
-    WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
+    WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });*/
+
+    // Порядок Эйлер меняем тау от 0.1 до 0.01 и видно стремление к 1
+
+    /*ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test },0.5, ImplicitEuler);*/
+
+    // Порядок AdamsBashford меняем тау от 0.1 до 0.01 и видно стремление к 1
+    /*ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test }, 0.5, AdamsBashford);*/
+
+    // Порядок PredictionCorection меняем тау от 0.1 до 0.01 и видно стремление к 1
+    ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test }, 0.5, PredictionCorection);
+
     WriteImplicitEuler(0.001, 10, { 0,0 }, { f1_system1_book , f2_system1_book });
     vector<double> grid = GenerateUniformGrid(0, 1, 10);
     vector<vector<double>> res = Euler_explicit({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
