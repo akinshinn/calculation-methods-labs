@@ -9,6 +9,10 @@
 #include <iostream>
 #include <fstream>
 #include <set>
+#include <functional>
+
+
+const double eps = 1e-6;
 using namespace std;
 const double epsilon = 1e-8;
 const int Maxiter = 1000;
@@ -128,6 +132,23 @@ vector<vector<double>> ComputeJacoby(vector<double(*)(vector<double>)> f, vector
 }
 
 
+vector<vector<double>> ComputeJacoby(vector<function<double(vector<double>)>> f, vector<double> Point) {
+    int n = f.size(); // количество функций
+    vector<double> NewPoint{}, str{};
+    vector<vector<double>> MatrixJacoby{};
+    for (int fun = 0; fun < n; fun++) {
+        str = {};
+        for (int var = 1    ; var < n+1; var++) {
+            NewPoint = Point;
+            NewPoint[var] += epsilon;
+            str.push_back((f[fun](NewPoint) - f[fun](Point)) / epsilon);
+        }
+        MatrixJacoby.push_back(str);
+    }
+    return MatrixJacoby;
+}
+
+
 vector<double>NewtonMethod(vector<double> y0, vector<double(*)(vector<double>)> f) {
 
     int iteration = 0, n = f.size();
@@ -154,6 +175,45 @@ vector<double>NewtonMethod(vector<double> y0, vector<double(*)(vector<double>)> 
     return curstep;
 }
 
+
+
+// далее везде считаем, что y0 = {y1, y2, ... yn}
+vector<double>NewtonMethod(double t0, vector<double> y0, vector<function<double(vector<double>)>> f) {
+    int iteration = 0, n = f.size();
+    vector<double> prevstep = y0;
+    vector<double> prevPoint;
+    prevPoint.emplace_back(t0);
+    prevPoint.insert(prevPoint.end(), prevstep.begin(), prevstep.end());
+    vector<double> curstep(n), b(n), delta{};
+    vector<vector<double>> JacobyMatrix;
+    while (iteration < Maxiter) {
+        for (int i = 0; i < n; i++) {
+            b[i] = -f[i](prevPoint); // правая часть системы
+        }
+
+
+        JacobyMatrix = ComputeJacoby(f, prevPoint);
+        // Сводим к виду чтобы скормить Гауссу
+        for (int i = 0; i < n; i++) {
+            JacobyMatrix[i].push_back(b[i]);
+        }
+
+        delta = Gauss_method(JacobyMatrix);
+
+
+        for (int i = 0; i < n; i++) {
+            curstep[i] = prevstep[i] + delta[i];
+            prevPoint[i + 1] = curstep[i]; // i+1, т.к. prevPoint[0] = t0
+        }
+
+        if (inftyNorm(curstep, prevstep) < 1e-6) { break; }
+        prevstep = curstep;
+        iteration++;
+    }
+    return curstep;
+}
+
+
 // tau - шаг, T = tmax, y0 - начанльная точка, f - вектор правых частей
 vector<vector<double>> ImplicitEuler(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
     int n = f.size();
@@ -169,20 +229,20 @@ vector<vector<double>> ImplicitEuler(double tau, double T, vector<double> y0, ve
     for (int i = 1; i < time.size(); i++) {
         // Нужно найти y_i. Для этого используем метод Ньютона
         int iteration = 0;
-        vector<double> prevstep = res[i-1], curstep = res[i - 1], b = res[i - 1], delta{};
+        vector<double> prevstep = res[i - 1], curstep = res[i - 1], b = res[i - 1], delta{};
 
         while (iteration < Maxiter) {
             for (int j = 0; j < n; j++) {
-                b[j] = -tau*f[j](time[i], prevstep)+ prevstep[j] - res[i-1][j];
+                b[j] = -tau * f[j](time[i], prevstep) + prevstep[j] - res[i - 1][j];
             }
             vector<vector<double>> JacobyMatrix{};
-            vector<double> NewPoint =prevstep, str{};
+            vector<double> NewPoint = prevstep, str{};
             for (int fun = 0; fun < n; fun++) {
                 str = {};
                 for (int var = 0; var < n; var++) {
                     NewPoint[var] += epsilon;
                     if (fun == var) {
-                        str.push_back(tau * (f[fun](time[i], NewPoint) - f[fun](time[i], prevstep)) / epsilon -1);
+                        str.push_back(tau * (f[fun](time[i], NewPoint) - f[fun](time[i], prevstep)) / epsilon - 1);
                     }
                     else {
                         str.push_back(tau * (f[fun](time[i], NewPoint) - f[fun](time[i], prevstep)) / epsilon);
@@ -191,7 +251,7 @@ vector<vector<double>> ImplicitEuler(double tau, double T, vector<double> y0, ve
                 }
                 JacobyMatrix.push_back(str);
             }
-            for (int j= 0; j < n; j++) {
+            for (int j = 0; j < n; j++) {
                 JacobyMatrix[j].push_back(b[j]);
             }
             delta = Gauss_method(JacobyMatrix);
@@ -223,13 +283,13 @@ vector<vector<double>> AdamsBashford(double tau, double T, vector<double> y0, ve
 
     for (int i = 1; i < 4; i++) {
         vector<double> tmp{};
-        
+
         for (int j = 0; j < n; j++) {
             tmp.push_back(res[i - 1][j] + tau * f[j](time[i - 1], res[i - 1]));
         }
         res.push_back(tmp);
     }
-    
+
     // Продолжим с помощью метода Адамса Бэшфорда 4-го порядка
     for (int i = 4; i < time.size(); i++) {
         vector<double> tmp{};
@@ -240,6 +300,7 @@ vector<vector<double>> AdamsBashford(double tau, double T, vector<double> y0, ve
     }
     return res;
 }
+
 
 
 vector<vector<double>> PredictionCorection(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
@@ -279,6 +340,32 @@ vector<vector<double>> PredictionCorection(double tau, double T, vector<double> 
             res[i][j] = res[i - 1][j] + tau / 24 * (9 * f[j](time[i], tmp) + 19 * f[j](time[i - 1], res[i - 1]) - 5 * f[j](time[i - 2], res[i - 2]) + f[j](time[i - 3], res[i - 3]));
         }
     }
+    return res;
+}
+
+vector<vector<double>> Euler_explicit(
+    vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(double, vector<double>)> syst) {
+
+    int n = grid.size(); // количество узлов
+    int num_vars = syst.size(); // количество переменных
+    double tau = grid[1] - grid[0];
+    vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
+    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
+
+    res.emplace_back(y0); // добавляем начальный слой времени
+
+    // i - номер узла, j - номер переменной
+    for (int i = 1; i < n; i++) {
+        vector<double> y_cur(num_vars);
+        for (int j = 0; j < num_vars; j++) {
+            y_cur[j] = res[i - 1][j] + tau * syst[j](grid[i-1], res[i-1]);
+
+        }
+        res.emplace_back(y_cur);
+    }
+
     return res;
 }
 
@@ -336,34 +423,44 @@ vector<double> GenerateUniformGrid(double t0, double T, int n) {
 }
 
 
-vector<vector<double>> Euler_explicit(
-    vector<double> y0,
+vector<vector<double>> SymmetricalScheme(vector<double> y0,
     const vector<double>& grid,
-    vector<double(*)(vector<double>)> syst) {
-
+    vector<double(*)(double, vector<double>)> syst) {
     int n = grid.size(); // количество узлов
     int num_vars = syst.size(); // количество переменных
     double tau = grid[1] - grid[0];
     vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
     // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
 
-    res.emplace_back(y0); // добавляем начальный слой времени
-
-    // i - номер узла, j - номер переменной
+    res.emplace_back(y0);
     for (int i = 1; i < n; i++) {
-        vector<double> y_cur(num_vars);
-        vector<double> prev_vars;
-        prev_vars.emplace_back(grid[i - 1]);
-        prev_vars.insert(prev_vars.end(), res[i - 1].begin(), res[i - 1].end());
+        vector<double> y_cur;
+        vector<function<double(vector<double>)>> functions; // система нелинейных уравнений
         for (int j = 0; j < num_vars; j++) {
-            y_cur[j] = res[i - 1][j] + tau * syst[j](prev_vars);
+            auto func{ [tau, i, j,res,syst, grid](vector<double> coordinates)
+                {
+                    double t = coordinates[0]; // syst[j] принимает на вход t, y, поэтому выделяем t
+                    coordinates.erase(coordinates.begin());
+                    double ans = ((coordinates[j] - res[i - 1][j]) / tau);
+
+                    ans -= 0.5 * (syst[j](grid[i - 1], res[i - 1]) + syst[j](t, coordinates));
+                    return ans;
+                }
+            };
+
+            functions.emplace_back(func);
 
         }
+        y_cur = NewtonMethod(grid[i], res[i - 1], functions); // в качестве времени считаем текущее grid[i], а за начальное приближение считаем предыдущее решение res[i - 1]
         res.emplace_back(y_cur);
     }
-
     return res;
+
 }
+
+
+
+
 
 
 void PrintGridFunc(const vector<vector<double>>& vec) {
@@ -383,15 +480,26 @@ void PrintGridFunc(const vector<vector<double>>& vec) {
     }
 }
 
+
+
+
 int main()
 {
     // Пример аналитический 1
-    /*WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
-    WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
-    WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });*/
+    WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    //WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
+    //WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system1_test , f2_system1_test });
 
     // Пример аналитический 2
     WriteImplicitEuler(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
     WriteAdamsBashford(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
     WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });
+    WriteImplicitEuler(0.001, 10, { 0,0 }, { f1_system1_book , f2_system1_book });
+    vector<double> grid = GenerateUniformGrid(0, 1, 10);
+    vector<vector<double>> res = Euler_explicit({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
+    PrintGridFunc(res);
+
+    res = SymmetricalScheme({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
+    //vector<function<int(int)>> vec;
+    PrintGridFunc(res);
 }
