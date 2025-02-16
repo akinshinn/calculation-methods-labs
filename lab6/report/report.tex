@@ -1,0 +1,243 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage{epigraph}
+\usepackage[english, russian]{babel} % языковой пакет
+\usepackage{amsmath,amsfonts,amssymb} %математика
+\usepackage{mathtools}
+\usepackage[oglav,spisok,boldsect,eqwhole,figwhole,hyperref,hyperprint,remarks,greekit]{../../style/fn2kursstyle}
+\usepackage[utf8]{inputenc}
+\usepackage[]{tkz-euclide}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
+\usepackage{tikz-3dplot}
+\usepackage[oglav,spisok,boldsect,eqwhole,figwhole,hyperref,hyperprint,remarks,greekit]{./style/fn2kursstyle}
+\usepackage{multirow}
+\usepackage{supertabular}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{graphicx}
+\pgfplotsset{compat=1.9}
+\usepackage[svgnames]{pstricks}
+\usepackage{pst-solides3d} 
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{slashbox}
+\usepackage{pdflscape}
+\usepackage{array} 
+\graphicspath{{../../style/}{../}}
+
+  
+
+
+
+\newcommand{\cond}{\mathop{\mathrm{cond}}\nolimits}
+\newcommand{\rank}{\mathop{\mathrm{rank}}\nolimits}
+% Переопределение команды \vec, чтобы векторы печатались полужирным курсивом
+\renewcommand{\vec}[1]{\text{\mathversion{bold}${#1}$}}%{\bi{#1}}
+\newcommand\thh[1]{\text{\mathversion{bold}${#1}$}}
+%Переопределение команды нумерации перечней: точки заменяются на скобки
+\renewcommand{\labelenumi}{\theenumi)}
+\newtheorem{theorem}{Теорема}
+\newtheorem{define}{Определение}
+\tdplotsetmaincoords{60}{115}
+\pgfplotsset{compat=newest}
+
+\title{Методы численного решения обыкновенных
+дифференциальных уравнений}
+\author{Н.\,О.~Акиньшин}
+\group{ФН2-61Б}
+\date{2025}
+\supervisor{А.\,С.~Джагарян}
+
+
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+
+    \section{Контрольные вопросы}
+    \begin{enumerate}
+        \item Сформулируйте условия существования и единственности
+        решения задачи Коши для обыкновенных дифференциальных уравнений. Выполнены ли они для вашего варианта
+        задания?
+        \newline
+        {\bfseries Ответ. } 
+        \noindent Теорема (о существовании и единственности Задачи Коши)
+	
+	
+	Рассмотрим задачу Коши
+	\begin{equation}
+		\begin{split}
+			u'(t)&=f(t,u) \\
+			u(t_0)&=u_0
+		\end{split}
+	\end{equation}
+	
+	Условие 1 гарантирует существование решения Задачи Коши, а условие 2 единственность. Таким образом существует и единственно решение Задачи Коши при выполнении следующих условий
+	
+	
+	1) Функция $f(t,u)$ определена и непрерывна в прямоугольнике \[D=\{(t, u):\, |t-t_0| \le a; \,|u_i-u_{0,i}| \le b, \, i =\overline{1,n}\}\]
+	в прямоугольнике все компоненты $|f_i| \le M$
+	
+	2)Функция $f(t,u)$ липшиц-непрерывна с постоянной $L$ по переменным $u_1,u_2,\ldots \, u_n$:
+	\[
+	|f(t, u^{(1)}) - f(t, u^{(2)})| \le L \sum_{i=1}^{n}|u_i^{(1)}-u_i^{(2)}|
+	\]
+	
+	Тогда существует единственное решение задачи Коши на участке 
+	
+	\[
+	|t-t_0|\le \min\{a,b/M,1/L\} 
+	\]
+	
+	
+	Замечание. Верно следующее включение $C^1 \subset C_L \subset C$
+        \item Что такое фазовое пространство? Что называют фазовой
+        траекторией? Что называют интегральной кривой?
+        \newline
+        {\bfseries Ответ. } 
+        Пусть дана система 
+        \begin{equation*}
+            \dot{u_i} = f(t, \mathbf{u}), \quad i = 1,\ldots, n
+        \end{equation*}
+        Тогда решение системы  для любого момента 
+        времени $t \in T\subset \mathbb{R}$ можно изобразить в $n-$мерном пространстве, которое 
+        называется фазовым. 
+        Интегральной кривой называют кривую $\Gamma = \{(t, \mathbf{u}) | \mathbf{u} =
+         (u_1, u_2, \ldots, u_n), t \in T\}$ $\subset \mathbb{R}^{n+1}$, где $u_i$ -- решение системы.
+        Фазовой траекторией называется кривая $\tilde{\Gamma} = \{(u_1, u_2, \ldots, u_n)\}$ $\subset \mathbb{R}^{n}$, где $u_i$ -- решение системы.
+        
+        \item Каким порядком аппроксимации и точности обладают
+        методы, рассмотренные в лабораторной работе?
+        \newline
+        {\bfseries Ответ. } 
+        Порядок аппроксимации:
+	
+	
+	1)Метод Эйлера(явный, неявный) имеют 1ый порядок аппроксимации.
+	
+	
+	2)Симметричная схема имеет 2ой порядок аппроксимации.
+	
+	
+	3)Методы Рунге-Кутты, Адамса-Башфорта, прогноз-коррекция имеют 4ый порядок аппроксимации
+
+	
+	Порядок точности: 
+	
+	Явный метод Эйлера является частным случаем метода Рунге-Кутты, а неявный Эйлер, симметричная схема и метод Адамса-Башфорта является частным случаем линейного m-шагового разностного метода, следовательно требуется рассмотреть сходимость только методов Рунге-Кутты и линейного m-шагового разностного метода.
+	
+	
+	Рассмотрим метод Рунге-Кутты
+	
+	
+	\[
+	\frac{y_{n+1}-y_n}{\tau} = \sum_{j=1}^{m} \sigma_j k_j,\, k_j = f \left(t_n+a_j \tau,\, y_n + \sum_{i=1}^{j-1}b_{ji}\tau k_i\right), \, j= \overline{1,m}; a_1=0
+	\]
+	Запишем приближенное решение в виде $y_n=z_n+u_n$, $u_n$ - точное решение, $z_n$ - погрешность. Тогда 
+	\[
+	\frac{z_{n+1}-z_n}{\tau} = \psi_h^{(1)} + \psi_h^{(2)} 
+	\]
+	где 
+	\[
+	\psi_h^{(1)} = \sum_{i=1}^{m}\sigma_i k_i(t_n, u_n,\tau) - \frac{u_{n+1}-u_n}{\tau};
+	\]
+	
+	\[
+	\psi_h^{(2)} = \sum_{i=1}^{m}\sigma_i \left ( k_i(t_n, y_n,\tau) -k_i(t_n, u_n,\tau)\right);
+	\]
+	
+	
+	Теорема о погрешности методов Рунге-Кутты.
+	
+	
+	Пусть правая часть ОДУ удовлетворяет условию Липшица по второму аргументу с постоянной L. Тогда для погрешности метода Рунге-Кутты при $n \tau \le T $ справедлива оценка
+	\[
+	|z_n| = |y_n-u(t_n)| \le T e^{\alpha T} \max\limits_{0\le j \le n-1}|\psi_j^{(1)}|
+	\]
+	где $\alpha = \sigma L m(1+Lb\tau)^{m-1}$, где $\sigma = \max \limits_{1\le i \le m} |\sigma_i|; \, b = \max|b_{ij}|$
+	
+	
+	Следствие. При выполнении условий теоремы порядок точности метода Рунге-Кутты совпадает с порядком аппроксимации. 
+	
+	
+	Это следует из оценки погрешности и равномерной по $\tau$ ограниченности $\alpha$
+	
+	\[
+	\alpha = \sigma L m(1+Lb\tau)^{m-1} \le \sigma L m e^{(m-1)Lb\tau} \le \sigma L m e^{(m-1)LbT}
+	\]
+	
+	
+	Рассмотрим линейный m-шаговый разностный метод решения ОДУ
+	
+	
+	\[
+	\frac{a_0y_n+a_1y_{n-1}+ \ldots a_my_{n-m}}{\tau} = b_0f_n+b_1f_{n-1}+ \ldots + b_mf_{n-m}
+	\]
+	
+	Теорема о погрешности  m-шаговых разностных методов. Пусть разностный m-шаговый метод удовлетворяет условию корней и $|f'_y| \le L$. Тогда для любого $m\tau \le t_n =n\tau \le T$ при достаточно малом $\tau$ выполнена оценка
+	\[
+	|y_n-u(t_n)| \le M \left( \max\limits_{0\le j\le m-1}|y_j-u(t_j)|+\max \limits_{m\le j \le n}|\psi_{h,j}^{(1)}|\right)
+	\]
+	
+	
+	Таким образом методы имеют следующий порядок точности зависит от того с какой точностью будут найдены первые m значений. Пусть k порядок точности с которой найдены первые m значение т.е. 
+	\[
+	\max\limits_{0\le j\le m-1}|y_j-u(t_j)| = O(\tau^k)
+	\]
+	Тогда порядок точности равен $\min\{k, p\}$
+        \item Какие задачи называются жесткими? Какие методы предпочтительны для их решения? Какие из рассмотренных
+        методов можно использовать для решения жестких задач?
+        \newline
+        {\bfseries Ответ. } 
+        
+        \item Как найти $y_1$, $y_2$, $y_3$, чтобы реализовать алгоритм прогноза
+        и коррекции (1.18)?
+        \newline
+        {\bfseries Ответ. } 
+        1) Можно использовать любой из численных методов решения ОДУ требующих только начальное приближение. Например метод Рунге-Кутты или метод Эйлера и.т.д
+	
+	
+	2)Можно раскладывать в ряд Тейлора в предыдущей точке т.е. 
+	\[
+	\vec{y_1} \approx \vec{u}(t_1) = \vec{u}(t_0) + \tau \vec{u'}(t_0)
+	\]
+	\[
+	\vec{y_2} \approx \vec{u}(t_2) = \vec{u}(t_1) + \tau \vec{u'}(t_1)
+	\]
+	\[
+	\vec{y_3} \approx \vec{u}(t_3) = \vec{u}(t_2) + \tau \vec{u'}(t_2)
+	\]
+	Производные можно найти из ОДУ $u'=f(t,u)$
+	
+	3)Можно раскладывать в ряд Тейлора в начальной точке т.е. 
+	\[
+	\vec{y_1} \approx \vec{u}(t_1) = \vec{u}(t_0) + \tau \vec{u'}(t_0)
+	\]
+	\[
+	\vec{y_2} \approx \vec{u}(t_2) = \vec{u}(t_0) + 2\tau \vec{u'}(t_0)
+	\]
+	\[
+	\vec{y_3} \approx \vec{u}(t_3) = \vec{u}(t_0) + 3\tau \vec{u'}(t_0)
+	\]
+	
+	
+	Замечание 2 и 3 по сути является методом Эйлера
+        \item Какой из рассмотренных алгоритмов является менее трудоемким? Какой из рассмотренных алгоритмов позволяет достигнуть заданную точность, используя наибольший
+        шаг интегрирования? Какие достоинства и недостатки рассмотренных алгоритмов вы можете указать?
+        \newline
+        {\bfseries Ответ. } 
+        \item Какие алгоритмы, помимо правила Рунге, можно использовать для автоматического выбора шага?
+        \newline
+        {\bfseries Ответ. } 
+        
+    \end{enumerate}
+
+
+
+
+\end{document}

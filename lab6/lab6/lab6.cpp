@@ -18,13 +18,14 @@ const double epsilon = 1e-8;
 const int Maxiter = 1000;
 const double k = 10;
 const double m = 1;
+const int batch_size = 1000;
 
-double f2_system0_test(double t, vector<double> values) {
-    return -k / m * values[0];
+double f1_pendulum(double t, vector<double> values) {
+    return values[1];
 }
 
-double f1_system0_test(double t, vector<double> values) {
-    return values[1];
+double f2_pendulum(double t, vector<double> values) {
+    return -k / m * values[0];
 }
 
 
@@ -35,6 +36,31 @@ double f1_system1_book(double t, vector<double> values) {
 
 double f2_system1_book(double t, vector<double> values) {
     return 6 * values[0] - values[1] * values[1] + 1;
+}
+
+
+double f1_system2_book(double t, vector<double> values) {
+    return 1 - values[0] * values[0] - values[1] * values[1];
+}
+
+
+double f2_system2_book(double t, vector<double> values) {
+    return 2*values[0];
+}
+
+
+double f1_system3_book(double t, vector<double> values) {
+    return 10 * (values[1] - values[0]);
+}
+
+
+double f2_system3_book(double t, vector<double> values) {
+    return values[0] * (28 - values[2]) - values[1];
+}
+
+
+double f3_system3_book(double t, vector<double> values) {
+    return values[0]*values[1] - 8 * values[2] / 3;
 }
 
 
@@ -362,6 +388,36 @@ void ProcessAitken(double tau, double T, vector<double> y0, vector<double(*)(dou
     cout << log(abs((sol3[center / (q * q)][0] - sol2[center / q][0]) / (sol2[center / q][0] - sol1[center][0]))) / log(q);
 }
 
+
+void ProcessAitken(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f, double q, vector<vector<double>>(&solver)(vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(double, vector<double>)> syst)) {
+        vector<double> time = {}, time1 = {}, time2 = {};
+        double t00 = 0;
+        while (t00 <= T) {
+            time.push_back(t00);
+            t00 += tau;
+        }
+        t00 = 0;
+        while (t00 <= T) {
+            time1.push_back(t00);
+            t00 += q*tau;
+        }
+        t00 = 0;
+        while (t00 <= T) {
+            time2.push_back(t00);
+            t00 += q*q*tau;
+        }
+
+        vector<vector<double>> sol1 = solver(y0, time, f);
+
+        vector<vector<double>> sol2 = solver(y0, time1, f);
+        vector<vector<double>> sol3 = solver(y0, time2, f);
+        int center = sol1.size() / 10;
+        cout << log(abs((sol3[center / (q * q)][0] - sol2[center / q][0]) / (sol2[center / q][0] - sol1[center][0]))) / log(q);
+}
+
+
 vector<vector<double>> Euler_explicit(
     vector<double> y0,
     const vector<double>& grid,
@@ -387,6 +443,106 @@ vector<vector<double>> Euler_explicit(
 
     return res;
 }
+
+// last_id - последний индекс, когда нужно перестать записывать (в случае, если вектор GridFunc перезаписан не полностью)
+void AddFileBatch(vector<vector<double>> GridFunc, string file, int last_id = 0) {
+    int num_vars = GridFunc[0].size();
+    int n;
+    if (last_id) {
+        n = last_id;
+    }
+    else {
+        n = GridFunc.size();
+    }
+
+    ofstream out(file, ios::app);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < num_vars; j++) {
+            out << GridFunc[i][j] << " ";
+        }
+        out << endl;
+    }
+}
+
+
+void WriteAdamsBashford(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+    vector<vector<double>> Matrix = AdamsBashford(tau, T, y0, f);
+    ofstream outFile("AdamsBashford.txt");
+    for (auto& row : Matrix) {
+        for (auto& el : row) {
+            outFile << el << " ";
+        }
+        outFile << endl;
+    }
+    outFile.close();
+}
+
+void BatchedEulerExplicit(
+    vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(double, vector<double>)> syst,
+    string file) {
+
+    int n = grid.size(); // количество узлов
+    int num_vars = syst.size(); // количество переменных
+    double tau = grid[1] - grid[0];
+    vector<vector<double>> res(min(batch_size, n)); // res хранит вектор по каждой слою времени, 
+    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
+    int cur_batch_iter = 0; // итерации в текущем пакете вектора res
+    int global_iter = 0;// итерации всего за все пакеты
+    int batch_nums = n / batch_size; // кол-во пакетов
+
+
+    // Первый слой пакета делаем отдельно засчет автоматического добавления Н.У.
+    res[0] = y0; // добавляем начальный слой времени
+
+    // i - номер узла, j - номер переменной
+    for (int i = 1; i < min(batch_size, n); i++) {
+        vector<double> y_cur(num_vars);
+        for (int j = 0; j < num_vars; j++) {
+            y_cur[j] = res[i - 1][j] + tau * syst[j](grid[i - 1], res[i - 1]);
+
+        }
+        res[i] = y_cur;
+    }
+    AddFileBatch(res, file); // Добавление в файл res
+    n -= batch_size + 1;
+    // Теперь цикл по каждому пакету
+    vector<double> prev_point; // значение (y1, y2, ..., yn) на предыдущем узле
+    for (int k = 1; k < batch_nums; k++) {
+        prev_point = res[res.size() - 1]; // в начале пред точка - последняя из предыдущего пакета
+
+        for (int i = 0; i < batch_size; i++) {
+            vector<double> y_cur(num_vars);
+            for (int j = 0; j < num_vars; j++) {
+                y_cur[j] = prev_point[j] + tau * syst[j](grid[i - 1 + batch_size*k], prev_point);
+
+            }
+            res[i] = y_cur;
+            prev_point = y_cur;
+        }
+        AddFileBatch(res, file);
+        n -= batch_size;
+    }
+
+    // Последняя итерация по маленькому пакету (если кол-во точек не делится на размер пакета)
+
+    prev_point = res[res.size() - 1]; // в начале пред точка - последняя из предыдущего пакета
+
+    for (int i = 0; i < n; i++) {
+        vector<double> y_cur(num_vars);
+        for (int j = 0; j < num_vars; j++) {
+            y_cur[j] = prev_point[j] + tau * syst[j](grid[i - 1 + batch_size * k], prev_point);
+
+        }
+        res[i] = y_cur;
+        prev_point = y_cur;
+    }
+    AddFileBatch(res, file, n); // последняя перезаписанная точка n-1
+    
+
+}
+
 
 void WriteImplicitEuler(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
     vector<vector<double>> Matrix = ImplicitEuler(tau, T, y0, f);
@@ -450,8 +606,8 @@ vector<vector<double>> SymmetricalScheme(vector<double> y0,
     double tau = grid[1] - grid[0];
     vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
     // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
-
     res.emplace_back(y0);
+    cout << 123 << endl;
     for (int i = 1; i < n; i++) {
         vector<double> y_cur;
         vector<function<double(vector<double>)>> functions; // система нелинейных уравнений
@@ -501,6 +657,149 @@ void PrintGridFunc(const vector<vector<double>>& vec) {
 
 
 
+vector<vector<double>> Runge_Kutta(vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(double, vector<double>)> syst) {
+    int n = grid.size(); // количество узлов
+    int num_vars = syst.size(); // количество переменных
+    double tau = grid[1] - grid[0];
+    vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
+    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
+
+    res.emplace_back(y0);
+    vector<double> k1(num_vars), k2(num_vars), k3(num_vars), k4(num_vars), K_res(num_vars);
+    vector<double> y_k1(num_vars), y_k2(num_vars), y_k3(num_vars);
+
+    for (int i = 1; i < n; i++) {
+        vector<double> y_cur = res[i-1];
+        y_k1 = res[i - 1];
+        y_k2 = res[i - 1];
+        y_k3 = res[i - 1];
+        // считаем k1
+        for (int j = 0; j < num_vars; j++) {
+            k1[j] = syst[j](grid[i - 1], res[i - 1]);
+            y_k1[j] += tau * (k1[j]) / 2;
+        }
+
+        // считаем k2 
+        for (int j = 0; j < num_vars; j++) {
+            k2[j] = syst[j](grid[i - 1] + tau / 2, y_k1);
+            y_k2[j] += tau * (k2[j]) / 2;
+        }
+
+        // считаем k3
+        for (int j = 0; j < num_vars; j++) {
+            k3[j] = syst[j](grid[i - 1] + tau / 2, y_k2);
+            y_k3[j] += tau * (k3[j]);
+        }
+
+        // считаем k4
+        for (int j = 0; j < num_vars; j++) {
+            k4[j] = syst[j](grid[i - 1] + tau, y_k3);
+            K_res[j] = (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]) / 6;
+            y_cur[j] += tau * K_res[j];
+
+        }
+        res.emplace_back(y_cur);
+
+
+    }
+    return res;
+}
+
+
+void write_file(string file, const vector<vector<double>>& GridFunc) {
+    int num_vars = GridFunc[0].size();
+    int n = GridFunc.size();
+
+    ofstream out(file);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < num_vars; j++) {
+            out << GridFunc[i][j] << " ";
+        }
+        out << endl;
+    }
+}
+
+
+vector<vector<double>> generate_2d_grid(double x0, double x1, double y0, double y1, int nx, int ny) {
+    double hx = abs(x1 - x0) / nx, hy = abs(y1 - y0) / ny;
+    double cx, cy;
+    vector<vector<double>> res;
+    for (int i = 0; i <= ny; i++) {
+        cx = x0;
+        for (int j = 0; j <= nx; j++) {
+            res.push_back({ cx,y0 });
+            cout << cx << " " << y0 << endl;
+
+            cx += hx;
+
+        }
+        y0 += hy;
+
+    }
+    return res;
+}
+
+
+vector<vector<double>> generate_3d_grid(double x0, double x1, double y0, double y1,double z0, double z1, int nx, int ny, int nz) {
+    double hx = abs(x1 - x0) / nx, hy = abs(y1 - y0) / ny, hz = abs(z1 - z0) / nz;
+    double cx, cy, cz;
+    vector<vector<double>> res;
+    for (int i = 0; i <= ny; i++) {
+        cx = x0;
+        for (int j = 0; j <= nx; j++) {
+            cz = z0;
+            for (int k = 0; k <= nz; k++) {
+                res.push_back({ cx, y0, cz });
+                cz += hz;
+            }
+
+            cx += hx;
+
+        }
+        y0 += hy;
+
+    }
+    return res;
+}
+
+
+// center - центр квадрата, len - длина квадрата, k - кол-во точек в одну сторону
+vector<vector<double>> GenerateStartPoints2D(const vector<double>& center, double len, double k) {
+    int n = center.size(); // кол-во переменных
+    vector<vector<double>> res;
+    vector<double> x_i, newPoint(n);
+    res = generate_2d_grid(center[0] - len / 2, center[0] + len / 2, center[1] - len / 2, center[1] + len / 2, k, k);
+    return res;
+}
+
+
+// center - центр квадрата, len - длина квадрата, k - кол-во точек в одну сторону
+vector<vector<double>> GenerateStartPoints3D(const vector<double>& center, double len, double k) {
+    int n = center.size(); // кол-во переменных
+    vector<vector<double>> res;
+    vector<double> x_i, newPoint(n);
+    res = generate_3d_grid(center[0] - len / 2, center[0] + len / 2, center[1] - len / 2, center[1] + len / 2,
+        center[2] - len/2, center[2] + len/2,k, k, k);
+    return res;
+}
+
+
+vector<vector<double>> DescribeArea(const vector<vector<double>>& start_points, function<vector<vector<double>>(vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(double, vector<double>)> syst)> solver, vector<double(*)(double, vector<double>)> syst,
+    vector<double> grid) {
+    int n = start_points.size();
+    vector<vector<double>> res;
+    vector<vector<double>> temp;
+    for (int i = 0; i < n; i++) {
+        temp = solver(start_points[i], grid, syst);
+        res.insert(res.end(), temp.begin(), temp.end());
+    }
+    return res;
+}
+
 
 int main()
 {
@@ -525,14 +824,67 @@ int main()
     /*ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test }, 0.5, AdamsBashford);*/
 
     // Порядок PredictionCorection меняем тау от 0.1 до 0.01 и видно стремление к 1
-    ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test }, 0.5, PredictionCorection);
+    //ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test }, 0.5, PredictionCorection);
 
-    WriteImplicitEuler(0.001, 10, { 0,0 }, { f1_system1_book , f2_system1_book });
-    vector<double> grid = GenerateUniformGrid(0, 1, 10);
-    vector<vector<double>> res = Euler_explicit({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
-    PrintGridFunc(res);
+    //WriteImplicitEuler(0.001, 10, { 0,0 }, { f1_system1_book , f2_system1_book });
+    //vector<double> grid = GenerateUniformGrid(0, 1, 10);
+    //vector<vector<double>> res = Euler_explicit({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
+    //PrintGridFunc(res);
 
-    res = SymmetricalScheme({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
+    //res = SymmetricalScheme({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
+    //PrintGridFunc(res);
+
+    //res = Runge_Kutta({ 2,0 }, grid, { f1_system1_test, f2_system1_test });
+    //write_file("Runge_Kutta.txt", res);
     //vector<function<int(int)>> vec;
-    PrintGridFunc(res);
+    //PrintGridFunc(res);
+
+
+    // ===========================================================================
+    // Маятник
+    //vector<vector<double>> res;
+    //vector<double> grid = GenerateUniformGrid(0, 1000, 1000);
+    //res = ImplicitEuler(0.1, 10, { 1,0 }, { f1_pendulum, f2_pendulum });
+    //write_file("ImplicitEulerPendulum.txt", res);
+    //res = Euler_explicit({1,0},grid, { f1_pendulum, f2_pendulum });
+    //write_file("ExplicitEulerPendulum.txt", res);
+    //res = SymmetricalScheme({ 1,0 }, grid, { f1_pendulum, f2_pendulum });
+    //write_file("SymmetricalSchemePendulum.txt", res);
+    //res = Runge_Kutta({ 1,0 }, grid, { { f1_pendulum, f2_pendulum } });
+    //write_file("RungeKuttaPendulum.txt", res);
+
+    // ===========================================================================
+    // Фазовые портреты тестов из методички
+    // Тест 1, точка (0,1)
+    //vector<vector<double>> res,start_points;
+    //start_points = GenerateStartPoints2D({ 0,1 }, 0.5, 20);
+    //vector<double> grid = GenerateUniformGrid(0, 1, 10);
+    //res = DescribeArea(start_points, Runge_Kutta, { f1_system1_book, f2_system1_book }, grid);
+    //write_file("ExplicitEulerTest1P1.txt", res);
+    //// Тест 1, точка (0,-1)
+    //start_points = GenerateStartPoints2D({ 0,-1 }, 0.5, 10);
+    //res = DescribeArea(start_points, Euler_explicit, { f1_system1_book, f2_system1_book }, grid);
+    //write_file("ExplicitEulerTest1P2.txt", res);
+    //// Тест 2 , точка (0,1)
+    //start_points = GenerateStartPoints2D({ 0,1 }, 0.5, 10);
+    //res = DescribeArea(start_points, Euler_explicit, { f1_system2_book, f2_system2_book }, grid);
+    //write_file("ExplicitEulerTest2P1.txt", res);
+    //// Тест 2 , точка (0,-1)
+    //start_points = GenerateStartPoints2D({ 0,-1 }, 0.5, 20);
+    //res = DescribeArea(start_points, Euler_explicit, { f1_system2_book, f2_system2_book }, grid);
+    //write_file("ExplicitEulerTest2P2.txt", res);
+    //// Тест 3
+    //grid = GenerateUniformGrid(0, 1, 10);
+    //start_points = GenerateStartPoints3D({ 1,1,1 }, 0.5, 10);
+    //res = DescribeArea(start_points, SymmetricalScheme, { f1_system3_book, f2_system3_book, f3_system3_book }, grid);
+    //write_file("SymmetricalSchemeTest3.txt", res);
+
+    //============================================================================
+    // Тест для функций с пакетом
+    //vector<double> grid = GenerateUniformGrid(0, 1000, 100000);
+    //BatchedEulerExplicit({ 1,0 }, grid, { f1_pendulum, f2_pendulum }, "batchedtest.txt");
+    //ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, ImplicitEuler);
+    cout << endl;
+    ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, SymmetricalScheme);
+
 }

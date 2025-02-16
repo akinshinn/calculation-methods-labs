@@ -1,4 +1,5 @@
 ﻿  lab6.cpp
+<<<<<<< HEAD
 C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(67,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(91,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(111,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
@@ -15,4 +16,49 @@ C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(429,24): warning C4267: ини
 C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(430,31): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(467,33): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
 C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(468,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+=======
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(104,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(128,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(148,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(156,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(173,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(191,36): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(219,36): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(256,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(309,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(345,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(387,34): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(388,34): warning C4244: аргумент: преобразование "double" в "const unsigned __int64", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(388,62): warning C4244: аргумент: преобразование "double" в "const unsigned __int64", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(388,86): warning C4244: аргумент: преобразование "double" в "const unsigned __int64", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(416,38): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(417,38): warning C4244: аргумент: преобразование "double" в "const unsigned __int64", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(417,66): warning C4244: аргумент: преобразование "double" в "const unsigned __int64", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(417,90): warning C4244: аргумент: преобразование "double" в "const unsigned __int64", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(426,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(427,31): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(449,38): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(455,28): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(474,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(475,31): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(523,65): warning C4244: аргумент: преобразование "double" в "const unsigned __int64", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(592,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(593,31): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(630,33): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(631,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(651,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(652,31): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(700,38): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(701,28): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(715,16): warning C4101: cy: неиспользованная локальная переменная
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(735,16): warning C4101: cy: неиспользованная локальная переменная
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(758,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(761,115): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(761,112): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(768,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(772,52): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(772,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(772,46): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab6\lab6\lab6.cpp(781,32): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+>>>>>>> lab6Nikita
   lab6.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab6\x64\Debug\lab6.exe
