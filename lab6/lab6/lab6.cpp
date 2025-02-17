@@ -454,8 +454,8 @@ void AddFileBatch(vector<vector<double>> GridFunc, string file, int last_id = 0)
     else {
         n = GridFunc.size();
     }
-
     ofstream out(file, ios::app);
+
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < num_vars; j++) {
             out << GridFunc[i][j] << " ";
@@ -488,8 +488,6 @@ void BatchedEulerExplicit(
     double tau = grid[1] - grid[0];
     vector<vector<double>> res(min(batch_size, n)); // res хранит вектор по каждой слою времени, 
     // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
-    int cur_batch_iter = 0; // итерации в текущем пакете вектора res
-    int global_iter = 0;// итерации всего за все пакеты
     int batch_nums = n / batch_size; // кол-во пакетов
 
 
@@ -558,19 +556,6 @@ void WriteImplicitEuler(double tau, double T, vector<double> y0, vector<double(*
 }
 
 
-void WriteAdamsBashford(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
-    vector<vector<double>> Matrix = AdamsBashford(tau, T, y0, f);
-    ofstream outFile("AdamsBashford.txt");
-    for (auto& row : Matrix) {
-        for (auto& el : row) {
-            outFile << el << " ";
-        }
-        outFile << endl;
-    }
-    outFile.close();
-}
-
-
 void WritePredictionCorection(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
     vector<vector<double>> Matrix = PredictionCorection(tau, T, y0, f);
     ofstream outFile("PredictionCorection.txt");
@@ -607,7 +592,6 @@ vector<vector<double>> SymmetricalScheme(vector<double> y0,
     vector<vector<double>> res; // res хранит вектор по каждой слою времени, 
     // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
     res.emplace_back(y0);
-    cout << 123 << endl;
     for (int i = 1; i < n; i++) {
         vector<double> y_cur;
         vector<function<double(vector<double>)>> functions; // система нелинейных уравнений
@@ -634,6 +618,103 @@ vector<vector<double>> SymmetricalScheme(vector<double> y0,
 }
 
 
+void BatchedSymmetricalScheme(vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(double, vector<double>)> syst, string file) {
+    int n = grid.size(); // количество узлов
+    int num_vars = syst.size(); // количество переменных
+    double tau = grid[1] - grid[0];
+    vector<vector<double>> res(min(batch_size, n)); // res хранит вектор по каждой слою времени, 
+    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
+    int batch_nums = n / batch_size; // кол-во пакетов
+
+    res[0] = y0;
+    // i - номер узла, j - номер переменной
+    for (int i = 1; i < min(batch_size, n); i++) {
+        vector<double> y_cur;
+        vector<function<double(vector<double>)>> functions; // система нелинейных уравнений
+        for (int j = 0; j < num_vars; j++) {
+            auto func{ [tau, i, j,res,syst, grid](vector<double> coordinates)
+                {
+                    double t = coordinates[0]; // syst[j] принимает на вход t, y, поэтому выделяем t
+                    coordinates.erase(coordinates.begin());
+                    double ans = ((coordinates[j] - res[i - 1][j]) / tau);
+
+                    ans -= 0.5 * (syst[j](grid[i - 1], res[i - 1]) + syst[j](t, coordinates));
+                    return ans;
+                }
+            };
+
+            functions.emplace_back(func);
+
+        }
+        y_cur = NewtonMethod(grid[i], res[i - 1], functions); // в качестве времени считаем текущее grid[i], а за начальное приближение считаем предыдущее решение res[i - 1]
+        res[i] = y_cur;
+    }
+    AddFileBatch(res, file); // Добавление в файл res
+    n -= batch_size + 1;
+
+
+    vector<double> prev_point; // значение (y1, y2, ..., yn) на предыдущем узле
+    for (int k = 1; k < batch_nums; k++) {
+        prev_point = res[res.size() - 1]; // в начале пред точка - последняя из предыдущего пакета
+
+        for (int i = 0; i < batch_size; i++) {
+            vector<double> y_cur;
+            vector<function<double(vector<double>)>> functions; // система нелинейных уравнений
+            for (int j = 0; j < num_vars; j++) {
+                auto func{ [tau, i, j,prev_point,syst, grid,k](vector<double> coordinates)
+                    {
+                        double t = coordinates[0]; // syst[j] принимает на вход t, y, поэтому выделяем t
+                        coordinates.erase(coordinates.begin());
+                        double ans = ((coordinates[j] - prev_point[j]) / tau);
+
+                        ans -= 0.5 * (syst[j](grid[i - 1 + k*batch_size], prev_point) + syst[j](t, coordinates));
+                        return ans;
+                    }
+                };
+
+                functions.emplace_back(func);
+
+            }
+            y_cur = NewtonMethod(grid[i + k * batch_size ], prev_point, functions); // в качестве времени считаем текущее grid[i], а за начальное приближение считаем предыдущее решение res[i - 1]
+            prev_point = y_cur;
+            res[i] = y_cur;
+        }
+        AddFileBatch(res, file);
+        n -= batch_size;
+
+    }
+
+
+    prev_point = res[res.size() - 1]; // в начале пред точка - последняя из предыдущего пакета
+
+    for (int i = 0; i < n; i++) {
+        vector<double> y_cur;
+        vector<function<double(vector<double>)>> functions; // система нелинейных уравнений
+        for (int j = 0; j < num_vars; j++) {
+            auto func{ [tau, i, j,prev_point,syst, grid, batch_nums](vector<double> coordinates)
+                {
+                    double t = coordinates[0]; // syst[j] принимает на вход t, y, поэтому выделяем t
+                    coordinates.erase(coordinates.begin());
+                    double ans = ((coordinates[j] - prev_point[j]) / tau);
+
+                    ans -= 0.5 * (syst[j](grid[i - 1 + batch_nums * batch_size], prev_point) + syst[j](t, coordinates));
+                    return ans;
+                }
+            };
+
+            functions.emplace_back(func);
+
+        }
+        y_cur = NewtonMethod(grid[i + k * batch_size], prev_point, functions); // в качестве времени считаем текущее grid[i], а за начальное приближение считаем предыдущее решение res[i - 1]
+        prev_point = y_cur;
+        res[i] = y_cur;
+    }
+    AddFileBatch(res, file, n); // последняя перезаписанная точка n-1
+
+
+}
 
 
 
@@ -708,6 +789,140 @@ vector<vector<double>> Runge_Kutta(vector<double> y0,
 }
 
 
+
+void BatchedRungeKutta(vector<double> y0,
+    const vector<double>& grid,
+    vector<double(*)(double, vector<double>)> syst,
+    string file) {
+    int n = grid.size(); // количество узлов
+    int num_vars = syst.size(); // количество переменных
+    double tau = grid[1] - grid[0];
+    vector<vector<double>> res(min(batch_size, n)); // res хранит вектор по каждой слою времени, 
+    // в каждом слое значения переменных, т.е. res[i] -> {x1, x2,..., x_num_vars} | t->t_i
+    int batch_nums = n / batch_size; // кол-во пакетов
+
+    res[0] = y0;
+    vector<double> k1(num_vars), k2(num_vars), k3(num_vars), k4(num_vars), K_res(num_vars);
+    vector<double> y_k1(num_vars), y_k2(num_vars), y_k3(num_vars);
+
+    for (int i = 1; i < min(n,batch_size); i++) {
+        vector<double> y_cur = res[i - 1];
+        y_k1 = res[i - 1];
+        y_k2 = res[i - 1];
+        y_k3 = res[i - 1];
+        // считаем k1
+        for (int j = 0; j < num_vars; j++) {
+            k1[j] = syst[j](grid[i - 1], res[i - 1]);
+            y_k1[j] += tau * (k1[j]) / 2;
+        }
+
+        // считаем k2 
+        for (int j = 0; j < num_vars; j++) {
+            k2[j] = syst[j](grid[i - 1] + tau / 2, y_k1);
+            y_k2[j] += tau * (k2[j]) / 2;
+        }
+
+        // считаем k3
+        for (int j = 0; j < num_vars; j++) {
+            k3[j] = syst[j](grid[i - 1] + tau / 2, y_k2);
+            y_k3[j] += tau * (k3[j]);
+        }
+
+        // считаем k4
+        for (int j = 0; j < num_vars; j++) {
+            k4[j] = syst[j](grid[i - 1] + tau, y_k3);
+            K_res[j] = (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]) / 6;
+            y_cur[j] += tau * K_res[j];
+
+        }
+        res[i] = y_cur;
+    }
+    AddFileBatch(res, file);
+    n -= batch_size;
+
+
+
+
+    vector<double> prev_point; // значение (y1, y2, ..., yn) на предыдущем узле
+    for (int k = 1; k < batch_nums; k++) {
+        prev_point = res[res.size() - 1]; // в начале пред точка - последняя из предыдущего пакета
+        for (int i = 0; i < batch_size; i++) {
+            vector<double> y_cur = prev_point;
+            y_k1 = prev_point;
+            y_k2 = prev_point;
+            y_k3 = prev_point;
+            // считаем k1
+            for (int j = 0; j < num_vars; j++) {
+                k1[j] = syst[j](grid[i - 1 + k*batch_size], prev_point);
+                y_k1[j] += tau * (k1[j]) / 2;
+            }
+
+            // считаем k2 
+            for (int j = 0; j < num_vars; j++) {
+                k2[j] = syst[j](grid[i - 1 + k * batch_size] + tau / 2, y_k1);
+                y_k2[j] += tau * (k2[j]) / 2;
+            }
+
+            // считаем k3
+            for (int j = 0; j < num_vars; j++) {
+                k3[j] = syst[j](grid[i - 1 + k * batch_size] + tau / 2, y_k2);
+                y_k3[j] += tau * (k3[j]);
+            }
+
+            // считаем k4
+            for (int j = 0; j < num_vars; j++) {
+                k4[j] = syst[j](grid[i - 1 + k * batch_size] + tau, y_k3);
+                K_res[j] = (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]) / 6;
+                y_cur[j] += tau * K_res[j];
+
+            }
+            res[i] = y_cur;
+        }
+        
+        AddFileBatch(res, file);
+        n -= batch_size;
+
+    }
+
+
+    prev_point = res[res.size() - 1]; // в начале пред точка - последняя из предыдущего пакета
+
+    for (int i = 0; i < n; i++) {
+        vector<double> y_cur = prev_point;
+        y_k1 = prev_point;
+        y_k2 = prev_point;
+        y_k3 = prev_point;
+        // считаем k1
+        for (int j = 0; j < num_vars; j++) {
+            k1[j] = syst[j](grid[i - 1 + k * batch_size], prev_point);
+            y_k1[j] += tau * (k1[j]) / 2;
+        }
+
+        // считаем k2 
+        for (int j = 0; j < num_vars; j++) {
+            k2[j] = syst[j](grid[i - 1 + k * batch_size] + tau / 2, y_k1);
+            y_k2[j] += tau * (k2[j]) / 2;
+        }
+
+        // считаем k3
+        for (int j = 0; j < num_vars; j++) {
+            k3[j] = syst[j](grid[i - 1 + k * batch_size] + tau / 2, y_k2);
+            y_k3[j] += tau * (k3[j]);
+        }
+
+        // считаем k4
+        for (int j = 0; j < num_vars; j++) {
+            k4[j] = syst[j](grid[i - 1 + k * batch_size] + tau, y_k3);
+            K_res[j] = (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]) / 6;
+            y_cur[j] += tau * K_res[j];
+
+        }
+        res[i] = y_cur;
+        prev_point = y_cur;
+    }
+    AddFileBatch(res, file, n); // последняя перезаписанная точка n-1
+}
+
 void write_file(string file, const vector<vector<double>>& GridFunc) {
     int num_vars = GridFunc[0].size();
     int n = GridFunc.size();
@@ -720,6 +935,123 @@ void write_file(string file, const vector<vector<double>>& GridFunc) {
         out << endl;
     }
 }
+
+
+void write_file(string file, const vector<double>& vec) {
+    int n = vec.size();
+
+    ofstream out(file);
+    for (int i = 0; i < n; i++) {
+        out << vec[i] << endl;
+    }
+}
+
+
+
+vector<vector<double>> Automated_Runge_Kutta(vector<double> y0,
+    double T,
+    double eps_tol,
+    vector<double(*)(double, vector<double>)> syst, bool is_write_grid = 0,
+    bool is_write_eps = 0, bool is_write_tau = 0) {
+    vector<double> tau_n = {1e-2}; // задаём начальный шаг
+    vector<vector<double>> res = { y0 };
+    double cur_t = tau_n[0];
+    int num_vars = syst.size(); // количество переменных
+    const int p = 4; // порядок 
+    int i = 1;
+    vector<double> k1_1(num_vars), k2_1(num_vars), k3_1(num_vars), k4_1(num_vars), K_1_res(num_vars);
+    vector<double> k1_2(num_vars), k2_2(num_vars), k3_2(num_vars), k4_2(num_vars), K_2_res(num_vars);
+    vector<double> y1_k1(num_vars), y1_k2(num_vars), y1_k3(num_vars),
+        y2_k1(num_vars), y2_k2(num_vars), y2_k3(num_vars);
+    vector<double> grid, error;
+    grid.push_back(0);
+    error.push_back(0);
+
+    while (cur_t < T) {
+        vector<double> y1 = res[i - 1], y2 = res[i-1];
+        y1_k1 = res[i - 1];
+        y1_k2 = res[i - 1];
+        y1_k3 = res[i - 1];
+        y2_k1 = res[i - 1];
+        y2_k2 = res[i - 1];
+        y2_k3 = res[i - 1];
+        vector<double> diff(num_vars);
+
+        //Вычисляем y_n+1^tau_n+1
+        // считаем k1
+        for (int j = 0; j < num_vars; j++) {
+            k1_1[j] = syst[j](cur_t - tau_n[tau_n.size()-1], res[i - 1]);
+            k2_1[j] = k1_1[j];
+            y1_k1[j] += tau_n[tau_n.size() - 1] * (k1_1[j]) / 2;
+            y2_k1[j] += tau_n[tau_n.size() - 1] * (k2_1[j]) / 4;
+        }
+
+        // считаем k2 
+        for (int j = 0; j < num_vars; j++) {
+            k2_1[j] = syst[j](cur_t - 0.5*tau_n[tau_n.size() - 1], y1_k1);
+            k2_2[j] = syst[j](cur_t - 3 * tau_n[tau_n.size() - 1] / 4, y2_k1);
+            y1_k2[j] += tau_n[tau_n.size() - 1] * (k2_1[j]) / 2;
+            y2_k2[j] += tau_n[tau_n.size() - 1] * (k2_1[j]) / 4;
+        }
+
+        // считаем k3
+        for (int j = 0; j < num_vars; j++) {
+            k3_1[j] = syst[j](cur_t - 0.5* tau_n[tau_n.size() - 1], y1_k2);
+            k3_2[j] = syst[j](cur_t - 3 * tau_n[tau_n.size() - 1] / 4, y2_k2);
+            y1_k3[j] += tau_n[tau_n.size() - 1] * (k3_1[j]);
+            y2_k3[j] += tau_n[tau_n.size() - 1] * (k3_2[j]) / 2;
+        }
+
+        // считаем k4
+        for (int j = 0; j < num_vars; j++) {
+            k4_1[j] = syst[j](cur_t , y1_k3);
+            k4_2[j] = syst[j](cur_t - 0.5 * tau_n[tau_n.size() - 1], y2_k3);
+            K_1_res[j] = (k1_1[j] + 2 * k2_1[j] + 2 * k3_1[j] + k4_1[j]) / 6;
+            K_2_res[j] = (k1_2[j] + 2 * k2_2[j] + 2 * k3_2[j] + k4_2[j]) / 6;
+            y1[j] += tau_n[tau_n.size() - 1] * K_1_res[j];
+            y2[j] += 0.5*tau_n[tau_n.size() - 1] * K_2_res[j];
+        }
+
+        double estimate;
+        estimate = inftyNorm(y1, y2) / (pow(2,p) - 1);
+        if (estimate >= eps_tol) {
+            cur_t -= tau_n[tau_n.size() - 1] / 2;
+            tau_n[tau_n.size() - 1] /= 2;
+        }
+        else if (estimate <= 0.5 * eps_tol) {
+            tau_n.push_back(2 * tau_n[tau_n.size() - 1]);
+            grid.push_back(cur_t);
+            error.push_back(estimate);
+            cur_t += tau_n[tau_n.size() - 1];
+            res.push_back(y1);
+            i++;
+        }
+        else {
+            grid.push_back(cur_t);
+            error.push_back(estimate);
+            cur_t += tau_n[tau_n.size() - 1];
+            res.push_back(y1);
+            tau_n.push_back(tau_n[tau_n.size()-1]);
+            i++;
+        }
+
+        
+    }
+    if (is_write_grid) {
+        write_file("gridFile.txt", grid);
+    }
+    if (is_write_eps) {
+        write_file("errorFile.txt", error);
+    }
+    if (is_write_tau) {
+        write_file("tauFile.txt", tau_n);
+    }
+    return res;
+}
+
+
+
+
 
 
 vector<vector<double>> generate_2d_grid(double x0, double x1, double y0, double y1, int nx, int ny) {
@@ -880,11 +1212,25 @@ int main()
     //write_file("SymmetricalSchemeTest3.txt", res);
 
     //============================================================================
-    // Тест для функций с пакетом
-    //vector<double> grid = GenerateUniformGrid(0, 1000, 100000);
-    //BatchedEulerExplicit({ 1,0 }, grid, { f1_pendulum, f2_pendulum }, "batchedtest.txt");
+    // Тест для функций с пакетом на маятнике
+    //vector<vector<double>> res;
+    //vector<double> grid = GenerateUniformGrid(0, 1000, 1e5);
+    //BatchedEulerExplicit({ 1,0 }, grid, { f1_pendulum, f2_pendulum }, "pendulumExplicit.txt");
+    //res = ImplicitEuler(0.01, 1000, { 1,0 }, { f1_pendulum, f2_pendulum });
+    //write_file("pendulumImplicit.txt", res);
+    //BatchedSymmetricalScheme({ 1,0 }, grid, { f1_pendulum, f2_pendulum }, "pendulumSymm.txt");
+    //BatchedRungeKutta({ 1,0 }, grid, { f1_pendulum, f2_pendulum }, "pendulumRK.txt");
+    //============================================================================
+    // порядки сходимости
+    //cout << endl;
+    //ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, Euler_explicit);
+    //cout << endl;
     //ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, ImplicitEuler);
-    cout << endl;
-    ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, SymmetricalScheme);
-
+    //cout << endl;
+    //ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, SymmetricalScheme);
+    //cout << endl;
+    //ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, Runge_Kutta);
+    // Автоматический шаг. Маятник
+    vector<vector<double>> res = Automated_Runge_Kutta({ 1,0 }, 1, 1e-6, { f1_pendulum, f2_pendulum }, 1,1,1);
+    write_file("AutomatedStep2.txt", res);
 }
