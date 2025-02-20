@@ -318,15 +318,38 @@ vector<vector<double>> AdamsBashford(double tau, double T, vector<double> y0, ve
     // Найдем y1, y2, y3 с помощью метода Эйлера
     vector<vector<double>> res{ y0 };
 
-    for (int i = 1; i < 4; i++) {
+    /*for (int i = 1; i < 4; i++) {
         vector<double> tmp{};
 
         for (int j = 0; j < n; j++) {
             tmp.push_back(res[i - 1][j] + tau * f[j](time[i - 1], res[i - 1]));
         }
         res.push_back(tmp);
+    }*/
+    // Найдем y1, y2, y3 с помощью метода Рунге-Кутты 4-го порядка
+    for (int i = 1; i < 4; i++) {
+        vector<double> tmp{}, k1{}, k2{}, k3{}, k4{}, arg2{}, arg3{}, arg4{};
+        // Находим k
+        for (int j = 0; j < n; j++) {
+            k1.push_back(f[j](time[i - 1], res[i - 1]));
+            arg2.push_back(res[i - 1][j] + tau / 2 * k1[j]);
+        }
+        for (int j = 0; j < n; j++) {
+            k2.push_back(f[j](time[i - 1] + tau / 2, arg2));
+            arg3.push_back(res[i - 1][j] + tau / 2 * k2[j]);
+        }
+        for (int j = 0; j < n; j++) {
+            k3.push_back(f[j](time[i - 1] + tau / 2, arg3));
+            arg4.push_back(res[i - 1][j] + tau * k3[j]);
+        }
+        for (int j = 0; j < n; j++) {
+            k4.push_back(f[j](time[i - 1] + tau, arg4));
+        }
+        for (int j = 0; j < n; j++) {
+            tmp.push_back(res[i - 1][j] + tau * 1 / 6 * (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]));
+        }
+        res.push_back(tmp);
     }
-
     // Продолжим с помощью метода Адамса Бэшфорда 4-го порядка
     for (int i = 4; i < time.size(); i++) {
         vector<double> tmp{};
@@ -354,11 +377,35 @@ vector<vector<double>> PredictionCorection(double tau, double T, vector<double> 
     // Найдем y1, y2, y3 с помощью метода Эйлера
     vector<vector<double>> res{ y0 };
 
-    for (int i = 1; i < 4; i++) {
+    /*for (int i = 1; i < 4; i++) {
         vector<double> tmp{};
 
         for (int j = 0; j < n; j++) {
             tmp.push_back(res[i - 1][j] + tau * f[j](time[i - 1], res[i - 1]));
+        }
+        res.push_back(tmp);
+    }*/
+
+    for (int i = 1; i < 4; i++) {
+        vector<double> tmp{}, k1{}, k2{}, k3{}, k4{}, arg2{}, arg3{}, arg4{};
+        // Находим k
+        for (int j = 0; j < n; j++) {
+            k1.push_back(f[j](time[i - 1], res[i - 1]));
+            arg2.push_back(res[i - 1][j] + tau / 2 * k1[j]);
+        }
+        for (int j = 0; j < n; j++) {
+            k2.push_back(f[j](time[i - 1] + tau / 2, arg2));
+            arg3.push_back(res[i - 1][j] + tau / 2 * k2[j]);
+        }
+        for (int j = 0; j < n; j++) {
+            k3.push_back(f[j](time[i - 1] + tau / 2, arg3));
+            arg4.push_back(res[i - 1][j] + tau * k3[j]);
+        }
+        for (int j = 0; j < n; j++) {
+            k4.push_back(f[j](time[i - 1] + tau, arg4));
+        }
+        for (int j = 0; j < n; j++) {
+            tmp.push_back(res[i - 1][j] + tau * 1 / 6 * (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]));
         }
         res.push_back(tmp);
     }
@@ -384,8 +431,8 @@ void ProcessAitken(double tau, double T, vector<double> y0, vector<double(*)(dou
     vector<vector<double>> sol1 = solver(tau, T, y0, f);
     vector<vector<double>> sol2 = solver(tau * q, T, y0, f);
     vector<vector<double>> sol3 = solver(tau * q * q, T, y0, f);
-    int center = sol1.size() / 10;
-    cout << log(abs((sol3[center / (q * q)][0] - sol2[center / q][0]) / (sol2[center / q][0] - sol1[center][0]))) / log(q);
+    int center = sol1.size() /3.9;
+    cout << log(abs((sol3[center / (q*q)][0] - sol2[center /q][0]) / (sol2[center /q][0] - sol1[center][0]))) / log(q) << endl;
 }
 
 
@@ -1149,14 +1196,19 @@ int main()
     WritePredictionCorection(0.1, 1, { 2,0 }, { f1_system2_test , f2_system2_test });*/
 
     // Порядок Эйлер меняем тау от 0.1 до 0.01 и видно стремление к 1
+    for (double tau : {0.1,0.07,0.04,0.01,0.007,0.004, 0.001}) {
+        cout << "tau = " << tau << endl;
+        ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, ImplicitEuler);
+        ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, AdamsBashford);
+        ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, PredictionCorection);
 
-    /*ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test },0.5, ImplicitEuler);*/
+    }
 
     // Порядок AdamsBashford меняем тау от 0.1 до 0.01 и видно стремление к 1
-    /*ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test }, 0.5, AdamsBashford);*/
+
 
     // Порядок PredictionCorection меняем тау от 0.1 до 0.01 и видно стремление к 1
-    //ProcessAitken(0.1, 10, { 2,0 }, { f1_system1_test , f2_system1_test }, 0.5, PredictionCorection);
+
 
     //WriteImplicitEuler(0.001, 10, { 0,0 }, { f1_system1_book , f2_system1_book });
     //vector<double> grid = GenerateUniformGrid(0, 1, 10);
@@ -1231,6 +1283,6 @@ int main()
     //cout << endl;
     //ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, Runge_Kutta);
     // Автоматический шаг. Маятник
-    vector<vector<double>> res = Automated_Runge_Kutta({ 1,0 }, 1, 1e-6, { f1_pendulum, f2_pendulum }, 1,1,1);
-    write_file("AutomatedStep2.txt", res);
+    /*vector<vector<double>> res = Automated_Runge_Kutta({ 1,0 }, 1, 1e-6, { f1_pendulum, f2_pendulum }, 1,1,1);
+    write_file("AutomatedStep2.txt", res);*/
 }
