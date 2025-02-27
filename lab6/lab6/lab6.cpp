@@ -38,6 +38,9 @@ double true_y_pendulum(double t) {
 	return -sqrt(10) * sin(sqrt(10) * t);
 }
 
+vector<double> sol_pendulum(double t) {
+	return { 2 * cos(sqrt(k / m) * t), -2 * sqrt(k / m) * sin(sqrt(k / m) * t) };
+}
 
 double f1_pendulum(double t, vector<double> values) {
 	return values[1];
@@ -452,10 +455,16 @@ void ProcessAitken(double tau, double T, vector<double> y0, vector<double(*)(dou
 	vector<vector<double>> sol2 = solver(tau * q, T, y0, f);
 	vector<vector<double>> sol3 = solver(tau * q * q, T, y0, f);
 	//int center = sol1.size() / 3.9;
-	int center = sol1.size() / 1000;
+	int center = sol1.size() / 2.8;
 	cout << log(abs((sol3[center / (q * q)][0] - sol2[center / q][0]) / (sol2[center / q][0] - sol1[center][0]))) / log(q);
 }
+void PorydokAnal(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f, double q, vector<vector<double>>(&solver)(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f), vector<double>(&anal)(double t)) {
+	vector<vector<double>> sol1 = solver(tau, T, y0, f);
+	vector<vector<double>> sol2 = solver(tau * q, T, y0, f);
 
+	int center = sol1.size() /2.8;
+	cout << log(abs((sol2[center / (q)][0] - anal(center*tau)[0]) / (sol1[center][0] - anal(center * tau)[0]))) / log(q);
+}
 
 void ProcessAitken(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f, double q, vector<vector<double>>(&solver)(vector<double> y0,
 	const vector<double>& grid,
@@ -1320,7 +1329,7 @@ int main()
 	//BatchedRungeKutta({ 1,0 }, grid, { f1_pendulum, f2_pendulum }, "pendulumRK.txt");
 	//============================================================================
 	// порядки сходимости
-	for (double tau : {0.1,  0.01,  0.001, 0.0001}) {
+	/*for (double tau : {0.1,  0.01,  0.001, 0.0001}) {
 		cout <<  tau << " & ";
 		ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, Euler_explicit);
 		cout << " & ";
@@ -1336,24 +1345,49 @@ int main()
 	    cout << " \\\\ \\hline ";
 	    cout << endl;
 
-	}
+	}*/
+
+	cout << "Eitken" << endl;
 	for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
-		cout << tau << " & ";
-		//ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, Euler_explicit);
-		//cout << " & ";
-		GetOrder(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, ImplicitEuler,{true_x_pendulum, true_y_pendulum});
-		cout << " & ";
-		/*ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, SymmetricalScheme);
-		cout << " & ";
-		ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, Runge_Kutta);
-		cout << " & ";*/
-		GetOrder(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, AdamsBashford,  { true_x_pendulum, true_y_pendulum });
-		cout << " & ";
-		GetOrder(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, PredictionCorection,  { true_x_pendulum, true_y_pendulum });
-		cout << " \\\\ \\hline ";
+		cout << tau << endl;
+		ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, ImplicitEuler);
+		cout << " ";
+		ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, AdamsBashford);
+		cout << " ";
+		ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, PredictionCorection);
 		cout << endl;
 
+
 	}
+	cout << "AnalitResh" << endl;
+	for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
+		cout << tau << endl;
+		PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, ImplicitEuler, sol_pendulum);
+		cout << " ";
+		PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, AdamsBashford, sol_pendulum);
+		cout << " ";
+		PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, PredictionCorection, sol_pendulum);
+		cout << endl;
+
+
+	}
+	//for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
+	//	cout << tau << " & ";
+	//	//ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, Euler_explicit);
+	//	//cout << " & ";
+	//	GetOrder(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, ImplicitEuler,{true_x_pendulum, true_y_pendulum});
+	//	cout << " & ";
+	//	/*ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, SymmetricalScheme);
+	//	cout << " & ";
+	//	ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, Runge_Kutta);
+	//	cout << " & ";*/
+	//	GetOrder(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, AdamsBashford,  { true_x_pendulum, true_y_pendulum });
+	//	cout << " & ";
+	//	GetOrder(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, PredictionCorection,  { true_x_pendulum, true_y_pendulum });
+	//	cout << " \\\\ \\hline ";
+	//	cout << endl;
+
+	//}
 	//cout << endl;
 	//ProcessAitken(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum }, 0.5, Euler_explicit);
 	//cout << endl;
