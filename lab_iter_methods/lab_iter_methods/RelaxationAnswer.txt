@@ -1,28 +1,3 @@
-RelaxationMethod
-epsilon = 0.0001
-
-StopCriteria ||x^(k+1)-x^k|| < epsilon
-Example 1
-count of iteration = 14
-x1=5 x2=-7 x3=12 x4=4 
-Example 2
-count of iteration = 9
-x1=10 x2=-10 x3=12 x4=4 
-
-StopCriteria ||x^(k+1)-x^k|| / (||x^k||+epsilonzero) < epsilon
-Example 1
-1.21205
-count of iteration = 11
-x1=5.00002 x2=-6.99992 x3=12.0002 x4=4.00006 
-Example 2
-0.324987
-count of iteration = 7
-x1=9.99994 x2=-9.99998 x3=12 x4=4 
-
-StopCriteria ||Ax^k-f|| < epsilon
-Example 1
-count of iteration = 16
-x1=5 x2=-7 x3=12 x4=4 
-Example 2
-count of iteration = 11
-x1=10 x2=-10 x3=12 x4=4 
+version https://git-lfs.github.com/spec/v1
+oid sha256:0a33ecb65d814e3b8bc4770ffead4eb68c0819cf9fdbe93bdba577a1a1828ee5
+size 597

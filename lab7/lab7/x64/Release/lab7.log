@@ -1,0 +1,10 @@
+﻿  lab7.cpp
+D:\VisualStdudio\calculationMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(86,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculationMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(138,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculationMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(139,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Создание кода
+  1 of 346 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  lab7.vcxproj -> D:\VisualStdudio\calculationMethods\calculation-methods-labs\lab7\x64\Release\lab7.exe

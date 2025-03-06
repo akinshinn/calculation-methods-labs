@@ -1,10 +1,3 @@
-Exmaple 1
-x1=2
-x2=1
-x3=-0.5
-x4=0.5
-Exmaple 2
-x1=600778
-x2=2355.37
-x3=169987
-x4=305211
+version https://git-lfs.github.com/spec/v1
+oid sha256:66b98722cfbbcdcd338d1ea3095539223059203e328c8d1a4bd5f7d4f596aef2
+size 96
