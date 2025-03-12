@@ -386,7 +386,7 @@ vector<vector<double>> AdamsBashford(double tau, double T, vector<double> y0, ve
 
 
 
-vector<vector<double>> PredictionCorection(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
+vector<vector<double>>	(double tau, double T, vector<double> y0, vector<double(*)(double, vector<double>)> f) {
     // Сетка
     int n = f.size();
     vector<double> time = {};
@@ -1240,6 +1240,22 @@ vector<vector<double>> DescribeArea(const vector<vector<double>>& start_points, 
 }
 
 
+double test4_1(double t,vector<double> vars)
+{
+	return vars[1];
+}
+
+//vector<double>& vars
+double test4_2(double t, vector<double> vars)
+{
+	double M = 0.05;
+	double delta = 0.01;
+	double mu = 0.1;
+	double nu = 0.1;
+	double temp = (double)(M - 2 * delta * vars[1] - (mu + nu * sin(t)) * sin(vars[0]));
+	return temp;
+}
+
 int main()
 {
 	/// Пример пружина неявный Эйлер
@@ -1291,6 +1307,8 @@ int main()
 	//write_file("SymmetricalSchemePendulum.txt", res);
 	//res = Runge_Kutta({ 1,0 }, grid, { { f1_pendulum, f2_pendulum } });
 	//write_file("RungeKuttaPendulum.txt", res);
+	vector<vector<double>> res = PredictionCorection(0.01, 10, { 1,0 }, { f1_pendulum, f2_pendulum });
+	write_file("PCpendulum.txt", res);
 
 	// ===========================================================================
 	// Фазовые портреты тестов из методички
@@ -1347,30 +1365,30 @@ int main()
 
 	}*/
 
-	cout << "Eitken" << endl;
-	for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
-		cout << tau << endl;
-		ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, ImplicitEuler);
-		cout << " ";
-		ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, AdamsBashford);
-		cout << " ";
-		ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, PredictionCorection);
-		cout << endl;
+	//cout << "Eitken" << endl;
+	//for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
+	//	cout << tau << endl;
+	//	ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, ImplicitEuler);
+	//	cout << " ";
+	//	ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, AdamsBashford);
+	//	cout << " ";
+	//	ProcessAitken(tau, 10, { 2,0 }, { f1_variant , f2_variant }, 0.5, PredictionCorection);
+	//	cout << endl;
 
 
-	}
-	cout << "AnalitResh" << endl;
-	for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
-		cout << tau << endl;
-		PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, ImplicitEuler, sol_pendulum);
-		cout << " ";
-		PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, AdamsBashford, sol_pendulum);
-		cout << " ";
-		PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, PredictionCorection, sol_pendulum);
-		cout << endl;
+	//}
+	//cout << "AnalitResh" << endl;
+	//for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
+	//	cout << tau << endl;
+	//	PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, ImplicitEuler, sol_pendulum);
+	//	cout << " ";
+	//	PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, AdamsBashford, sol_pendulum);
+	//	cout << " ";
+	//	PorydokAnal(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, PredictionCorection, sol_pendulum);
+	//	cout << endl;
 
 
-	}
+	//}
 	//for (double tau : {0.1, 0.01, 0.001, 0.0001}) {
 	//	cout << tau << " & ";
 	//	//ProcessAitken(tau, 10, { 2,0 }, { f1_pendulum , f2_pendulum }, 0.5, Euler_explicit);
@@ -1399,7 +1417,7 @@ int main()
 	// =============================================================================================
 	// Автоматический шаг. Маятник
 
-	//vector<vector<double>> res = Automated_Runge_Kutta({ 1,0 }, 10, 1e-6, { f1_pendulum, f2_pendulum }, 1, 1, 1);
+	//vector<vector<double>> res = Automated_Runge_Kutta({ 0.1,0.1 }, 100, 1e-6, { test4_1, test4_2 }, 1, 1, 1);
 	//write_file("AutomatedStep2.txt", res);
 	//vector<double> grid = GenerateUniformGrid(0, 10, 1e6);
 	//write_file("gridFile2.txt", grid);

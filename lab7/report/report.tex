@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage{epigraph}
+\usepackage[english, russian]{babel} % языковой пакет
+\usepackage{amsmath,amsfonts,amssymb} %математика
+\usepackage{mathtools}
+\usepackage[oglav,spisok,boldsect,eqwhole,figwhole,hyperref,hyperprint,remarks,greekit]{../../style/fn2kursstyle}
+\usepackage[utf8]{inputenc}
+\usepackage[]{tkz-euclide}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
+\usepackage{tikz-3dplot}
+\usepackage[oglav,spisok,boldsect,eqwhole,figwhole,hyperref,hyperprint,remarks,greekit]{./style/fn2kursstyle}
+\usepackage{multirow}
+\usepackage{supertabular}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{graphicx}
+\pgfplotsset{compat=1.9}
+\usepackage[svgnames]{pstricks}
+\usepackage{pst-solides3d} 
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{slashbox}
+\usepackage{pdflscape}
+\usepackage{array} 
+\graphicspath{{../../style/}{../}}
+
+  
+
+
+\newcommand{\cond}{\mathop{\mathrm{cond}}\nolimits}
+\newcommand{\rank}{\mathop{\mathrm{rank}}\nolimits}
+% Переопределение команды \vec, чтобы векторы печатались полужирным курсивом
+\renewcommand{\vec}[1]{\text{\mathversion{bold}${#1}$}}%{\bi{#1}}
+\newcommand\thh[1]{\text{\mathversion{bold}${#1}$}}
+%Переопределение команды нумерации перечней: точки заменяются на скобки
+\renewcommand{\labelenumi}{\theenumi)}
+\newtheorem{theorem}{Теорема}
+\newtheorem{define}{Определение}
+\tdplotsetmaincoords{60}{115}
+\pgfplotsset{compat=newest}
+
+\title{Численное решение краевых задач для одномерного уравнения теплопроводности}
+\author{Н.\,О.~Акиньшин}
+\group{ФН2-61Б}
+\date{2025}
+\supervisor{А.\,С.~Джагарян}
+
+
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+
+    \section{Контрольные вопросы}
+	\begin{enumerate}
+		\item Дайте определения терминам: корректно поставленная задача, понятие аппроксимации дифференциальной задачи
+		разностной схемой, порядок аппроксимации, однородная
+		схема, консервативная схема, монотонная схема, устойчивая разностная схема (условно/абсолютно), сходимость.
+		\newline
+		{\bfseries Ответ. } 
+		Пусть дана задача 
+		\begin{align*}
+			Au = f \  \text{ в } G, \quad  Ru = \mu \  \text{ на } \partial G,
+		\end{align*}
+		для которой известна разностная схема 
+		\begin{align*}
+			A_h y = \phi \text{ в } G_h, \quad R_h y = \nu \text{ на }\partial G_h.
+		\end{align*}
+		Разностная схема $A_h y = \varphi, \ R_h y = \nu$ называется корректной, если её решение существует,
+		единственно и непрерывно зависит от входных данных.
+		Погрешность аппроксимации данной разностной схема определяется как $\Psi_h = (\varphi - f_n) + 
+		((Av)_h - A_h v_h)$.
+		Погрешность аппроксимации граничных и начальных условий $\chi_h = (\nu - \mu_n) + 
+		((R v)_h - R_h v_h) $.
+
+		Разностная схема аппроксимирует исходную задачу, если 
+		$\|\Psi_h\| \to 0, \|\chi_h\| \to 0 \text{ при } {h \to 0}$.
+		
+		Аппроксимация имеет порядок $p$, если$\|\Psi_h \| = O(h^p),\  \|\chi_h\| = O(h^p), 
+		\text{ при } h \to 0$.
+		Аппроксимацию называют условной, если она имеет место только при наличии некоторой зависимости 
+		между шагами по разным направлениям и безусловной в противном случае. 
+
+		Разностная схема называется устойчивой, если её решение непрерывно зависит от входных данных. 
+		Устойчивость называется условной, если её наличие зависит от соотношения шагов сетки по разным 
+		направлениям, и безусловной в противном случае.
+
+		Схема называется консервативной, если её решение удовлетворяет дискретному аналогу закона сохранения,
+		 присущего данной задаче.
+
+		 Разностная схема называется монотонной, если она удовлетворяет аналогу принципа максимума, присущего
+		 исходной задаче.
+		\item Какие из рассмотренных схем являются абсолютно устойчивыми? Какая из рассмотренных схем позволяет вести
+		расчеты с более крупным шагом по времени?
+		\newline 
+		{\bfseries Ответ. } 
+		\item Будет ли смешанная схема (2.15) иметь второй порядок
+		аппроксимации при $a_i = \dfrac{2 K(x_i) K(x_{i-1})}{K(x_i) + K(x_{i-1})}$
+		\newline
+		{\bfseries Ответ. } 
+		\item Какие методы (способы) построения разностной аппроксимации граничных условий 
+		(2.5), (2.6) с порядком точности $O(\tau + h^2), \ O(\tau^2 + h^2), \ O(\tau^2 + h)$
+		\newline
+		{\bfseries Ответ. } 
+		\item При каких $h, \ \tau, \ \sigma$ смешанная схема монотонна? Проиллюстрируйте результатами расчетов свойства монотонных
+		и немонотонных разностных схем.
+		\newline
+		{\bfseries Ответ. } 
+		\item Какие ограничения на $h$, $\tau$ и $\sigma$ накладывают условия
+		устойчивости прогонки?
+		\newline
+		{\bfseries Ответ. } 
+		\item В случае $K = K(u)$ чему равно количество внутренних итераций, если итерационный процесс вести до сходимости,
+		а не обрывать после нескольких первых итераций?
+		\newline
+		{\bfseries Ответ. } 
+		\item Для случая $K = K(u)$ предложите способы организации
+		внутреннего итерационного процесса или алгоритмы, заменяющие его.
+		\newline
+		{\bfseries Ответ. } 
+	\end{enumerate}
+
+
+
+\end{document}

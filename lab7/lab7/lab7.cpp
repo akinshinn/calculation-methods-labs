@@ -14,26 +14,57 @@ const double rho = 7850;
 const int step_t = 15;
 const int step_x = 1;
 
+//double K(double x) {
+//    if (x < 2.5) return 250;
+//    else if (x < 7.5) return 250 * (x - 7.5) * 0.2 + 500 * (x - 2.5) * 0.2;
+//    return 500;
+//}
+
+
+double K(double x) {
+    return 500;
+}
+
+
 double K1(double x) {
-    return 180;
+    if (x < 2.5)
+        return 250;
+    else if (x < 7.5) return 250 * (x - 7.5) / ( - 5) + 500 * (x - 2.5) / 5;
+    return 500;
 }
 
-double u1ex2(double t) {
-    return 0;
-}
-
-double u2ex2(double t) {
-    return 0;
-}
-double u1ex1(double t) {
+    
+double u1_test1(double t) {
     return 300;
 }
+
+
+double u2_test1(double t) {
+    return 300;
+}
+
+
+double init_cond_test1(double x) {
+    return 300 + x * (10 - x);
+}
+
+
+
+double u1_test2(double t) {
+    return 0;
+}
+
+
+double u2_test2(double t) {
+    return 0;
+}
+
 
 double u2ex1(double t) {
-    return 300;
+    return 0;
 }
 double initial_b(double x) {
-    return 300 + x * (10 - x);
+    return 20*x + 20;
 }
 
 double initial_energy(double x) {
@@ -380,7 +411,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
 
     }
     cout << "sdfs" << endl;
-    cout << Maxelement(differenceSquare);
+    cout << Maxelement(differenceSquare) << setprecision(16);
 }
     
 
@@ -389,9 +420,10 @@ int main()
 {
 
     //Example1
-    //SolveTempEq("test.txt", 0.5, 0.1, 50000, 10, initial_b, { 1,1,0,0 }, u1ex1, u2ex1, K1, 0.5);
+    //SolveTempEq("test1.txt", 0.5, 0.1, 75000, 10, init_cond_test1, { 1,1,0,0 }, u1_test1, u2_test1, K, 0.5);
     //Example2
-    //SolveTempEq("test.txt", 0.5, 0.1, 50000, 10, initial_energy, { 0,0,-1,1 }, u1ex2, u2ex2, K1, 0.5);
+    //SolveTempEq("test2.txt", 0.5, 0.1, 50000, 10, init_cond_test1, { 0,0,-1,1 }, u1_test2, u2_test2, K, 0.5);
     //Example3 energy
-    SolveTempEq("test.txt", 0.01, 0.01, 100, 10, initial_energy, { 0,0,-1,1 }, u1ex2, u2ex2, K1, 0.5);
+    //SolveTempEq("test_energy.txt", 0.5, 0.1, 50000, 10, initial_energy, { 0,0,-1,1 }, u1_test2, u2_test2, K, 0.5);
+    SolveTempEq("test1.1.txt", 0.5, 0.1, 75000, 10, init_cond_test1, { 1,1,0,0 }, u1_test1, u2_test1, K1, 0.5);
 }
