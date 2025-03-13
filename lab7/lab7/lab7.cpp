@@ -135,6 +135,227 @@ vector<double> Progonka(vector<vector<double>> matrix, vector<double> right) {
 }
 
 // boundary_conditions = {alpha1, alpha2, beta1, beta2}
+void SolveTempeqNonlin(string file, double tau, double h, double T, double X, double(&initial_cond)(double x), vector<double> boundary_conditions,
+    double(&p1)(double t), double(&p2)(double t), double(&K)(double y), double sigma = 0.5) {
+    ofstream out(file);
+    ofstream out2("gridFile.txt");
+    double alpha1 = boundary_conditions[0];
+    double alpha2 = boundary_conditions[1];
+    double beta1 = boundary_conditions[2];
+    double beta2 = boundary_conditions[3];
+    vector<double> gridt = { 0 };
+    vector<double> gridx = { 0 };
+    double t = 0;
+    double x = 0;
+    while (t <= T) {
+        t += tau;
+        gridt.emplace_back(t);
+    }
+    while (x < X) {
+        x += h;
+        gridx.emplace_back(x);
+    }
+    vector<double> ynext{}, yprev{}, yprevs{}, ynexts{}, f{};
+    vector<vector<double>> progoncoefs{};
+    int n = gridx.size();
+    int m = gridt.size();
+    // 0ой слой ищем 
+    for (int i = 0; i < n; i++) {
+        yprev.emplace_back(initial_cond(gridx[i]));
+    }
+    for (int i = 0; i < n; i += step_x) {
+        out << yprev[i] << " ";
+    }
+    out << endl;
+    for (int i = 0; i < gridx.size(); i += step_x) {
+        out2 << gridx[i] << " ";
+    }
+
+    if ((abs(beta1) > 1e-10) && (abs(beta2) > 1e-10)) {
+        for (int time = 1; time < m; time++) {
+            double left, center, right, aleft, aright, a1, an;
+            yprevs = yprev;
+            for (int s = 0; s < 2; s++) {
+                progoncoefs = {}, f = {};
+                //Ищем коэффициенты 1ого уравнения
+                a1 = (K(yprevs[1]) + K(yprevs[0])) / 2;
+                left = 0;
+                center = c * rho * h * h / 2 - h / beta1 * alpha1 * tau + a1 * tau;
+                right = -a1 * tau;
+                progoncoefs.push_back({ left, center, right });
+                f.push_back(c * rho * h * h / 2 * yprev[0] - h * p1(gridt[time]) * tau / beta1);
+                // Ищем внутренние коэффициенты
+                for (int i = 1; i < n - 1; i++) {
+                    aleft = 0.5 * (K(yprevs[i]) + K(yprevs[i - 1]));
+                    aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
+                    left = tau * aleft;
+                    center = -tau * (aright + aleft) - h * h * c * rho;
+                    f.push_back(-h * h * c * rho * yprev[i]);
+                    progoncoefs.push_back({ left, center, right });
+
+                }
+                // Ищем коэффициент последнего уравнения
+                an = 0.5 * (K(yprevs[n - 1]) + K(yprevs[n - 2]));
+                left = tau * an;
+                center = -an * tau - h * alpha2 * tau / beta2 - c * rho * h * h / 2;
+                right = 0;
+                f.push_back(-c * rho * h * h / 2 * yprev[n - 1] - h / beta2 * p2(gridt[time]) * tau);
+                progoncoefs.push_back({ left, center, right });
+                ynexts = Progonka(progoncoefs, f);
+                yprevs = ynexts;
+            }
+            ynext = yprevs;
+
+            if (time % step_t == 0) {
+                for (int i = 0; i < n; i += step_x) {
+                    out << ynext[i] << " ";
+                }
+                out << endl;
+            }
+
+            yprev = ynext;
+        }
+
+    }
+    else if (abs(beta1) > 1e-10) {
+        for (int time = 1; time < m; time++) {
+            double left, center, right, aleft, aright, a1, an;
+            yprevs = yprev;
+            for (int s = 0; s < 2; s++) {
+                progoncoefs = {}, f = {};
+                //Ищем коэффициенты 1ого уравнения
+                a1 = (K(yprevs[1]) + K(yprevs[0])) / 2;
+                left = 0;
+                center = c * rho * h * h / 2 - h / beta1 * alpha1 * tau + a1 * tau;
+                right = -a1 * tau;
+                progoncoefs.push_back({ left, center, right });
+                f.push_back(c * rho * h * h / 2 * yprev[0] - h * p1(gridt[time]) * tau / beta1);
+                // Ищем внутренние коэффициенты
+                for (int i = 1; i < n - 1; i++) {
+                    aleft = 0.5 * (K(yprevs[i]) + K(yprevs[i - 1]));
+                    aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
+                    left = tau * aleft;
+                    center = -tau * (aright + aleft) - h * h * c * rho;
+                    f.push_back(-h * h * c * rho * yprev[i]);
+                    progoncoefs.push_back({ left, center, right });
+
+                }
+                // Ищем коэффициент последнего уравнения
+                an = 0.5 * (K(yprevs[n - 1]) + K(yprevs[n - 2]));
+                left = 0;
+                center = 1;
+                right = 0;
+                f.push_back(p2(gridt[time]) / alpha2);
+                progoncoefs.push_back({ left, center, right });
+                ynexts = Progonka(progoncoefs, f);
+                yprevs = ynexts;
+            }
+            ynext = yprevs;
+
+            if (time % step_t == 0) {
+                for (int i = 0; i < n; i += step_x) {
+                    out << ynext[i] << " ";
+                }
+                out << endl;
+            }
+
+            yprev = ynext;
+        }
+    }
+    else if (abs(beta2) > 1e-10) {
+        for (int time = 1; time < m; time++) {
+            double left, center, right, aleft, aright, a1, an;
+            yprevs = yprev;
+            for (int s = 0; s < 2; s++) {
+                progoncoefs = {}, f = {};
+                //Ищем коэффициенты 1ого уравнения
+                a1 = (K(yprevs[1]) + K(yprevs[0])) / 2;
+                left = 0;
+                center = 1;
+                right = 0;
+                progoncoefs.push_back({ left, center, right });
+                f.push_back(p1(gridt[time]) / alpha1);
+                // Ищем внутренние коэффициенты
+                for (int i = 1; i < n - 1; i++) {
+                    aleft = 0.5 * (K(yprevs[i]) + K(yprevs[i - 1]));
+                    aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
+                    left = tau * aleft;
+                    center = -tau * (aright + aleft) - h * h * c * rho;
+                    f.push_back(-h * h * c * rho * yprev[i]);
+                    progoncoefs.push_back({ left, center, right });
+
+                }
+                // Ищем коэффициент последнего уравнения
+                an = 0.5 * (K(yprevs[n - 1]) + K(yprevs[n - 2]));
+                left = tau * an;
+                center = -an * tau - h * alpha2 * tau / beta2 - c * rho * h * h / 2;
+                right = 0;
+                f.push_back(-c * rho * h * h / 2 * yprev[n - 1] - h / beta2 * p2(gridt[time]) * tau);
+                progoncoefs.push_back({ left, center, right });
+                ynexts = Progonka(progoncoefs, f);
+                yprevs = ynexts;
+            }
+            ynext = yprevs;
+
+            if (time % step_t == 0) {
+                for (int i = 0; i < n; i += step_x) {
+                    out << ynext[i] << " ";
+                }
+                out << endl;
+            }
+
+            yprev = ynext;
+        }
+    }
+
+    else {
+        for (int time = 1; time < m; time++) {
+            double left, center, right, aleft, aright, a1, an;
+            yprevs = yprev;
+            for (int s = 0; s < 2; s++) {
+                progoncoefs = {}, f = {};
+                //Ищем коэффициенты 1ого уравнения
+                a1 = (K(yprevs[1]) + K(yprevs[0])) / 2;
+                left = 0;
+                center = 1;
+                right = 0;
+                progoncoefs.push_back({ left, center, right });
+                f.push_back(p1(gridt[time]) / alpha1);
+                // Ищем внутренние коэффициенты
+                for (int i = 1; i < n - 1; i++) {
+                    aleft = 0.5 * (K(yprevs[i]) + K(yprevs[i - 1]));
+                    aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
+                    left = tau * aleft;
+                    center = -tau * (aright + aleft) - h * h * c * rho;
+                    f.push_back(-h * h * c * rho * yprev[i]);
+                    progoncoefs.push_back({ left, center, right });
+
+                }
+                // Ищем коэффициент последнего уравнения
+                an = 0.5 * (K(yprevs[n - 1]) + K(yprevs[n - 2]));
+                left = 0;
+                center = 1;
+                right = 0;
+                f.push_back(p1(gridt[time])/alpha1);
+                progoncoefs.push_back({ left, center, right });
+                ynexts = Progonka(progoncoefs, f);
+                yprevs = ynexts;
+            }
+            ynext = yprevs;
+
+            if (time % step_t == 0) {
+                for (int i = 0; i < n; i += step_x) {
+                    out << ynext[i] << " ";
+                }
+                out << endl;
+            }
+
+            yprev = ynext;
+        }
+    }
+}
+
+
 void SolveTempEq(string file, double tau, double h, double T, double X, double(&initial_cond)(double x), vector<double> boundary_conditions,
     double(&p1)(double t), double(&p2)(double t), double(&K)(double x), double sigma = 0.5) {
     ofstream out(file);
