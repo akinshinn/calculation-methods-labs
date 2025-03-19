@@ -104,6 +104,20 @@
 		аппроксимации при $a_i = \dfrac{2 K(x_i) K(x_{i-1})}{K(x_i) + K(x_{i-1})}$
 		\newline
 		{\bfseries Ответ. } 
+		Достаточное условие второго порядка аппроксимации:
+		\begin{equation*}
+			a_i = K(x_i) - \frac{h}{2}K'(x_i) + O(h^2)
+		\end{equation*}
+		Тогда 
+		\begin{equation*}
+			\frac{2K_i(K_i - h K'_i + \frac{h^2}{2}K''_i + O(h^3))}{2K_i - h K'_i + \frac{h^2}{2} K''_i + O(h^3)}=
+			K_i - \frac{h}{2}K'_i + O(h^2)
+		\end{equation*}
+		Далее, домножая на знаменатель, получаем 
+		\begin{equation*}
+			2 K^2_i - 2 h K_i K'_i  + O(h^2) = 2 K^2_i - h K_i K'_i - h K_i K'_i + O(h^2)
+		\end{equation*}
+		Из чего следует второй порядок аппроксимации.
 		\item Какие методы (способы) построения разностной аппроксимации граничных условий 
 		(2.5), (2.6) с порядком точности $O(\tau + h^2), \ O(\tau^2 + h^2), \ O(\tau^2 + h)$
 		\newline
@@ -112,10 +126,86 @@
 		и немонотонных разностных схем.
 		\newline
 		{\bfseries Ответ. } 
+		Запишем расчетную схему в каноническом виде 
+		\begin{equation*}
+			\hat{y} (\frac{c \rho }{\tau} + \frac{\sigma a_{i+1}}{h^2} + \frac{a_i \sigma}{h^2}) 
+			= y \left(\frac{c \rho}{\tau}- \frac{1-\sigma}{h^2} - \frac{a_i}{h^2}(1-\sigma)\right) 
+			+ y_{+1} \left(\frac{1-\sigma}{h^2}a_{i+1}\right) + \hat{y}_{+1} \frac{\sigma}{h^2} a_{i+1}
+			+ \hat{y}_{-1} \frac{a_i \sigma}{h^2}.
+		\end{equation*}
+		Заметим, что $F \equiv 0$, следовательно $Ly = 0$.
+		Далее получаем следующую систему 
+		\begin{equation*}
+			\begin{cases}
+				\frac{c \rho }{\tau} + \frac{\sigma a_{i+1}}{h^2} + \frac{a_i \sigma}{h^2} > 0, \\ 
+				\frac{c \rho}{\tau}- \frac{1-\sigma}{h^2} - \frac{a_i}{h^2}(1-\sigma) > 0, \\
+				\frac{1-\sigma}{h^2} a_i > 0, \\ 
+				\frac{\sigma}{h^2} a_{i+1} > 0, \\ 
+				\frac{a_i \sigma}{h^2} > 0.
+			\end{cases}
+		\end{equation*}
+		В силу естественных условий на $a_i, \sigma, \tau, \rho, c, h$ получаем следующее условие 
+		\begin{equation*}
+			\frac{c \rho}{\tau}- \frac{1-\sigma}{h^2} - \frac{a_i}{h^2}(1-\sigma) > 0
+		\end{equation*}
+		Рассмотрим $D = A(x) - \sum\limits_{\xi \in S'(x)} B(\xi, \, x)$
+		\begin{equation*}
+			D = \frac{c \rho }{\tau} + \frac{\sigma a_{i+1}}{h^2} + \frac{a_i \sigma}{h^2} - 
+			(\frac{c \rho}{\tau}- \frac{1-\sigma}{h^2} - \frac{a_i}{h^2}(1-\sigma)) -
+			\frac{1-\sigma}{h^2} a_i - \frac{\sigma}{h^2} a_{i+1} - \frac{a_i \sigma}{h^2} \equiv 0
+		\end{equation*}
+		В итоге если выполнено условие $\frac{c \rho}{\tau}- \frac{1-\sigma}{h^2} - \frac{a_i}{h^2}(1-\sigma) > 0$, то по
+		теореме о выполнении принципа максимума для расчетной схемы, данная схема будет монотонна. 
 		\item Какие ограничения на $h$, $\tau$ и $\sigma$ накладывают условия
 		устойчивости прогонки?
 		\newline
 		{\bfseries Ответ. } 
+		Запишем расчетную схему в трехдиагональном виде 
+		\begin{gather*}
+			\hat{y}_{-1} (\tau \sigma k_{-1/2}) + \hat{y} (-\tau \sigma k_{+1/2}
+			 - \tau \sigma k_{-1/2} - c \rho h^2) + \hat{y}_{i+1} (\tau \sigma k_{+1/2})= \\=
+			 -c \rho h^2 y - \tau (1-\sigma) (k_{+1/2}(y_{+1/2 - y}) - k_{-1/2} (y - y_{-1/2}))
+		\end{gather*}
+		Из теоремы об устойчивости и корректности прогонки 
+		\begin{equation*}
+			|b_i| \geqslant |a_i| + |c_i|
+		\end{equation*}
+		Тогда получаем
+		\begin{equation*}
+			\tau \sigma k_{+1/2}
+			+ \tau \sigma k_{-1/2} + c \rho h^2 \geqslant \tau \sigma k_{-1/2} + \tau \sigma k_{+1/2}
+		\end{equation*}
+		Что верно всегда. 
+		Теперь рассмотрим положительность $|b_1| > 0$. Запишем расчетную схему для левого граничного условия
+		\begin{equation*}
+			\hat{y} (- \tau \sigma k_{1/2} + \tau \sigma \frac{b}{\beta_1} - \frac{c \rho h^2}{2}) + 
+			\hat{y}_1 \tau \sigma k_{1/2} = -\tau (1-\sigma) (k_{1/2}(y_1 - y) + \frac{h}{\beta_1} (\alpha_1 y - P_1)) 
+			- \frac{c \rho h^2}{2} y + \tau \sigma \frac{h}{\beta_1} P_1
+		\end{equation*}
+		Заметим, что всегда выполнено условие $|b_1| > 0$. 
+		Условие неравенства 0 для $c_i$ очевидно. Заметим, что $|b_1| > |c_1|$.
+		Также накладывается следующее условие
+		\begin{equation*}
+			|- \tau \sigma k_{1/2} + \tau \sigma \frac{b}{\beta_1} - \frac{c \rho h^2}{2}| > |\tau \sigma k_{1/2}|
+		\end{equation*}
+		\begin{equation*}
+			\tau \sigma k_{1/2} +  \frac{c \rho h^2}{2} -\tau \sigma \frac{b}{\beta_1} >  \tau \sigma k_{1/2}
+		\end{equation*}
+		\begin{equation*}
+			\frac{c \rho h^2}{2} -\tau \sigma \frac{b}{\beta_1} >0
+		\end{equation*}
+		Что эквивалентно 
+		Теперь проверим для правого граничного условия условие $|b_n| > |a_n|$
+		Запишем расчетную схему для правого граничного условия
+		\begin{gather*}
+			\hat{y}_{n-1} \tau \sigma k_{n-1/2} +\\+  \hat{y} (-\tau \sigma k_{n-1/2} - \tau \sigma \frac{h}{\beta_2} \alpha_2 - \frac{c \rho h^2}{2}) = 
+			f_n
+		\end{gather*}
+		Из схемы видно, что 
+		\begin{equation*}
+			|b_n| > |a_n|
+		\end{equation*}
+		Тогда по теореме о корректности и устойчивости метода прогонки 
 		\item В случае $K = K(u)$ чему равно количество внутренних итераций, если итерационный процесс вести до сходимости,
 		а не обрывать после нескольких первых итераций?
 		\newline
@@ -124,6 +214,8 @@
 		внутреннего итерационного процесса или алгоритмы, заменяющие его.
 		\newline
 		{\bfseries Ответ. } 
+		Вместо использования метода простой итерации, можно пользоваться любым итерационный методом 
+		для решения нелинейных систем. Например, метод Ньютона.
 	\end{enumerate}
 
 

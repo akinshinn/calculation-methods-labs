@@ -24,8 +24,16 @@ const int step_x = 1;
 double K(double x) {
     return 500;
 }
+double Knonlin(double y) {
+    return 0.5 * pow(y, 2);
+}
 
-
+double nonlinGu(double t) {
+    return sqrt(2 * 25 / 0.5) * sqrt(t);
+}
+double nonlinNu(double x) {
+    return 0;
+}
 double K1(double x) {
     if (x < 2.5)
         return 250;
@@ -190,6 +198,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                     aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
                     left = tau * aleft;
                     center = -tau * (aright + aleft) - h * h * c * rho;
+                    right = tau * aright;
                     f.push_back(-h * h * c * rho * yprev[i]);
                     progoncoefs.push_back({ left, center, right });
 
@@ -236,6 +245,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                     aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
                     left = tau * aleft;
                     center = -tau * (aright + aleft) - h * h * c * rho;
+                    right = tau * aright;
                     f.push_back(-h * h * c * rho * yprev[i]);
                     progoncoefs.push_back({ left, center, right });
 
@@ -281,6 +291,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                     aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
                     left = tau * aleft;
                     center = -tau * (aright + aleft) - h * h * c * rho;
+                    right = tau * aright;
                     f.push_back(-h * h * c * rho * yprev[i]);
                     progoncoefs.push_back({ left, center, right });
 
@@ -312,7 +323,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
         for (int time = 1; time < m; time++) {
             double left, center, right, aleft, aright, a1, an;
             yprevs = yprev;
-            for (int s = 0; s < 2; s++) {
+            for (int s = 0; s < 3; s++) {
                 progoncoefs = {}, f = {};
                 //Ищем коэффициенты 1ого уравнения
                 a1 = (K(yprevs[1]) + K(yprevs[0])) / 2;
@@ -327,6 +338,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                     aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
                     left = tau * aleft;
                     center = -tau * (aright + aleft) - h * h * c * rho;
+                    right = tau * aright;
                     f.push_back(-h * h * c * rho * yprev[i]);
                     progoncoefs.push_back({ left, center, right });
 
@@ -336,7 +348,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                 left = 0;
                 center = 1;
                 right = 0;
-                f.push_back(p1(gridt[time])/alpha1);
+                f.push_back(p2(gridt[time])/alpha2);
                 progoncoefs.push_back({ left, center, right });
                 ynexts = Progonka(progoncoefs, f);
                 yprevs = ynexts;
@@ -400,7 +412,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
     out << endl;
 
     double left, center, right;
-    double curKright = K(0.5 * h), curKleft;
+    double curKright = (K(gridx[0]) + K(gridx[1])) / 2, curKleft;
 
     vector<vector<double>> progonka_coef;
     vector<double> f;
@@ -421,8 +433,8 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
             );
             // считаем прогоночный коэф-т для внутр точек
             for (int i = 1; i < n - 1; i++) {
-                curKleft = K(gridx[i] - 0.5 * h);
-                curKright = K(gridx[i] + 0.5 * h);;
+                curKleft = (K(gridx[i]) + K(gridx[i - 1])) / 2;
+                curKright = (K(gridx[i]) + K(gridx[i + 1])) / 2;
                 left = tau * sigma * curKleft;
                 center = -c * rho * h * h - tau * sigma * (curKright + curKleft);
                 right = tau * sigma * curKright;
@@ -441,7 +453,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
                 );
                 progonka_coef.push_back({ left, center, right });
             }
-            curKleft = K(gridx[n - 1] - 0.5 * h);
+            curKleft = (K(gridx[n - 1]) + K(gridx[n - 2])) / 2;
             // считаем прогоночный коэф-т для правого ГУ 
             left = tau * sigma * curKleft;
             center = -tau * sigma * curKleft - tau * sigma * h * alpha2 / beta2 - 0.5 * c * rho * h * h;
@@ -485,8 +497,8 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
             );
             // считаем прогоночный коэф-т для внутр точек
             for (int i = 1; i < n - 1; i++) {
-                curKleft = K(gridx[i] - 0.5 * h);
-                curKright = K(gridx[i] + 0.5 * h);;
+                curKleft = (K(gridx[i]) + K(gridx[i - 1])) / 2;
+                curKright = (K(gridx[i]) + K(gridx[i + 1])) / 2;
                 left = tau * sigma * curKleft;
                 center = -c * rho * h * h - tau * sigma * (curKright + curKleft);
                 right = tau * sigma * curKright;
@@ -505,7 +517,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
                 );
                 progonka_coef.push_back({ left, center, right });
             }
-            curKleft = K(gridx[n - 1] - 0.5 * h);
+            curKleft = (K(gridx[n - 1]) + K(gridx[n - 2])) / 2;
             // считаем прогоночный коэф-т для правого ГУ 
             left = 0;
             center = 1;
@@ -534,8 +546,8 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
             f.push_back(p1(gridt[j]) /alpha1);
             // считаем прогоночный коэф-т для внутр точек
             for (int i = 1; i < n - 1; i++) {
-                curKleft = K(gridx[i] - 0.5 * h);
-                curKright = K(gridx[i] + 0.5 * h);;
+                curKleft = (K(gridx[i]) + K(gridx[i - 1])) / 2;
+                curKright = (K(gridx[i]) + K(gridx[i + 1])) / 2;
                 left = tau * sigma * curKleft;
                 center = -c * rho * h * h - tau * sigma * (curKright + curKleft);
                 right = tau * sigma * curKright;
@@ -554,7 +566,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
                 );
                 progonka_coef.push_back({ left, center, right });
             }
-            curKleft = K(gridx[n - 1] - 0.5 * h);
+            curKleft = (K(gridx[n - 1]) + K(gridx[n - 2])) / 2;
             // считаем прогоночный коэф-т для правого ГУ 
             left = tau * sigma * curKleft;
             center = -tau * sigma * curKleft - tau * sigma * h * alpha2 / beta2 - 0.5 * c * rho * h * h;
@@ -592,8 +604,8 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
             f.push_back(p1(gridt[j]) / alpha1);
             // считаем прогоночный коэф-т для внутр точек
             for (int i = 1; i < n - 1; i++) {
-                curKleft = K(gridx[i] - 0.5 * h);
-                curKright = K(gridx[i] + 0.5 * h);;
+                curKleft = (K(gridx[i]) + K(gridx[i - 1])) / 2;
+                curKright = (K(gridx[i]) + K(gridx[i + 1])) / 2;
                 left = tau * sigma * curKleft;
                 center = -c * rho * h * h - tau * sigma * (curKright + curKleft);
                 right = tau * sigma * curKright;
@@ -612,7 +624,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
                 );
                 progonka_coef.push_back({ left, center, right });
             }
-            curKleft = K(gridx[n - 1] - 0.5 * h);
+            curKleft = (K(gridx[n - 1]) + K(gridx[n - 2])) / 2;
             // считаем прогоночный коэф-т для правого ГУ 
             left = 0;
             center = 1;
@@ -646,5 +658,6 @@ int main()
     //SolveTempEq("test2.txt", 0.5, 0.1, 50000, 10, init_cond_test1, { 0,0,-1,1 }, u1_test2, u2_test2, K, 0.5);
     //Example3 energy
     //SolveTempEq("test_energy.txt", 0.5, 0.1, 50000, 10, initial_energy, { 0,0,-1,1 }, u1_test2, u2_test2, K, 0.5);
-    SolveTempEq("test1.1.txt", 0.5, 0.1, 75000, 10, init_cond_test1, { 1,1,0,0 }, u1_test1, u2_test1, K1, 0.5);
+    //SolveTempEq("test1.1.txt", 0.5, 0.1, 75000, 10, init_cond_test1, { 1,1,0,0 }, u1_test1, u2_test1, K1, 0.5);
+    SolveTempeqNonlin("testnonlin.txt", 2e-4, 0.2, 1, 1e2, nonlinNu, { 1,1,0,0 }, nonlinGu, nonlinNu, Knonlin, 1);
 }

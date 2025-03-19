@@ -1,5 +1,7 @@
 ﻿  lab7.cpp
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(50,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(92,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(93,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(125,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(168,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(169,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(402,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(403,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   lab7.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab7\x64\Debug\lab7.exe
