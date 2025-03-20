@@ -9,9 +9,10 @@
 
 using namespace std;
 
-const double c = 460;
-const double rho = 7850;
-const int step_t = 15;
+const double c = 1;
+const double rho = 1;
+
+const int step_t = 1;
 const int step_x = 1;
 
 //double K(double x) {
@@ -19,7 +20,26 @@ const int step_x = 1;
 //    else if (x < 7.5) return 250 * (x - 7.5) * 0.2 + 500 * (x - 2.5) * 0.2;
 //    return 500;
 //}
+double analytic_sol(double x, double t) {
+    return exp(-(3.14159265359) * (3.14159265359) * t) * sin((3.14159265359) * x);
+}
 
+double K_order(double x) {
+    return 1;
+}
+
+double init_cond_order(double x) {
+    return sin(3.14159265359 * x);
+}
+
+double inftyNorm(vector<double> vec1, vector<double> vec2) {
+    double res = 0;
+    int n = vec1.size();
+    for (int i = 0; i < n; i++) {
+        res = max(res, abs(vec1[i] - vec2[i]));
+    }
+    return res;
+}
 
 double K(double x) {
     return 500;
@@ -29,6 +49,7 @@ double Knonlin(double y) {
 }
 
 double nonlinGu(double t) {
+    //cout << sqrt(2 * 25 / 0.5) * sqrt(t) << endl;;
     return sqrt(2 * 25 / 0.5) * sqrt(t);
 }
 double nonlinNu(double x) {
@@ -144,7 +165,7 @@ vector<double> Progonka(vector<vector<double>> matrix, vector<double> right) {
 
 // boundary_conditions = {alpha1, alpha2, beta1, beta2}
 void SolveTempeqNonlin(string file, double tau, double h, double T, double X, double(&initial_cond)(double x), vector<double> boundary_conditions,
-    double(&p1)(double t), double(&p2)(double t), double(&K)(double y), double sigma = 0.5) {
+    double(&p1)(double t), double(&p2)(double t), double(&K)(double y)) {
     ofstream out(file);
     ofstream out2("gridFile.txt");
     double alpha1 = boundary_conditions[0];
@@ -176,6 +197,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
     }
     out << endl;
     for (int i = 0; i < gridx.size(); i += step_x) {
+        cout << "123";
         out2 << gridx[i] << " ";
     }
 
@@ -243,6 +265,8 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                 for (int i = 1; i < n - 1; i++) {
                     aleft = 0.5 * (K(yprevs[i]) + K(yprevs[i - 1]));
                     aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
+                    //aleft = 0.5 * (K(yprevs[i] + ));
+                    //aright = 0.5 * K(yprevs[i + 1]);
                     left = tau * aleft;
                     center = -tau * (aright + aleft) - h * h * c * rho;
                     right = tau * aright;
@@ -323,7 +347,7 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
         for (int time = 1; time < m; time++) {
             double left, center, right, aleft, aright, a1, an;
             yprevs = yprev;
-            for (int s = 0; s < 3; s++) {
+            for (int s = 0; s < 100; s++) {
                 progoncoefs = {}, f = {};
                 //Ищем коэффициенты 1ого уравнения
                 a1 = (K(yprevs[1]) + K(yprevs[0])) / 2;
@@ -332,17 +356,19 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                 right = 0;
                 progoncoefs.push_back({ left, center, right });
                 f.push_back(p1(gridt[time]) / alpha1);
+
                 // Ищем внутренние коэффициенты
                 for (int i = 1; i < n - 1; i++) {
                     aleft = 0.5 * (K(yprevs[i]) + K(yprevs[i - 1]));
                     aright = 0.5 * (K(yprevs[i + 1]) + K(yprevs[i]));
-                    left = tau * aleft;
-                    center = -tau * (aright + aleft) - h * h * c * rho;
-                    right = tau * aright;
-                    f.push_back(-h * h * c * rho * yprev[i]);
+                    left = aleft / (h*h);
+                    center = - (aright + aleft) / (h*h) -  c * rho / tau;
+                    right = aright / (h * h);
+                    f.push_back(- c * rho * yprev[i] / tau);
                     progoncoefs.push_back({ left, center, right });
 
                 }
+
                 // Ищем коэффициент последнего уравнения
                 an = 0.5 * (K(yprevs[n - 1]) + K(yprevs[n - 2]));
                 left = 0;
@@ -351,9 +377,11 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
                 f.push_back(p2(gridt[time])/alpha2);
                 progoncoefs.push_back({ left, center, right });
                 ynexts = Progonka(progoncoefs, f);
+                if (inftyNorm(yprevs, ynexts) < 1e-6) break;
+
                 yprevs = ynexts;
             }
-            ynext = yprevs;
+            ynext = ynexts;
 
             if (time % step_t == 0) {
                 for (int i = 0; i < n; i += step_x) {
@@ -385,11 +413,14 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
         t += tau;
         gridt.emplace_back(t);
     }
-    while (x < X) {
+    while (X - x > 5e-15) {
         x += h;
+        cout << (x) << " " << setprecision(16);
+        cout << (x<X) << endl;
         gridx.emplace_back(x);
     }
-
+    cout << (1 < 1) << endl;
+    DisplayVector(gridx);
     double trueSquare = (initial_cond(0) + initial_cond(gridx.back())) / 2 * gridx.back();
 
     for (int i = 0; i < gridx.size(); i += step_x) {
@@ -643,10 +674,78 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
         }
 
     }
-    cout << "sdfs" << endl;
-    cout << Maxelement(differenceSquare) << setprecision(16);
+    //cout << Maxelement(differenceSquare) << setprecision(16);
 }
     
+vector<double> read_file(string file, int time_zone, int n) {
+    ifstream f;
+    vector<double> res;
+    string temp;
+    f.open(file);
+    int counter = 0;
+    while (counter < time_zone) {
+        /*getline(f, temp);*/
+        for (int i = 0; i < n + 1; i++) {
+            double cur_T;
+            f >> cur_T;
+            //res.push_back(cur_T);
+        }
+        counter++;
+    }
+    for (int i = 0; i < n + 1; i++) {
+        double cur_T;
+        f >> cur_T;
+        
+        res.push_back(cur_T);
+    }
+    f.close();
+    return res;
+}
+
+void GetOrder_p(double h, double tau, double(*analytic_sol)(double, double)) {
+    double sigma = 0;
+    //cout <<"ust" << 0.5 - (c * rho * h * h) / (4 * tau * 1) << endl;
+    SolveTempEq("order1_h1.txt", tau, h, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
+    SolveTempEq("order1_h2.txt", tau, h/2, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
+    SolveTempEq("order1_h3.txt", tau, h / 4, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
+    vector<double> sol1, sol2, sol3;
+    vector<double> gridh = { 0 }, gridh2 = { 0 }, gridh4 = { 0 };
+    int tz = 100;
+    sol1 = read_file("order1_h1.txt", tz + 1, 1 / h);
+    sol2 = read_file("order1_h2.txt", tz + 1, 1 / (0.5*h));
+    sol3 = read_file("order1_h3.txt", tz + 1, 1 / (0.25*h));
+    vector<double> asol1 = { 0 }, asol2 = { 0 }, asol3 = { 0 };
+
+    double x = 0, X = 1;
+    
+    while (X-x > 1e-15) {
+        x += h;
+        asol1.emplace_back(analytic_sol(x, tau*tz));
+        gridh.emplace_back(x);
+    }
+    x = 0;
+    while (X - x > 1e-15) {
+        x += h/2;
+        asol2.emplace_back(analytic_sol(x, tau * tz));
+        gridh2.emplace_back(x);
+    }
+    x = 0;
+    while (X - x > 1e-15) {
+        x += h/4;
+        asol3.emplace_back(analytic_sol(x, tau * tz));
+        gridh4.emplace_back(x);
+    }
+
+    double Eh4, Eh, Eh2;
+    Eh = inftyNorm(asol1, sol1);
+    Eh2 = inftyNorm(asol2, sol2);
+    Eh4 = inftyNorm(asol3, sol3);
+    cout << "Eh1 = " << Eh << endl;
+    cout << "Eh2 = " << Eh2 << endl;
+    cout << "Eh4 = " << Eh4 << endl;
+    double R = (Eh4 - Eh) / (Eh4 - Eh2);
+    cout << log2(R - 1);
+}
 
 
 int main()
@@ -659,5 +758,9 @@ int main()
     //Example3 energy
     //SolveTempEq("test_energy.txt", 0.5, 0.1, 50000, 10, initial_energy, { 0,0,-1,1 }, u1_test2, u2_test2, K, 0.5);
     //SolveTempEq("test1.1.txt", 0.5, 0.1, 75000, 10, init_cond_test1, { 1,1,0,0 }, u1_test1, u2_test1, K1, 0.5);
-    SolveTempeqNonlin("testnonlin.txt", 2e-4, 0.2, 1, 1e2, nonlinNu, { 1,1,0,0 }, nonlinGu, nonlinNu, Knonlin, 1);
+    //SolveTempeqNonlin("testnonlin.txt", 2e-4, 0.2, 1, 10, nonlinNu, { 1,1,0,0 }, nonlinGu, nonlinNu, Knonlin);
+
+    //=====================================================
+    // Порядки
+    GetOrder_p(1e-1, 1e-5, analytic_sol);
 }
