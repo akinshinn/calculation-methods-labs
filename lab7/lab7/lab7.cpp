@@ -415,12 +415,12 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
     }
     while (X - x > 5e-15) {
         x += h;
-        cout << (x) << " " << setprecision(16);
-        cout << (x<X) << endl;
+        //cout << (x) << " " << setprecision(16);
+        //cout << (x<X) << endl;
         gridx.emplace_back(x);
     }
-    cout << (1 < 1) << endl;
-    DisplayVector(gridx);
+    //cout << (1 < 1) << endl;
+    //DisplayVector(gridx);
     double trueSquare = (initial_cond(0) + initial_cond(gridx.back())) / 2 * gridx.back();
 
     for (int i = 0; i < gridx.size(); i += step_x) {
@@ -438,7 +438,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
     }
 
     for (int i = 0; i < n; i += step_x) {
-        out << y_prev[i] << " ";
+        out << setprecision(16) << y_prev[i] << " ";
     }
     out << endl;
 
@@ -505,7 +505,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
 
             if (j % step_t == 0) {
                 for (int i = 0; i < n; i += step_x) {
-                    out << y_next[i] << " ";
+                    out << setprecision(16) << y_next[i] << " ";
                 }
                 out << endl;
             }
@@ -558,7 +558,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
             y_next = Progonka(progonka_coef, f);
             if (j % step_t == 0) {
                 for (int i = 0; i < n; i += step_x) {
-                    out << y_next[i] << " ";
+                    out << setprecision(16) << y_next[i] << " ";
                 }
                 out << endl;
             }
@@ -616,7 +616,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
 
             if (j % step_t == 0) {
                 for (int i = 0; i < n; i += step_x) {
-                    out << y_next[i] << " ";
+                    out << setprecision(16) << y_next[i] << " ";
                 }
                 out << endl;
             }
@@ -666,7 +666,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
 
             if (j % step_t == 0) {
                 for (int i = 0; i < n; i += step_x) {
-                    out << y_next[i] << " ";
+                    out << setprecision(16)<<y_next[i] << " ";
                 }
                 out << endl;
             }
@@ -703,7 +703,7 @@ vector<double> read_file(string file, int time_zone, int n) {
 }
 
 void GetOrder_p(double h, double tau, double(*analytic_sol)(double, double)) {
-    double sigma = 0;
+    double sigma = 1;
     //cout <<"ust" << 0.5 - (c * rho * h * h) / (4 * tau * 1) << endl;
     SolveTempEq("order1_h1.txt", tau, h, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
     SolveTempEq("order1_h2.txt", tau, h/2, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
@@ -747,7 +747,106 @@ void GetOrder_p(double h, double tau, double(*analytic_sol)(double, double)) {
     cout << log2(R - 1);
 }
 
+void GetOrder_q(double h, double tau, double(*analytic_sol)(double, double)) {
+    double sigma = 0.5;
+    //cout <<"ust" << 0.5 - (c * rho * h * h) / (4 * tau * 1) << endl;
+    SolveTempEq("order1_h1.txt", tau, h, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
+    SolveTempEq("order1_h2.txt", tau/2, h, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
+    SolveTempEq("order1_h3.txt", tau/4, h , 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
+    vector<double> sol1, sol2, sol3;
+    vector<double> gridh = { 0 }, gridh2 = { 0 }, gridh4 = { 0 };
+    int tz = 100;
+    sol1 = read_file("order1_h1.txt", tz + 1, 1 / h);
+    sol2 = read_file("order1_h2.txt", tz*2 + 1, 1 / h);
+    sol3 = read_file("order1_h3.txt", tz*4 + 1, 1 / h);
+    vector<double> asol1 = { 0 }, asol2 = { 0 }, asol3 = { 0 };
 
+    double x = 0, X = 1;
+
+    while (X - x > 1e-15) {
+        x += h;
+        asol1.emplace_back(analytic_sol(x, tau * tz));
+        gridh.emplace_back(x);
+    }
+    x = 0;
+    while (X - x > 1e-15) {
+        x += h;
+        asol2.emplace_back(analytic_sol(x, tau * tz));
+        gridh2.emplace_back(x);
+    }
+    x = 0;
+    while (X - x > 1e-15) {
+        x += h;
+        asol3.emplace_back(analytic_sol(x, tau * tz));
+        gridh4.emplace_back(x);
+    }
+
+    double Eh4, Eh, Eh2;
+    Eh = inftyNorm(asol1, sol1);
+    Eh2 = inftyNorm(asol2, sol2);
+    Eh4 = inftyNorm(asol3, sol3);
+    cout << "Eh1 = " << Eh << endl;
+    cout << "Eh2 = " << Eh2 << endl;
+    cout << "Eh4 = " << Eh4 << endl;
+    double R = (Eh4 - Eh) / (Eh4 - Eh2);
+    cout << log2(R - 1);
+}
+
+
+
+double CalculateError(double h1, double tau1, double(*analytic_sol)(double, double)) {
+    double sigma = 1;
+    vector<double> asol1 = { 0 }, asol2 = { 0 };
+    vector<double> sol1{}, sol2{};
+    double tz = 100; double x = 0, X = 1;
+    while (X - x > 1e-15) {
+        x += h1;
+        asol1.emplace_back(analytic_sol(x, tau1 * tz));
+        
+    }
+
+    SolveTempEq("testeror1.txt", tau1, h1, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
+    sol1 = read_file("testeror1.txt", tz + 1, 1 / h1);
+
+    double eh1;
+    eh1 = inftyNorm(asol1, sol1);
+    return eh1;
+
+}
+
+
+void getPorydokh2tau1(double h, double tau, double(*analytic_sol)(double, double)) {
+
+    double eh1, eh2;
+    eh1 = CalculateError(h, tau, analytic_sol);
+    eh2 = CalculateError(h/2, tau/4, analytic_sol);
+    cout << eh1 << endl;
+    cout << eh2 << endl;
+    cout << log2(eh1 / eh2);
+}
+void getPorydokh2tau2(double h, double tau, double(*analytic_sol)(double, double)) {
+
+    double eh1, eh2;
+    eh1 = CalculateError(h, tau, analytic_sol);
+    eh2 = CalculateError(h / 2, tau / 2, analytic_sol);
+    cout << eh1 << endl;
+    cout << eh2 << endl;
+    cout << log2(eh1 / eh2);
+}
+void testError(string f,double tau, double(*analytic_sol)(double, double)) {
+    ofstream file;
+
+    file.open(f);
+    double h = 0.5;
+    while (h > 10e-5) {
+
+        file << h << " " << setprecision(16) << CalculateError(h, tau, analytic_sol) << endl;
+        h /= 2;
+    }
+
+    file.close();
+
+}
 int main()
 {
 
@@ -762,5 +861,9 @@ int main()
 
     //=====================================================
     // Порядки
-    GetOrder_p(1e-1, 1e-5, analytic_sol);
+    //GetOrder_p(1e-1, 1e-5, analytic_sol);
+    //testError("errors.txt", 0.001, analytic_sol);
+    //getPorydokh2tau1(0.1, 1e-4, analytic_sol);
+
+    //getPorydokh2tau2(0.01, 0.1, analytic_sol);
 }

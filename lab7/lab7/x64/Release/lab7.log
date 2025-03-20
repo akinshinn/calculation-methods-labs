@@ -1,16 +1,21 @@
 ﻿  lab7.cpp
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(37,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(146,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(189,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(190,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(433,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(434,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(714,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(715,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(716,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(37,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(146,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(189,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(190,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(433,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(434,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(714,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(715,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(716,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(759,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(760,51): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(761,51): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(809,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\lab7\lab7.cpp(809,42): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
   Создание кода
-  2 of 362 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  7 of 361 functions ( 1.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
-  lab7.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab7\x64\Release\lab7.exe
+  lab7.vcxproj -> D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab7\x64\Release\lab7.exe
