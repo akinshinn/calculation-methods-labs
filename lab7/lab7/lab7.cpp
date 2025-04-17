@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <math.h>
 #include <vector>
+#include <functional>
 
 using namespace std;
 
@@ -399,7 +400,8 @@ void SolveTempeqNonlin(string file, double tau, double h, double T, double X, do
 void SolveTempEq(string file, double tau, double h, double T, double X, double(&initial_cond)(double x), vector<double> boundary_conditions,
     double(&p1)(double t), double(&p2)(double t), double(&K)(double x), double sigma = 0.5) {
     ofstream out(file);
-    ofstream out2("gridFile.txt");
+    ofstream out2("gridx.txt");
+    ofstream out3("gridt.txt");
     vector<double> differenceSquare{};
     double t = 0;
     double x = 0;
@@ -409,7 +411,7 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
     double alpha2 = boundary_conditions[1];
     double beta1 = boundary_conditions[2];
     double beta2 = boundary_conditions[3];
-    while (t <= T) {
+    while (T- t > 5e-15) {
         t += tau;
         gridt.emplace_back(t);
     }
@@ -425,6 +427,9 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
 
     for (int i = 0; i < gridx.size(); i += step_x) {
         out2 << gridx[i] << " ";
+    }
+    for (int i = 0; i < gridt.size(); i += step_t) {
+        out3 << gridt[i] << " ";
     }
 
     vector<double> y_next;
@@ -649,8 +654,8 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
                         (
                             curKright * (y_prev[i + 1] - y_prev[i]) -
                             curKleft * (y_prev[i] - y_prev[i - 1])
-                            )
                         )
+                    )
 
                 );
                 progonka_coef.push_back({ left, center, right });
@@ -676,6 +681,9 @@ void SolveTempEq(string file, double tau, double h, double T, double X, double(&
     }
     //cout << Maxelement(differenceSquare) << setprecision(16);
 }
+
+
+
     
 vector<double> read_file(string file, int time_zone, int n) {
     ifstream f;
@@ -806,7 +814,7 @@ double CalculateError(double h1, double tau1, double(*analytic_sol)(double, doub
     }
 
     SolveTempEq("testeror1.txt", tau1, h1, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, sigma);
-    sol1 = read_file("testeror1.txt", tz + 1, 1 / h1);
+    sol1 = read_file("testeror1.txt", tz, 1 / h1);
 
     double eh1;
     eh1 = inftyNorm(asol1, sol1);
@@ -838,15 +846,104 @@ void testError(string f,double tau, double(*analytic_sol)(double, double)) {
 
     file.open(f);
     double h = 0.5;
-    while (h > 10e-5) {
+    while (h > 1e-6) {
 
         file << h << " " << setprecision(16) << CalculateError(h, tau, analytic_sol) << endl;
         h /= 2;
     }
 
     file.close();
-
 }
+
+
+
+
+
+
+
+
+template <typename T>
+std::vector<std::vector<T>> heat_eq_spatial(T rho, T c, T k1, T k2, T x1, T x2, T Q, T t0, T L, T u0, function<T(std::vector<T>)> K, std::function<T(std::vector<T>)> initial_cond, std::function<T(std::vector<T>)> left_cond, bool stream_left, std::function<T(std::vector<T>)> right_cond, bool stream_right, T tau, T h, T sigma)
+{
+    size_t num_points_in_space = std::round(L / h) + 1;
+    size_t num_points_over_time = std::round(t0 / tau) + 1;
+    std::vector<std::vector<T>> solution(1, std::vector<T>(num_points_in_space));
+    std::vector<T> A(num_points_in_space - 3);
+    std::vector<T> a(num_points_in_space);
+    std::vector<T> B(num_points_in_space - 3);
+    std::vector<T> C(num_points_in_space - 2);
+    std::vector<T> F(num_points_in_space - 2);
+    solution[0][0] = initial_cond({ 0 , L, u0 });;
+    for (size_t i = 1; i < num_points_in_space; i++) {
+        solution[0][i] = initial_cond({ i * h , L, u0 });
+        // a[i] = 2.0 * K({(i - 1)*h, L, x1, x2, k1, k2, L}) * K({i*h,L, x1, x2, k1, k2}) / (K({(i - 1)*h, L, x1, x2, k1, k2, L}) + K({i*h, L, x1, x2, k1, k2}));
+        a[i] = std::sqrt(K({ (i - 1) * h, L, x1, x2, k1, k2, L }) * K({ i * h, L, x1, x2, k1, k2, L }));
+        // a[i] = std::sqrt(K((i - 1)*h, x1, x2, k1, k2, L) * K(i*h, x1, x2, k1, k2, L));
+    }
+    for (size_t j = 1; j < num_points_over_time; j++)
+    {
+        for (size_t i = 1; i <= num_points_in_space - 3; i++)
+        {
+            A[i - 1] = (sigma / h) * a[i + 1];
+            B[i - 1] = (sigma / h) * a[i + 1];
+        }
+        for (size_t i = 1; i <= num_points_in_space - 2; i++)
+        {
+            C[i - 1] = -(sigma / h * a[i] + sigma / h * a[i + 1] + c * rho * h / tau);
+            F[i - 1] = -(c * rho * h / tau * solution[j - 1][i] + (1 - sigma) * (a[i + 1] * (solution[j - 1][i + 1] - solution[j - 1][i]) / h - a[i] * (solution[j - 1][i] - solution[j - 1][i - 1]) / h));
+        }
+        std::vector<T> internal_points = TridiagonalMatrixAlgorithm(A, C, B, F);
+        std::vector<T> temp{};
+        // if (stream_left)
+        // {
+        // 	double P_tj1 = left_cond({tau*j, Q, t0});
+        // 	double P_tj = left_cond({tau*(j-1), Q, t0});
+        // 	double chi = (sigma * a[1] / h) / (c * rho * h / (2 * tau) + sigma * a[1] / h);
+        // 	double numerator = c * rho * solution[j-1][0] * h / (2 * tau) + sigma * P_tj1 + (1 - sigma) * (P_tj - (solution[j-1][1] - solution[j-1][0]) / h);
+        // 	double denominator = c * rho * h / (2 * tau) + sigma * a[1] / h;
+        // 	double mu = numerator / denominator;
+        // 	temp.push_back(chi*internal_points[0]+mu);
+        // }
+        if (stream_left)
+        {
+            T P_tj1 = left_cond({ tau * j, Q, t0 });
+            T P_tj = left_cond({ tau * (j - 1), Q, t0 });
+            T left = ((h * h + 2 * (-1 + sigma) * tau * a[1]) * solution[j - 1][0] + 2 * tau * (h * (P_tj - P_tj * sigma + P_tj1 * sigma) - (-1 + sigma) * a[1] * solution[j - 1][1] * sigma * a[1] * internal_points[0])) / (h * h + 2 * sigma * tau * a[1]);
+            temp.push_back(left);
+        }
+
+        // solution[j][0] = left_cond(j*tau);
+        else
+        {
+            temp.push_back(left_cond({ j * tau }));
+        }
+        temp.insert(temp.end(), internal_points.begin(), internal_points.end());
+        if (stream_right)
+        {
+            T P_tj1 = right_cond({ tau * j, Q, t0 });
+            T P_tj = right_cond({ tau * (j - 1), Q, t0 });
+            T chi = (sigma * a[num_points_in_space - 1] / h) / (c * rho * h / (2 * tau) + sigma * a[num_points_in_space - 1] / h);
+            T numerator = c * rho * solution[j - 1][num_points_in_space - 1] * h / (2 * tau) + sigma * P_tj1 + (1 - sigma) * (P_tj - (solution[j - 1][num_points_in_space - 1] - solution[j - 1][num_points_in_space - 2]) / h);
+            T denominator = c * rho * h / (2 * tau) + sigma * a[num_points_in_space - 1] / h;
+            T mu = numerator / denominator;
+            temp.push_back(chi * temp[num_points_in_space - 2] + mu);
+        }
+        else {
+            temp.push_back(right_cond({ j * tau }));
+        }
+        solution.emplace_back(std::move(temp));
+    }
+    return solution;
+}
+
+
+
+
+
+
+
+
+
 int main()
 {
 
@@ -857,13 +954,30 @@ int main()
     //Example3 energy
     //SolveTempEq("test_energy.txt", 0.5, 0.1, 50000, 10, initial_energy, { 0,0,-1,1 }, u1_test2, u2_test2, K, 0.5);
     //SolveTempEq("test1.1.txt", 0.5, 0.1, 75000, 10, init_cond_test1, { 1,1,0,0 }, u1_test1, u2_test1, K1, 0.5);
-    //SolveTempeqNonlin("testnonlin.txt", 2e-4, 0.2, 1, 10, nonlinNu, { 1,1,0,0 }, nonlinGu, nonlinNu, Knonlin);
+    SolveTempeqNonlin("testnonlin.txt", 2e-4, 0.2, 1, 10, nonlinNu, { 1,1,0,0 }, nonlinGu, nonlinNu, Knonlin);
 
     //=====================================================
     // Порядки
     //GetOrder_p(1e-1, 1e-5, analytic_sol);
-    //testError("errors.txt", 0.001, analytic_sol);
-    //getPorydokh2tau1(0.1, 1e-4, analytic_sol);
+    //testError("errors.txt", 0.01, analytic_sol);
+    //getPorydokh2tau1(0.1, 1e-2, analytic_sol);
 
     //getPorydokh2tau2(0.01, 0.1, analytic_sol);
+    //SolveTempEq("h0.1,tau0.1.txt", 0.1, 0.1, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 1);
+    //SolveTempEq("h0.05,tau0.025.txt", 0.025, 0.05, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 1);
+    //SolveTempEq("h0.025,tau0.00625.txt", 0.00625, 0.025, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 1);
+    //SolveTempEq("h0.0125,tau0.0015625.txt", 0.0015625, 0.0125, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 1);
+    //SolveTempEq("h0.00625,tau0.000390625.txt", 0.000390625, 0.00625, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 1);
+
+    //SolveTempEq("h0.1,tau0.1sigma0.5.txt", 0.1, 0.1, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0.5);
+    //SolveTempEq("h0.05,tau0.05sigma0.5.txt", 0.05, 0.05, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0.5);
+    //SolveTempEq("h0.025,tau0.025sigma0.5.txt", 0.025, 0.025, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0.5);
+    //SolveTempEq("h0.0125,tau0.0125sigma0.5.txt", 0.0125, 0.0125, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0.5);
+    //SolveTempEq("h0.00625,tau0.00625sigma0.5.txt", 0.00625, 0.00625, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0.5);
+
+    //SolveTempEq("h0.1,tau0.001sigma0.txt", 0.001, 0.1, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0);
+    //SolveTempEq("h0.05,tau0.00025sigma0.txt", 0.00025, 0.05, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0);
+    //SolveTempEq("h0.025,tau0.0000625sigma0.txt", 0.0000625, 0.025, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0);
+    //SolveTempEq("h0.0125,tau0,000015625sigma0.txt", 0.000015625, 0.0125, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0);
+    //SolveTempEq("h0.00625,tau0.00000390625sigma0.txt", 0.00000390625, 0.00625, 1, 1, init_cond_order, { 1,1,0,0 }, u1_test2, u1_test2, K_order, 0);
 }

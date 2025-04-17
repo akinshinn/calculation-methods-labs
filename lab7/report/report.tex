@@ -100,6 +100,68 @@
 		расчеты с более крупным шагом по времени?
 		\newline 
 		{\bfseries Ответ. } 
+		Рассмотрим устойчивость схемы с весами. 
+		\begin{equation*}
+			y_t - k \tau \sigma y_{t\bar{x}x} = k y_{\bar{x}x}
+		\end{equation*}
+		Разложим $y$ по собственным функциям $\mu_j$, которые соответствуют собственному 
+		значению $\lambda_j$.
+		Отметим, что на $\lambda_j$ накладываются следующие условия 
+		\begin{equation*}
+			\frac{9}{l^2} \leqslant \lambda_j \leqslant \frac{4}{h^2}
+		\end{equation*}
+		Тогда $y$ представимо 
+		\begin{equation*}
+			y = \sum_{j=1}^{n-1} c_j \mu_j
+		\end{equation*}
+		Подставим в схему 
+		\begin{equation*}
+			\sum_{j=1}^{n-1} \left(c_{j,t} + k \tau \sigma \lambda_j c_{j,t} + 
+			k \lambda_j c_j \right)\mu_j = 0
+		\end{equation*}
+		Тогда для $j=1,\ldots, n-1$:
+		\begin{equation*}
+			(1+k\tau\sigma \lambda_j ) c_{j,t} + k \lambda_j c_j = 0
+		\end{equation*}
+		Далее получаем 
+		\begin{equation*}
+			(1 + k \tau \sigma \lambda_j ) \hat{c_j} = (1+k \tau \sigma) c_j - 
+			k \tau \lambda_j c_j 
+		\end{equation*}
+		Тогда 
+		\begin{equation*}
+			\hat{c_j} = \rho_j c_j,
+		\end{equation*}
+		где 
+		\begin{equation*}
+			\rho_j = \frac{1+k \tau \sigma \lambda_j - k \tau \lambda_j}{1+k \tau 
+			\sigma \lambda_j}	
+		\end{equation*}
+		при $|\rho_j| \leqslant 1$ справедливо
+		\begin{equation*}
+			\|\hat{y}\|^2 = \sum_{j=1}^{n-1} \hat{c_j}^2 = \sum_{j=1}^{n-1} \rho_j^2 c_j^2
+			\leqslant \|y\|^2
+		\end{equation*}
+		Заметим, что 
+		\begin{equation*}
+			1 + k \tau \sigma \lambda_j > 0
+		\end{equation*}
+		Тогда 
+		\begin{equation*}
+			\sigma > \frac{-1}{k \tau \lambda_j}
+		\end{equation*}
+		Запишем ограничения на $\rho_j$
+		\begin{equation*}
+			k \tau \lambda_j \leqslant 2 + 2 k \tau \sigma \lambda_j
+		\end{equation*}		
+		Тогда 
+		\begin{equation*}
+			\sigma \geqslant \frac{1}{2} - \frac{h^2}{4k\tau}
+		\end{equation*}
+		Из рассмотренных схем смешанная и неявная схемы абсолютно устойчивы, явная схема ---
+		условно устойчива. 
+		В силу того, что смешанная схема имеет порядок аппроксимации $O(t^2 + h^2)$, то она 
+		позволяет совершать больший шаг по времени, чем другие схемы.
 		\item Будет ли смешанная схема (2.15) иметь второй порядок
 		аппроксимации при $a_i = \dfrac{2 K(x_i) K(x_{i-1})}{K(x_i) + K(x_{i-1})}$
 		\newline
@@ -122,6 +184,61 @@
 		(2.5), (2.6) с порядком точности $O(\tau + h^2), \ O(\tau^2 + h^2), \ O(\tau^2 + h)$
 		\newline
 		{\bfseries Ответ. } 
+		Пусть заданы следующие граничные условия 
+		\begin{gather*}
+			- K(0) u_x (0, t) = P_1(t) \\ 
+			-K(L) u_x (L, t) = P_2(t) 
+		\end{gather*}
+		Схема для внутренних точек имеет второй порядок по каждой переменной, значит
+		будем рассматривать только границы. Поскольку границы имеет один род 
+		граничных условий, то ограничимся рассмотрением левого граничного условия. 
+
+		Пользуясь интегро-интерполяционным методом, получим следующие выражение 
+		\begin{equation*}
+			\int \limits_0^{x_{1/2}} (u(x, t_{j+1}) - u(x, t_j)) dx 
+			=  \int \limits_{t_j}^{t_{j+1}}
+			(K_{1/2} u_x (x_{1/2}, t) + P_1(t)) dt
+		\end{equation*}
+		Тогда аппроксимируем интегралы с помощью левых прямоугольников. 
+		Получаем 
+		\begin{equation*}
+			\frac{1}{2\tau}(\hat{y}_{1}-  y_0) = K_{1/2} \frac{y_{1} - y_0}{h^2} 
+			+ \frac{1}{h^2} P_1
+		\end{equation*}
+		Вычисление погрешности аппроксимации приводит к 
+		\begin{equation*}
+			\psi_h = O(\tau + h^2)
+		\end{equation*}
+		Если аппроксимировать интегралы с помощью схемы с весами и принять вес 
+		$\sigma = 1/2$, то получим 
+		\begin{equation*}
+			\hat{y_0} (-\frac{1}{2}\tau K_{1/2} - h^2/2) + 
+			\hat{y_1} (\frac{1}{2} \tau K_{1/2}) = 
+			- \tau (1/2) (K_{1/2} (y_1 - y_0) + h P_1) - \frac{h^2}{2} y_0 + 
+			\tau \frac{1}{2} h \hat{P_1}
+		\end{equation*}
+		Разложим в ряд в $y_0$ и получим следующий порядок аппроксимации 
+		\begin{equation*}
+			\psi_h = O(\tau^2 + h^2)
+		\end{equation*}
+
+		Далее будем считать, что $K = const$ и $P_1 = const, \ P_2 = const$, тогда 
+		\begin{gather*}
+			u_x (0, t) = Q_1 \\ 
+			u_x (L, t) = Q_2 
+		\end{gather*}
+		Если в выражении, полученным интегро-интерполяционным методом 
+		интеграл по $x$ аппроксимировать через левые прямоугольники, а 
+		интеграл по $t$ аппроксимировать через центральные, то получим 
+		\begin{equation*}
+			\frac{1}{2\tau}(\hat{y}_{1}-  y_0) = \frac{1}{2}\tau (K \frac{\hat{y}_1
+			- \hat{y}_0}{h^2}) -  \frac{1}{2}\tau (K \frac{y_1
+			- y_0}{h^2})
+		\end{equation*}
+		Тогда получим 
+		\begin{equation*}
+			\psi_h = O(\tau^2 + h)
+		\end{equation*}
 		\item При каких $h, \ \tau, \ \sigma$ смешанная схема монотонна? Проиллюстрируйте результатами расчетов свойства монотонных
 		и немонотонных разностных схем.
 		\newline
@@ -210,14 +327,166 @@
 		а не обрывать после нескольких первых итераций?
 		\newline
 		{\bfseries Ответ. } 
+		\begin{table}[h]
+			\centering
+			\caption{Среднее количество итераций}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				$\varepsilon = 1e-6$ &$\varepsilon = 1e-8$& $\varepsilon = 1e-10$ \\
+				\hline
+				3& 4 & 5\\
+				\hline
+			\end{tabular}
+		\end{table}
 		\item Для случая $K = K(u)$ предложите способы организации
 		внутреннего итерационного процесса или алгоритмы, заменяющие его.
 		\newline
 		{\bfseries Ответ. } 
-		Вместо использования метода простой итерации, можно пользоваться любым итерационный методом 
-		для решения нелинейных систем. Например, метод Ньютона.
+		Вместо использования метода простой итерации, можно пользоваться любым итерационным методом 
+		для решения нелинейных систем. Например, методом Ньютона.
+		Рассмотрим достоинства и недостатки некоторых итерационных методов.
+		Среди достоинств метода Ньютона можно отметить быструю сходимость (сойдется за 1-2 итерации), однако
+		среди недостатков стоит отметить долгую сходимость в случае попадания начального условия на плато функции. 
+		Среди достоинств метода простой итерации отметим простоту реализации, явное вычисление следующих итераций, однако 
+		к недостаткам относится более медленная сходимость по сравнению с методом Ньютона. 
+
 	\end{enumerate}
 
+\section{Дополнительные вопросы}
+\begin{enumerate}
+	\item Записать общее решение уравнения теплопроводности.
+	\newline
+	{\bfseries Ответ. } 
+	Пусть дана следующая задача
+	\begin{equation*}
+		\begin{cases}
+			u_t = a^2 u_{xx} + f(x, t), \\ 
+			u(x, 0) = \phi(x), \\
+			\alpha_1 u(0, t) - \beta_1 u_t(0, t) = \mu_1(t), \\ 
+			\alpha_2 u(l, t) + \beta_2 u_t(l, t) = \mu_2(t), \\ 
+			x  \in [0, l], t >0
+		\end{cases}
+	\end{equation*}
+	Тогда её решение представимо в следующем виде 
+	\begin{equation*}
+		u(x, t) =  \sum_{n = 0}^{\infty} \varphi_n e^{-a^2 \lambda_n t}X_n(t) + 
+		\int_{0}^{t} \int_{0}^{l} f(\xi, \tau) G(x, \xi, t - \tau) d\xi d\tau,
+	\end{equation*}
+	\begin{equation*}
+		G(x, \xi, t - \tau) = \sum_{n=0}^{\infty} e^{-a^2 \lambda_n (t - \tau)} X_n(\xi) X_n(x)
+	\end{equation*}
+	\item Записать прогочные коэффициенты когда слева задан поток, а справа -- постоянная температура
+	\newline 
+	{\bfseries Ответ. } 
+	Запишем аппроксимированное левое граничное условие
+	\begin{equation*}
+		(-\frac{1}{2} c \rho h^2 - \tau  \sigma K_{1/2}) \hat{y_0} + \tau \sigma K_{1/2}  \hat{y}_1 = 
+		-\tau (1-\sigma ) ( K_{1/2} (y_1 - y_0) - h \check{p}_1 / \beta_1) - \frac{1}{2}  c  \rho  h^2 \check{y}_0 + \tau  \sigma  h  \check{p}_2/ \beta_1
+	\end{equation*}
+	Представляя
+	\begin{equation*}
+		\hat{y}_0 = \varkappa \hat{y}_1 + \mu,
+ 	\end{equation*}
+	получим 
+	\begin{gather*}
+		\varkappa = - \frac{\tau \sigma K_{1/2}}{-\frac{1}{2} c \rho h^2 - \tau  \sigma K_{1/2}}, \\
+		\mu = \frac{-\tau (1-\sigma ) ( K_{1/2} (y_1 - y_0) - h \check{p}_1 / \beta_1) - \frac{1}{2}  c  \rho  h^2 \check{y}_0 + \tau  \sigma  h  \check{p}_2/ \beta_1}{(-\frac{1}{2} c \rho h^2 - \tau  \sigma K_{1/2})}
+	\end{gather*}
+	Для правого граничного условия:
+	\begin{equation*}
+		\hat{y}_{n} = p_2
+	\end{equation*}
+	В силу того, что на правом конце ничего аппроксимировать не нужно, то получим
+	\begin{gather*}
+		\varkappa = 0, \\
+		\mu = p_2
+	\end{gather*}
+	\item Пример неконсервативной расчетной схемы 
+	\newline 
+	{\bfseries Ответ. } Рассмотрим следующую задачу 
+	\begin{gather*}
+		(k(x)u_x)_x = 0, \quad 0<x<1, \\
+		u(0) = 1, \\ 
+		u(1) = 0
+	\end{gather*}
+	Пусть 
+	\[
+	k(x) = \begin{cases}
+		2, \, 0 \leqslant x \le 1/2; \\ 
+		1, \, 1/2 \leqslant x \le 1.
+	\end{cases}
+	\]
+	Ее точное решение имеет вид
+	\[
+	u(x) = 
+		\begin{cases}
+			1-\frac{2x}{3}, \, 0 \le x < 0.5; \\ 
+			\frac{4(1-x)}{3}, \, 0.5 \le x < 1.
+		\end{cases}
+	\]
+	В точке разрыва коэффициента справедливы соотношения 
+	$u |_{0.5-0} = u |_{0.5+0},
+	\, (ku_x)|_{0.5-0} = (ku_x)|_{0.5+0}$
+	Для решения исходной задачи всюду, кроме точки $x = 0.5$, 
+	справедливо уравнение $ku_{xx} =0$. 
+	Для такого уравнение можно записать разностную схему $ky_{\overline{x}x}$.
+	Если узел сетки не поподает на точку разрыва коэффициента, то такая
+	процедура выглядит на первый взгляд вполне приемлимой.
+	Коэффициент $k=1$ или $k=2$ в зависимости от точки.
+	Уравнение $ky_{\overline{x}x}=0$ можно на него разделить
+	и в результате получить совершенно точное решение такой
+	разностной схемы $y=1-x, \, y_i = 1-ih,\, i=0,1, \ldots, n, \, nh = 1$.
+	При этом норма разности решений точной и приближенной задач равна
+	\[
+	||y-u_h||_C = 2/3 - 1/2 = 1/6 \not\rightarrow 0 
+	\]
+	при $h \rightarrow 0$
+\end{enumerate}
 
+\section{Порядки}
+\begin{table}[H]
+	\centering
+	\caption{Порядок аппроксимации для схемы $\sigma = 1$}
+	\begin{tabular}{|c|c|}
+		\hline
+		Шаг сетки & $p$ \\ \hline
+		$h, \tau$ & --- \\ \hline 
+		$q h, q^2 \tau$ &  3.18332 \\ \hline 
+		$q^2 h, q^4 \tau$ & 2.13314 \\ \hline 
+		$q^3 h, q^8 \tau$ & 2.03735 \\ \hline 
+		$q^4 h, q^{16} \tau$ & 2.00962 \\ \hline 
+
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Порядок аппроксимации для схемы $\sigma = 0.5$}
+	\begin{tabular}{|c|c|}
+		\hline
+		Шаг сетки & $p$ \\ \hline
+		$h, \tau$ & --- \\ \hline 
+		$q h, q \tau$ &  5.33143 \\ \hline 
+		$q^2 h, q^2 \tau$ & 1.98742 \\ \hline 
+		$q^3 h, q^3 \tau$ & 1.99696 \\ \hline 
+		$q^4 h, q^{4} \tau$ & 1.99925 \\ \hline 
+
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Порядок аппроксимации для схемы $\sigma = 0$}
+	\begin{tabular}{|c|c|}
+		\hline
+		Шаг сетки & $p$ \\ \hline
+		$h, \tau$ & --- \\ \hline 
+		$q h, q^2 \tau$ &  2.01596 \\ \hline 
+		$q^2 h, q^4 \tau$ & 2.00398 \\ \hline 
+		$q^3 h, q^8 \tau$ & 2.00099 \\ \hline 
+		$q^4 h, q^{16} \tau$ & 2.00025 \\ \hline 
+
+	\end{tabular}
+\end{table}
 
 \end{document}
