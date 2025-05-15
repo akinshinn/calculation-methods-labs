@@ -1,0 +1,164 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage{epigraph}
+\usepackage[english, russian]{babel} % языковой пакет
+\usepackage{amsmath,amsfonts,amssymb} %математика
+\usepackage{mathtools}
+\usepackage[oglav,spisok,boldsect,eqwhole,figwhole,hyperref,hyperprint,remarks,greekit]{../../style/fn2kursstyle}
+\usepackage[utf8]{inputenc}
+\usepackage[]{tkz-euclide}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
+\usepackage{tikz-3dplot}
+\usepackage[oglav,spisok,boldsect,eqwhole,figwhole,hyperref,hyperprint,remarks,greekit]{./style/fn2kursstyle}
+\usepackage{multirow}
+\usepackage{supertabular}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{graphicx}
+\pgfplotsset{compat=1.9}
+\usepackage[svgnames]{pstricks}
+\usepackage{pst-solides3d} 
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{slashbox}
+\usepackage{pdflscape}
+\usepackage{array} 
+\graphicspath{{../../style/}{../}{../lab9/lab9/}}
+
+  
+
+
+\newcommand{\cond}{\mathop{\mathrm{cond}}\nolimits}
+\newcommand{\rank}{\mathop{\mathrm{rank}}\nolimits}
+% Переопределение команды \vec, чтобы векторы печатались полужирным курсивом
+\renewcommand{\vec}[1]{\text{\mathversion{bold}${#1}$}}%{\bi{#1}}
+\newcommand\thh[1]{\text{\mathversion{bold}${#1}$}}
+%Переопределение команды нумерации перечней: точки заменяются на скобки
+\renewcommand{\labelenumi}{\theenumi)}
+\newtheorem{theorem}{Теорема}
+\newtheorem{define}{Определение}
+\tdplotsetmaincoords{60}{115}
+\pgfplotsset{compat=newest}
+
+\title{Численное решение краевых задач для одномерного уравнения теплопроводности}
+\author{Н.\,О.~Акиньшин}
+\group{ФН2-61Б}
+\date{2025}
+\supervisor{А.\,С.~Джагарян}
+
+
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+
+    \section{Контрольные вопросы}
+	\begin{enumerate}
+		\item Оцените число действий, необходимое для перехода на
+		следующий слой по времени методом переменных направлений.
+		\newline 
+		{\bfseries Ответ. } 
+		схема получается 2умя полушагами
+		\[
+		\frac{\bar{y}-y }{0.5\tau} = \Lambda_1\bar{y} + \Lambda_2\bar{y} + \bar{\phi}
+		\]
+		\[
+		\frac{\hat{y}-\bar{y}}{0.5 \tau} = \Lambda_1\bar{y} + \Lambda_2\hat{y} + \bar{\phi}
+		\]
+		с помощью метода прогнки. Требуется $(n_2-1)(5n_1-1)$  для 1ого полушага и $(n_1-1)(5n_2-1)$ 
+		Итого требуется $(n_2-1)(5n_1-1) +  (n_1-1)(5n_2-1)$ порядка $n^2$
+		\item Почему при увеличении числа измерений резко возрастает количество операций для решения неявных схем (по
+		сравнению с одномерной схемой)?
+		\newline
+		{\bfseries Ответ. } 
+		При увеличении измерения на 1, на каждый шаг по добавленному измерению необходимо по 
+		количеству операций, которое требуется для 
+		вычисления аналогичной задачи при количестве измерений на одно меньше. То есть
+		при увеличении количества измерений происходит экспоненциальный рост числа операицй.
+
+		Пусть пространство разбито равномерной сеткой с количеством узлов $M$.
+		Тогда выполняя прогонки при решении задачи для 2D случая, получаем $O(M^2)$ операций, при расширении
+		пространства до 3D на каждую шаг по $z$ теперь требуется выполнить $(5M - 1) \cdot O(M^2) = O(M^3)$.
+		Тогда для произвольного пространства размерности $n$ 
+		количество операций равно $O(M^n)$
+
+		\item Можно ли использовать метод переменных направлений в
+		областях произвольной формы?
+		\newline 
+		{\bfseries Ответ. } 
+		Пусть область является выпуклой. 
+		Тогда зададим для внутренних точек равномерную прямоугольную сетку. 
+		Получим сетку на границе области путём проецирования внутренних точек вдоль 
+		орт декартовой системы координат.
+		Тогда метод будет отличаться от классического наличием переменного шага в прогонке
+		и различием в количестве узлов вдоль осей.  
+		\item Можно ли использовать метод переменных направлений
+		для решения пространственных и вообще n-мерных задач?
+		\newline
+		{\bfseries Ответ. } 
+		Можно использовать следующий метод 
+		\begin{gather*}
+			\frac{y^{k+1/n} - y^k}{\tau/n} = \Lambda_1 y^{k+1/n} + \Lambda_2 y^k
+			+ \ldots + \Lambda_n y^k  + \phi \\
+			\frac{y^{k+2/n} - y^{k+1/n}}{\tau/n} = \Lambda_1 y^{k+1/n} + \Lambda_2 y^{k+2/n}
+			+ \ldots + \Lambda_n y^{k+1/n}  + \phi \\
+			\vdots \\ 
+			\frac{y^{k+1} - y^{k+(n-1)/n}}{\tau/n} = \Lambda_1 y^{k+(n-1)/n} + \Lambda_2 y^{k+(n-1)/n}
+			+ \ldots + \Lambda_n y^{k+1}  + \phi,
+		\end{gather*}
+		где $n$ -- размерность пространства.
+		В силу несимметричности схемы, компенсация ошибок будет осутствовать, поэтому 
+		схема не будет аппроксимировать уравнение. 
+		Для такой задачи можно использовать метод дробления шага.
+		\item Можно ли использовать метод переменных направлений
+		на неравномерных сетках?
+		\newline
+		{\bfseries Ответ. } 
+		Да.
+		\begin{gather*}
+			\frac{y^{k+1/2} - y^k}{\tau/2} = \Lambda_1 y^{k+1/2} + \Lambda_2 y^k \\ 
+			\frac{y^{k+1} - y^{k+1/2}}{\tau/2} = \Lambda_1 y^{k+1/2} + \Lambda_2 y^{k+1} 
+		\end{gather*}
+		где $\Lambda_1, \Lambda_2 $
+		
+		\begin{gather*}
+			\Lambda_1y^k = \frac{y^k_{i-1,j} - 2y^k_{i,j} + y^k_{i+1,j}}{(h^1_i)^2} \\
+			\Lambda_2y^k = \frac{y^k_{i,j-1} - 2y^k_{i,j} + y^k_{i,j+1}}{(h^2_i)^2} \\
+		\end{gather*}
+		При выборе шагов таким образом, что 
+		выполняется условия устойчивости прогонки, данный метод можно использовать 
+		на неравномерных сетках.
+
+	\end{enumerate}
+
+	\section{Результаты}
+	\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{test1.png}
+        \caption{Пример 1. График численного и истинного решений}
+    \end{figure}
+	\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{test2.png}
+        \caption{Пример 2. График численного и истинного решений.
+		 Красные линии уровня - линии уровня истинного решения, черные линии уровня - 
+		 линии уровня численного решения}
+    \end{figure}
+	\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{test3.png}
+        \caption{Пример 3. График численного и истинного решений.
+		 Красные линии уровня - линии уровня истинного решения, черные линии уровня - 
+		 линии уровня численного решения}
+    \end{figure}
+		\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{var1_2.png}
+        \caption{Пример для варианта 1. График численного решения}
+    \end{figure}
+\end{document}
