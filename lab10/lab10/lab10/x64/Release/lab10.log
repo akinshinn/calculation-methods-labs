@@ -1,0 +1,22 @@
+﻿  lab10.cpp
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\Header.h(24,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(25,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(88,22): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(153,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(165,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(178,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(212,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(259,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(331,20): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(362,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(423,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(446,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(466,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(516,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab10\lab10\lab10\lab10.cpp(585,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Создание кода
+  5 of 328 functions ( 1.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  lab10.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab10\lab10\x64\Release\lab10.exe

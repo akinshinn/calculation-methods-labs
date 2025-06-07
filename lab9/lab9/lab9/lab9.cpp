@@ -17,7 +17,18 @@ const int step_x = 1;
 const double c = 1;
 const double rho = 1;
 const double pi = 3.14159265359;
+const double T0 = 0.1;
 
+
+
+double InitialConditionPorydok(double x, double y) {
+    return sin(2 * pi * x) * sin(pi * y);
+
+}
+
+double analyticPorydok(double x, double y, double t) {
+    return exp(-5 * pi * pi * t) * sin(2 * pi * x) * sin(pi * y);
+}
 
 double zero_func(double x, double y) {
     return 0;
@@ -168,6 +179,17 @@ double inftyNorm(vector<double> vec1, vector<double> vec2) {
         res = max(res, abs(vec1[i] - vec2[i]));
     }
     return res;
+}
+
+
+double MatrixNormC(vector<vector<double>> Matrix) {
+    double maxel = -1;
+    for (auto& row : Matrix) {
+        for (auto& el : row) {
+            maxel = max(maxel, abs(el));
+        }
+    }
+    return maxel;
 }
 
 
@@ -372,8 +394,193 @@ vector<vector<double>> SolvePoisson(
 }
 
 
+vector<vector<double>> SolveTeploprovodnost(
+    double T, double L1, double L2, double tau, double h1, double h2,
+    double(&u_left)(double t, double y), double(&u_right)(double t, double y),
+    double(&u_upper)(double t, double x), double(&u_below)(double t, double x),
+    double(&f)(double x, double y), double(&initial)(double x, double y),
+    double eps
+) {
+    vector<double> gridx = { 0 }, gridy = { 0 }, gridt = { 0 };
+    double t = 0, x = 0, y = 0;
+    while (T - t > 5e-15) {
+        t += tau;
+        gridt.emplace_back(t);
+    }
+    while (L1 - x >= 5e-15) {
+        x += h1;
+        gridx.emplace_back(x);
+    }
+    while (L2 - y >= 5e-15) {
+        y += h2;
+        gridy.emplace_back(y);
+    }
+    int n = gridx.size();
+    int m = gridy.size();
+
+    vector<vector<double>> u_next, u_prev(m, vector<double>(n, 0)), u_prev_prev;
+
+    for (int j = 0; j < m; j++) {
+        for (int i = 0; i < n; i++) {
+            u_prev[j][i] = initial(gridx[i], gridy[j]);
+        }
+    }
+    //DisplayMatrix(u_prev);
+    vector<vector<double>> progonka_coef;
+    vector<double> d;
+    for (int k = 1; k < gridt.size() - 1; k++) {
+        t = gridt[k];
+        double t_half = t + tau / 2;
+        double t_next = gridt[k + 1];
+        u_next = {};
+        u_next.push_back(vector<double>(n, 0));
+        for (int i = 0; i < n; i++) {
+            u_next[0][i] = u_below(t_half, gridx[i]);
+        }
+        //DisplayMatrix(u_next);
 
 
+        for (int j = 1; j < m - 1; j++) {
+            progonka_coef = {};
+            d = {};
+            y = gridy[j];
+            progonka_coef.push_back({ 0,1,0 });
+            d.push_back(u_left(t_half, y));
+            for (int i = 1; i < n - 1; i++) {
+                x = gridx[i];
+                progonka_coef.push_back({ -1 / (h1 * h1), 2 / tau + 2 / (h1 * h1), -1 / (h1 * h1) });
+                d.push_back(2 / tau * u_prev[j][i] + 1 / (h2 * h2) * (u_prev[j + 1][i] - 2 * u_prev[j][i] + u_prev[j - 1][i]) + f(x, y));
+                
+
+            }
+            //cout << endl;
+
+            progonka_coef.push_back({ 0,1,0 });
+            d.push_back(u_right(t_half, y));
+            //cout << "progonka_coef t = " << t << endl;
+            //DisplayMatrix(progonka_coef);
+            //cout << "d t = " << t << endl;
+            //DisplayVector(d);
+            u_next.push_back(Progonka(progonka_coef, d));
+            //cout << "display sol t = " << t << endl;
+            //DisplayVector(Progonka(progonka_coef, d));
+
+        }
+        u_next.push_back(vector<double>(n, 0));
+        for (int i = 0; i < n; i++) {
+            u_next[m - 1][i] = u_upper(t_half, gridx[i]);
+        }
+        //cout << endl;
+        //cout << "matrix t = " << t << endl;
+        //DisplayMatrix(u_next);
+        // Целый шаг
+        u_prev_prev = u_prev;
+        u_prev = u_next;
+
+        u_next = {};
+        for (int j = 0; j < m; j++) {
+            u_next.push_back(vector<double>(n, 0));
+        }
+        //u_next.push_back(vector<double>(n, 0));
+        for (int j = 0; j < m; j++) {
+            u_next[j][0] = u_left(t_next, gridy[j]);
+        }
+        //DisplayMatrix(u_next);
+        for (int i = 1; i < n - 1; i++) {
+            progonka_coef = {};
+            d = {};
+            x = gridx[i];
+            progonka_coef.push_back({ 0,1,0 });
+            d.push_back(u_below(t_next, x));
+            for (int j = 1; j < m - 1; j++) {
+                y = gridy[j];
+                progonka_coef.push_back({ -1 / (h2 * h2), 2 / tau + 2 / (h2 * h2), -1 / (h2 * h2) });
+                d.push_back(2 / tau * u_prev[j][i] + 1 / (h1 * h1) * (u_prev[j][i + 1] - 2 * u_prev[j][i] + u_prev[j][i - 1]) + f(x, y));
+
+                //progonka_coef.push_back({ 1 / (h2 * h2), -2 / tau - 2 / (h2 * h2), 1 / (h2 * h2) });
+                //d.push_back(-2 / tau * u_prev[j][i] - 1 / (h1 * h1) * (u_prev[j][i + 1] - 2 * u_prev[j][i] + u_prev[j][i - 1]) - f(x, y));
+            }
+            progonka_coef.push_back({ 0,1,0 });
+            d.push_back(u_upper(t_next, x));
+            //DisplayVector(d);
+            vector<double> result_progonka = Progonka(progonka_coef, d);
+
+            //DisplayVector(result_progonka);
+            for (int j = 0; j < m; j++) {
+                u_next[j][i] = result_progonka[j];
+            }
+            //u_next.push_back();
+
+        }
+
+        //u_next.push_back(vector<double>(n, 0));
+        for (int j = 0; j < m; j++) {
+            u_next[j][n - 1] = u_right(t_next, gridy[j]);
+        }
+
+        if ( abs(t - T0) < eps) {
+            cout << t << endl;
+            return u_next;
+        }
+        u_prev = u_next;
+        //DisplayMatrix(u_next);
+
+    }
+
+}
+
+vector<vector<double>> CountError(vector<vector<double>> chislenoeSol, double analyticsol(double x, double y, double t),
+    double t, double h1, double h2, double L1, double L2) {
+    vector<double> gridx = { 0 }, gridy = { 0 };
+    double x = 0, y = 0;
+
+    while (L1 - x >= 5e-15) {
+        x += h1;
+        gridx.emplace_back(x);
+    }
+    while (L2 - y >= 5e-15) {
+        y += h2;
+        gridy.emplace_back(y);
+    }
+    int n = gridx.size();
+    int m = gridy.size();
+
+    vector<vector<double>> error(chislenoeSol.size(), vector<double>(chislenoeSol[0].size(), 0));
+    for (int j = 0; j < m; j++) {
+        for (int i = 0; i < n; i++) {
+            error[j][i] = abs(chislenoeSol[j][i] - analyticsol(gridx[i], gridy[j], t));
+        }
+    }
+    return error;
+}
+
+void countPorydok(double T, double L1, double L2,
+    double(&u_left)(double t, double y), double(&u_right)(double t, double y),
+    double(&u_upper)(double t, double x), double(&u_below)(double t, double x),
+    double(&f)(double x, double y), double(&initial)(double x, double y),
+    double eps, double analyticsol(double x, double y, double t)) {
+    vector<vector<double>> sol{}, preverror{}, nexterror{};
+    double h1 = 0.1, h2=0.1, tau = 0.001;
+    sol = SolveTeploprovodnost(T, L1, L2, tau, h1, h2, u_left, u_right, u_upper, u_below, f, initial, eps);
+    preverror = CountError(sol, analyticsol, T0, h1, h2, L1, L2);
+    //cout << "sol" << endl;
+    //DisplayMatrix(sol);
+    //cout << endl;
+    double prevNorm = MatrixNormC(preverror);
+    double curNorm;
+    cout << h1 << "& " << tau << "& " << prevNorm << "&" << "-" << "& \\\\ \\hline" << endl;
+    for (int i = 0; i < 3; i++) {
+        h1 /= 2;
+        h2 /= 2;
+        tau /= 2;
+        sol = SolveTeploprovodnost(T, L1, L2, tau, h1, h2, u_left, u_right, u_upper, u_below, f, initial, eps);
+        nexterror = CountError(sol, analyticsol, T0, h1, h2, L1, L2);
+        curNorm = MatrixNormC(nexterror);
+        cout << h1 << "& " << tau << "& " << curNorm << "& " << prevNorm/curNorm <<  " \\\\ \\hline" << endl;
+        prevNorm = curNorm;
+        preverror = nexterror;
+    }
+}
 
 vector<vector<double>> SolvePoissonUpperAndLowerV4(
     double T, double L1, double L2, double tau, double h1, double h2,
@@ -723,6 +930,18 @@ void WriteAnswer(double h1, double h2,double L1, double L2, double(&answer)(doub
     cout << "Answer = " << endl;
     DisplayMatrix(res);
 }
+
+
+
+double CalculateErrorForOptimalStep(vector<vector<double>> num_matrix) {
+    double error = -1;
+    for (int i = 0; i < num_matrix.size(); i++) {
+        for (int j = 0; j < num_matrix[0].size(); j++) {
+            error = max(error, abs(num_matrix[i][j] - 1));
+        }
+    }
+    return error;
+}
 int main()
 {
 
@@ -754,10 +973,26 @@ int main()
     //DisplayMatrix(matrix);
 
     // Порядки =======================================
-    double T = 100000, L1 = 1, L2 = 1, tau = 0.001, h1 = 0.1, h2 = 0.1;
+    //double T = 100000, L1 = 1, L2 = 1, tau = 0.001, h1 = 0.1, h2 = 0.1;
     //auto u_left = test1_func, u_right = test1_func, u_upper = test1_func, u_below = test1_func;
-    vector<vector<double>> matrix = SolvePoisson(T, L1, L2, tau, h1, h2, test1_func, test1_func, test1_func, test1_func, zero_func, test1_init, "test1_0.1_0.1.txt", 1e-4);
+    //vector<vector<double>> matrix = SolvePoisson(T, L1, L2, tau, h1, h2, test1_func, test1_func, test1_func, test1_func, zero_func, test1_init, "test1_0.1_0.1.txt", 1e-4);
     //DisplayMatrix(matrix);
+
+
+
+
+    // Porydok
+    double T = 100000, L1 = 1, L2 = 1, eps = 1e-5;
+    countPorydok(T, L1, L2, zero_func, zero_func, zero_func, zero_func, zero_func, InitialConditionPorydok, eps, analyticPorydok);
+
+
+    // Сравнение погрешности
+    //double T = 100000, L1 = 1, L2 = 1, tau = 0.05, h1 = 0.1, h2 = 0.1;
+    //vector<vector<double>> matrix = SolvePoisson(T, L1, L2, tau, h1, h2, test1_func, test1_func, test1_func, test1_func, zero_func, test1_init, "test1.txt", 1e-4);
+    //cout << "Error practical optimal step = " << CalculateErrorForOptimalStep(matrix) << endl;
+    //tau = 0.041;
+    //matrix = SolvePoisson(T, L1, L2, tau, h1, h2, test1_func, test1_func, test1_func, test1_func, zero_func, test1_init, "test1.txt", 1e-4);
+    //cout << "Error theoretical optimal step = " << CalculateErrorForOptimalStep(matrix) << endl;
 }
 
 
