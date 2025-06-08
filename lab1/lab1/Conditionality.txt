@@ -1,2 +1,3 @@
-Example1
- NormOne: 240.545, NormInfty: 269.182
+version https://git-lfs.github.com/spec/v1
+oid sha256:b650c6232370529df4629a1e2b88edde9cfdfb706a7204a6b97db8eb9df44366
+size 106

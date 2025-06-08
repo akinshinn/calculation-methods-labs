@@ -1,0 +1,21 @@
+﻿  lab7.cpp
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(38,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(147,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(190,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(191,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(438,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(439,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(722,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(723,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(724,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(767,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(768,51): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(769,51): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(817,45): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab7\lab7\lab7.cpp(817,39): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Создание кода
+  11 of 344 functions ( 3.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  lab7.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab7\x64\Release\lab7.exe

@@ -1,0 +1,9 @@
+﻿  lab4.cpp
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab4\Polynom.h(30,25): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  (компиляция исходного файла "lab4.cpp")
+  
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab4\lab4.cpp(32,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab4\lab4.cpp(176,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab4\lab4.cpp(206,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\calculatem\calculation-methods-labs\lab4\lab4.cpp(268,11): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  lab4.vcxproj -> D:\VisualStdudio\calculatem\calculation-methods-labs\lab4\x64\Debug\lab4.exe

@@ -1,0 +1,5 @@
+﻿  lab8.cpp
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab8\lab8\lab8.cpp(12,16): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab8\lab8\lab8.cpp(58,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab8\lab8\lab8.cpp(58,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  lab8.vcxproj -> D:\VisualStdudio\CalcMethods\calculation-methods-labs\lab8\lab8\x64\Debug\lab8.exe

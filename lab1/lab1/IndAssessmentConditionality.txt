@@ -1,3 +1,3 @@
-AssessmentConditionality
-Example: 1
-IndOne: 3, IndInfty: 3
+version https://git-lfs.github.com/spec/v1
+oid sha256:3f2c2f4b5d6a512fdbc97b105c18cf0eb20efca277166ca93ee9b58b0cc32939
+size 98

@@ -1,0 +1,334 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13970,        324]
+NotebookOptionsPosition[     12910,        298]
+NotebookOutlinePosition[     13376,        316]
+CellTagsIndexPosition[     13333,        313]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "\n", 
+ RowBox[{"\"\<C:\\\\Users\\\\mouze\\\\Desktop\\\\CM_labs\\\\lab8\\\\lab8\>\"",
+   "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"nsol1", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Task1_Curant1NumDer.txt\>\"", ",", "\"\<Table\>\""}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"gridt1", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"Import", "[", 
+     RowBox[{"\"\<gridt.txt\>\"", ",", "\"\<Table\>\""}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"gridx1", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"Import", "[", 
+      RowBox[{"\"\<gridx.txt\>\"", ",", " ", "\"\<Table\>\""}], "]"}], "[", 
+     RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\n"}], "\n", 
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`i$$ = 27.950000000000003`, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`i$$], 1, 101}}, Typeset`size$$ = {
+    600., {186., 190.7504471267303}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`i$$ = 1}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ListPlot[{
+         Table[{
+           Part[$CellContext`gridx4, $CellContext`k], 
+           Part[
+            Part[$CellContext`nsol4, 
+             
+             IntegerPart[$CellContext`i$$]], $CellContext`k]}, \
+{$CellContext`k, 1, 
+           Length[$CellContext`gridx4]}]}, ImageSize -> 600, GridLines -> 
+        Automatic, PlotRange -> {{-2, 2}, {-2, 2}}, AxesOrigin -> {0, 0}], 
+      "Specifications" :> {{$CellContext`i$$, 1, 101, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{647., {220.13403328722342`, 225.86596671277658`}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]}], "Input",
+ CellChangeTimes->{{3.9533700297177715`*^9, 3.9533701045269127`*^9}, {
+  3.953370154829671*^9, 
+  3.9533701894200983`*^9}},ExpressionUUID->"7920801b-657c-4746-8fc6-\
+5db5c3f7fa5e"],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\mouze\\\\Desktop\\\\CM_labs\\\\lab8\\\\lab8\"\
+\>"], "Output",
+ CellChangeTimes->{{3.9533701464602203`*^9, 3.9533701853335648`*^9}},
+ CellLabel->"Out[36]=",ExpressionUUID->"104ca3ca-d356-4be3-9528-63ca4496f6c9"],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\mouze\\\\Desktop\\\\CM_labs\\\\lab8\\\\lab8\"\
+\>"], "Output",
+ CellChangeTimes->{{3.9533701464602203`*^9, 3.9533701853365903`*^9}},
+ CellLabel->"Out[37]=",ExpressionUUID->"f9c266e6-0871-480b-88b9-6dc921e01ee4"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`i$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`i$$], 1, 1001}}, Typeset`size$$ = {
+    600., {186., 190.7504471267303}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`i$$ = 1}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ListPlot[{
+         Table[{
+           Part[$CellContext`gridx1, $CellContext`k], 
+           Part[
+            Part[$CellContext`nsol1, 
+             
+             IntegerPart[$CellContext`i$$]], $CellContext`k]}, \
+{$CellContext`k, 1, 
+           Length[$CellContext`gridx1]}]}, ImageSize -> 600, GridLines -> 
+        Automatic, PlotRange -> {{-2, 2}, {-2, 2}}, AxesOrigin -> {0, 0}], 
+      "Specifications" :> {{$CellContext`i$$, 1, 1001, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{647., {220.13403328722342`, 225.86596671277658`}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.9533701464602203`*^9, 3.9533701855372915`*^9}},
+ CellLabel->"Out[41]=",ExpressionUUID->"5b2c1992-94ad-46cb-aa61-a49a606bc83d"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`i$$ = 27.950000000000003`, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`i$$], 27.950000000000003`}, 1, 101}}, 
+    Typeset`size$$ = {540., {167., 172.07540209577957`}}, Typeset`update$$ = 
+    0, Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`i$$ = 27.950000000000003`},
+       "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ListPlot[{
+         Table[{
+           Part[$CellContext`gridx4, $CellContext`k], 
+           Part[
+            Part[$CellContext`nsol4, 
+             
+             IntegerPart[$CellContext`i$$]], $CellContext`k]}, \
+{$CellContext`k, 1, 
+           Length[$CellContext`gridx4]}]}, ImageSize -> 600, GridLines -> 
+        Automatic, PlotRange -> {{-2, 2}, {-2, 2}}, AxesOrigin -> {0, 0}], 
+      "Specifications" :> {{{$CellContext`i$$, 27.950000000000003`}, 1, 101, 
+         AnimationRunning -> False, 
+         AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{642., {216.9206298828125, 222.0793701171875}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.9533701464602203`*^9, 3.9533701856077094`*^9}},
+ CellLabel->"Out[42]=",ExpressionUUID->"dff50704-5910-457a-bd7f-9aca2cd08cdb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"Animate", "[", 
+   RowBox[{
+    RowBox[{"ListPlot", "[", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"gridx1", "[", 
+            RowBox[{"[", "k", "]"}], "]"}], ",", 
+           RowBox[{
+            RowBox[{"nsol1", "[", 
+             RowBox[{"[", 
+              RowBox[{"IntegerPart", "@", "i"}], "]"}], "]"}], "[", 
+            RowBox[{"[", "k", "]"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"k", ",", "1", ",", 
+           RowBox[{"Length", "@", "gridx1"}]}], "}"}]}], "]"}], "}"}], ",", 
+      RowBox[{"ImageSize", "->", "600"}], ",", 
+      RowBox[{"GridLines", "->", "Automatic"}], ",", " ", 
+      RowBox[{"PlotRange", "->", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "}"}]}], ",", 
+      RowBox[{"AxesOrigin", "->", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", 
+      RowBox[{"Length", "@", "gridt1"}]}], "}"}], ",", " ", 
+    RowBox[{"AnimationRunning", "->", "False"}]}], "]"}]}]], "Input",
+ CellLabel->"In[43]:=",ExpressionUUID->"3a23b6fb-27a3-4755-9de8-527b0125059a"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`i$$ = 947.0359573364258, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`i$$], 1, 1001}}, Typeset`size$$ = {
+    540., {167., 172.07540209577957`}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`i$$ = 1}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ListPlot[{
+         Table[{
+           Part[$CellContext`gridx1, $CellContext`k], 
+           Part[
+            Part[$CellContext`nsol1, 
+             
+             IntegerPart[$CellContext`i$$]], $CellContext`k]}, \
+{$CellContext`k, 1, 
+           Length[$CellContext`gridx1]}]}, ImageSize -> 600, GridLines -> 
+        Automatic, PlotRange -> {{-2, 2}, {-2, 2}}, AxesOrigin -> {0, 0}], 
+      "Specifications" :> {{$CellContext`i$$, 1, 1001, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{582., {198.9206298828125, 204.0793701171875}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.9533701920897417`*^9},
+ CellLabel->"Out[43]=",ExpressionUUID->"d463b6b5-dc3d-4c78-ae07-7ee735543596"]
+}, Open  ]]
+},
+WindowSize->{1152, 651.6},
+WindowMargins->{{
+  Automatic, -5.399999999999864}, {-5.399999999999977, Automatic}},
+Magnification:>0.9 Inherited,
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"14df2ad1-62b0-4699-ac48-2d5e50b0f4a2"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 3221, 71, 604, "Input",ExpressionUUID->"7920801b-657c-4746-8fc6-5db5c3f7fa5e"],
+Cell[3804, 95, 244, 3, 28, "Output",ExpressionUUID->"104ca3ca-d356-4be3-9528-63ca4496f6c9"],
+Cell[4051, 100, 244, 3, 28, "Output",ExpressionUUID->"f9c266e6-0871-480b-88b9-6dc921e01ee4"],
+Cell[4298, 105, 2340, 47, 418, "Output",ExpressionUUID->"5b2c1992-94ad-46cb-aa61-a49a606bc83d"],
+Cell[6641, 154, 2429, 48, 456, "Output",ExpressionUUID->"dff50704-5910-457a-bd7f-9aca2cd08cdb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9107, 207, 1456, 39, 119, "Input",ExpressionUUID->"3a23b6fb-27a3-4755-9de8-527b0125059a"],
+Cell[10566, 248, 2328, 47, 420, "Output",ExpressionUUID->"d463b6b5-dc3d-4c78-ae07-7ee735543596"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

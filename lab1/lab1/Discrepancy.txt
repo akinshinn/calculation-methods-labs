@@ -1,2 +1,3 @@
-Невязка
-Example 1: 1.98603e-15
+version https://git-lfs.github.com/spec/v1
+oid sha256:d9da1102145ad4e1a32e2317df3e0c1a81ecd9c8341d3183e08236ef7f119bba
+size 57

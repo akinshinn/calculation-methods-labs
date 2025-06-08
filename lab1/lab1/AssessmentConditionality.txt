@@ -1,3 +1,3 @@
-AssessmentConditionality
-Example: 1
-NormOne: 190.432, NormInfty: 79.5455
+version https://git-lfs.github.com/spec/v1
+oid sha256:5d80eb0bc569b1b9ad7c4f96b43f8dd684d3e31de987fc9e0e6a6fb9d8e5e9ac
+size 114

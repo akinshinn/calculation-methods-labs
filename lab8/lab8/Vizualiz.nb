@@ -1,0 +1,228 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9360,        220]
+NotebookOptionsPosition[      8476,        197]
+NotebookOutlinePosition[      8874,        213]
+CellTagsIndexPosition[      8831,        210]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.952005541517488*^9, 3.95200556793941*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"960ba9b0-069c-49d3-9a80-f6d0c2fc4d3b"],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\mouze\\\\Desktop\\\\CM_labs\\\\lab8\\\\lab8\"\
+\>"], "Output",
+ CellChangeTimes->{
+  3.95200559394668*^9, 3.9520058752908106`*^9, 3.95200594983327*^9, 
+   3.9520060098014936`*^9, 3.952006062120061*^9, 3.9526728249753103`*^9, 
+   3.9526729739328675`*^9, 3.952673041017449*^9, {3.9526731320881786`*^9, 
+   3.95267315783372*^9}, 3.952673304811841*^9, 3.9526772847794647`*^9, 
+   3.952677354794009*^9, {3.952678433049864*^9, 3.9526784478479247`*^9}, {
+   3.9526785836950073`*^9, 3.9526785995668893`*^9}, 3.9526786298706217`*^9, 
+   3.952678677361331*^9, 3.9526787109593062`*^9, 3.9526788122110386`*^9, 
+   3.952680307738882*^9, 3.952684997207303*^9, {3.952685066635161*^9, 
+   3.9526850883647704`*^9}, 3.953292233421977*^9, 3.9532922695937133`*^9, 
+   3.953292510843575*^9, 3.953292652274073*^9, {3.9532927223181667`*^9, 
+   3.9532927451778946`*^9}},
+ CellLabel->"Out[21]=",ExpressionUUID->"0b144519-c68d-4361-854c-6bd7495f2ddb"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"nsol", " ", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Example1.txt\>\"", ",", "\"\<Table\>\""}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.952005571511566*^9, 3.9520055873225913`*^9}, {
+  3.9520060044480915`*^9, 3.9520060140177345`*^9}, {3.9526733014538546`*^9, 
+  3.952673302927328*^9}, {3.9526773393767743`*^9, 3.952677340223736*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"405b3cb7-d3e5-4142-bb07-009a11794922"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"gridt", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"Import", "[", 
+     RowBox[{"\"\<gridt_test1.txt\>\"", ",", "\"\<Table\>\""}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"gridx", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"Import", "[", 
+     RowBox[{"\"\<gridx_test1.txt\>\"", ",", " ", "\"\<Table\>\""}], "]"}], 
+    "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.9520056000476007`*^9, 3.952005638473797*^9}, {
+  3.9520058554667025`*^9, 3.952005860072837*^9}, {3.9532927121422863`*^9, 
+  3.953292720219933*^9}},
+ CellLabel->"In[23]:=",ExpressionUUID->"9561af69-7587-4f32-9fb1-79969a878714"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"a", "=", 
+  RowBox[{"Animate", "[", 
+   RowBox[{
+    RowBox[{"Show", "[", 
+     RowBox[{
+      RowBox[{"ListPlot", "[", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"gridx", "[", 
+             RowBox[{"[", "k", "]"}], "]"}], ",", 
+            RowBox[{
+             RowBox[{"nsol", "[", 
+              RowBox[{"[", 
+               RowBox[{"IntegerPart", "@", "i"}], "]"}], "]"}], "[", 
+             RowBox[{"[", "k", "]"}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"k", ",", "1", ",", 
+            RowBox[{"Length", "@", "gridx"}]}], "}"}]}], "]"}], ",", 
+        RowBox[{"PlotRange", "->", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "5"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"-", "5"}], ",", "5"}], "}"}]}], "}"}]}], ",", 
+        RowBox[{"ImageSize", "->", "600"}], ",", 
+        RowBox[{"GridLines", "->", "Automatic"}]}], "]"}], ",", 
+      RowBox[{"Plot", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Sin", "[", 
+          RowBox[{"\[Pi]", "*", "x"}], "]"}], "*", 
+         RowBox[{"Cos", "[", 
+          RowBox[{"\[Pi]", "*", 
+           RowBox[{"gridt", "[", 
+            RowBox[{"[", 
+             RowBox[{"IntegerPart", "@", "i"}], "]"}], "]"}]}], "]"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "0", ",", "5"}], "}"}], ",", 
+        RowBox[{"PlotStyle", "->", "Red"}]}], "]"}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", 
+      RowBox[{"Length", "@", "gridt"}]}], "}"}], ",", " ", 
+    RowBox[{"AnimationRunning", "->", "False"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.952005807876953*^9, 3.9520059168563766`*^9}, {
+   3.9520059734456635`*^9, 3.9520059864477186`*^9}, 3.952673181442816*^9, {
+   3.95267847163769*^9, 3.9526784754112225`*^9}, {3.9526785315137844`*^9, 
+   3.952678557782273*^9}, {3.953292504620875*^9, 3.9532925048435616`*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"8d5ed7b0-543e-4a53-954d-771b26ec4303"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`i$$ = 624.9155769348145, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`i$$], 1, 1001}}, Typeset`size$$ = {
+    600., {178., 183.20125417619545`}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`i$$ = 1}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Show[
+        ListPlot[
+         Table[{
+           Part[$CellContext`gridx, $CellContext`k], 
+           Part[
+            Part[$CellContext`nsol, 
+             
+             IntegerPart[$CellContext`i$$]], $CellContext`k]}, \
+{$CellContext`k, 1, 
+           Length[$CellContext`gridx]}], PlotRange -> {{0, 5}, {-5, 5}}, 
+         ImageSize -> 600, GridLines -> Automatic], 
+        Plot[Sin[Pi $CellContext`x] Cos[Pi Part[$CellContext`gridt, 
+             IntegerPart[$CellContext`i$$]]], {$CellContext`x, 0, 5}, 
+         PlotStyle -> Red]], 
+      "Specifications" :> {{$CellContext`i$$, 1, 1001, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{647., {213.13403328722342`, 218.86596671277658`}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.952005876121586*^9, 3.9520059179362774`*^9}, 
+   3.9520059503528852`*^9, {3.952005981345893*^9, 3.9520060105231304`*^9}, 
+   3.952006071902986*^9, 3.9526728274288554`*^9, 3.9526729805463705`*^9, 
+   3.9526730417709723`*^9, {3.952673132437337*^9, 3.9526731831402903`*^9}, 
+   3.952673305277495*^9, 3.9526772856601224`*^9, 3.952677355202403*^9, {
+   3.9526784340879087`*^9, 3.952678447961755*^9}, {3.952678532355036*^9, 
+   3.9526785998563833`*^9}, 3.9526786306998076`*^9, 3.9526786787664814`*^9, 
+   3.9526787142772813`*^9, 3.9526788320861573`*^9, 3.9526803157001905`*^9, 
+   3.952685004623861*^9, {3.9526850676634345`*^9, 3.9526850891910095`*^9}, 
+   3.9532922341875057`*^9, 3.95329227171655*^9, 3.9532925119181166`*^9, 
+   3.9532925733406887`*^9, {3.9532926352520885`*^9, 3.95329265268319*^9}, {
+   3.953292722768483*^9, 3.953292745591714*^9}},
+ CellLabel->"Out[25]=",ExpressionUUID->"67e0c647-3409-4543-b5a4-9db4dbf571f5"]
+}, Open  ]]
+},
+WindowSize->{948, 640.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"6c0a529d-f651-419d-8868-551bbac2b08a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 248, 4, 43, "Input",ExpressionUUID->"960ba9b0-069c-49d3-9a80-f6d0c2fc4d3b"],
+Cell[831, 28, 958, 14, 32, "Output",ExpressionUUID->"0b144519-c68d-4361-854c-6bd7495f2ddb"]
+}, Open  ]],
+Cell[1804, 45, 472, 9, 43, "Input",ExpressionUUID->"405b3cb7-d3e5-4142-bb07-009a11794922"],
+Cell[2279, 56, 722, 17, 78, "Input",ExpressionUUID->"9561af69-7587-4f32-9fb1-79969a878714"],
+Cell[CellGroupData[{
+Cell[3026, 77, 2118, 53, 168, "Input",ExpressionUUID->"8d5ed7b0-543e-4a53-954d-771b26ec4303"],
+Cell[5147, 132, 3313, 62, 474, "Output",ExpressionUUID->"67e0c647-3409-4543-b5a4-9db4dbf571f5"]
+}, Open  ]]
+}
+]
+*)
+

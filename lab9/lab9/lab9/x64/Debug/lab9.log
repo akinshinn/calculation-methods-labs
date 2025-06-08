@@ -1,0 +1,21 @@
+﻿  lab9.cpp
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(177,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(207,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(225,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(294,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(295,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(419,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(420,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(546,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(547,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(607,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(608,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(768,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(769,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(923,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(923,43): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(531): warning C4715: SolveTeploprovodnost: значение возвращается не при всех путях выполнения
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(394): warning C4715: SolvePoisson: значение возвращается не при всех путях выполнения
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(744): warning C4715: SolvePoissonUpperAndLowerV4: значение возвращается не при всех путях выполнения
+C:\Users\mouze\Desktop\CM_labs\lab9\lab9\lab9\lab9.cpp(907): warning C4715: SolvePoissonLeftAndRightV2: значение возвращается не при всех путях выполнения
+  lab9.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab9\lab9\x64\Debug\lab9.exe

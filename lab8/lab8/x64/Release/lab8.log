@@ -1,0 +1,22 @@
+﻿  lab8.cpp
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(116,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(116,43): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(186,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(186,43): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(251,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(251,43): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(315,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(315,43): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(393,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(440,45): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(443,45): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(447,45): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(504,47): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(507,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab8\lab8\lab8.cpp(511,49): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Создание кода
+  1 of 306 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  lab8.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab8\lab8\x64\Release\lab8.exe

@@ -1,0 +1,11 @@
+﻿  lab5.cpp
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(229,30): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(245,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(307,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(351,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(460,185): warning C4129: h: неизвестная escape-последовательность
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(562,40): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(632,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(655,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\mouze\Desktop\CM_labs\lab5\lab5\lab5.cpp(788,17): warning C4101: cy: неиспользованная локальная переменная
+  lab5.vcxproj -> C:\Users\mouze\Desktop\CM_labs\lab5\x64\Debug\lab5.exe
